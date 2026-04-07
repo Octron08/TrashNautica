@@ -17,6 +17,7 @@ libs:
   vkeys: {}
   transition: {}
   tween: {}
+  random: {}
 startroom: n8zd3bf8c5jPWg
 contentTypes: []
 actions:
@@ -42,7 +43,7 @@ actions:
       - code: keyboard.ArrowDown
 scripts:
   - name: tutto
-    code: |
+    code: |-
       /* Use scripts to define frequent functions and import small libraries */
 
       // Gestione pausa
@@ -52,6 +53,8 @@ scripts:
               this.isPaused = !this.isPaused;
           }
       }
+
+      let score = new Array(2).fill(0);
 assets:
   - type: folder
     uid: r5HR4k2wtQq24z
@@ -70,7 +73,7 @@ assets:
           - type: template
             baseClass: AnimatedSprite
             name: Giocatore1
-            depth: 10
+            depth: 3
             texture: 391HtTF4DJcp5r
             playAnimationOnStart: false
             loopAnimation: true
@@ -85,16 +88,13 @@ assets:
                       var friction = 0.05
 
                       //direzione del personaggio
-                      this.scale.y = actions.P1MoveY.value>=0 ? this.defaultScale.y : -this.defaultScale.y
-                      this.scale.x = actions.P1MoveX.value>0 ? -this.defaultScale.x : this.defaultScale.x
-                      if (this.scale.y > 0) {
-                          this.rotation = 0
-                      }
-                      else {
-                          this.scale.x *= -1
-                          this.rotation = this.scale.x < 0 ? -45 : 45
-                      }
+                      if (actions.P1MoveY.down) this.scale.y = this.defaultScale.y * (actions.P1MoveY.value >= 0 ? 1 : -1);
+                      if (actions.P1MoveX.down) this.scale.x = this.defaultScale.x * (actions.P1MoveX.value > 0 ?  -1 : 1);
+                      if (actions.P1MoveY.value == -1) {
+                          this.rotation = (actions.P1MoveX.down) ? (this.scale.x > 0 ? -45 : 45) : 0;
+                      } else this.rotation = 0;
 
+                      // Gestione movimento e collisione
                       if (this.hasCollidedWithEnemy) {
                           this.hspeed = !place.occupied(this, this.x + 3 * actions.P1MoveX.value, this.y, "Terreno") ? this.hspeed : -this.hspeed;
                           this.vspeed = !place.occupied(this, this.x, this.y + 3 * actions.P1MoveY.value, "Terreno") ? this.vspeed : -this.hspeed;
@@ -109,13 +109,16 @@ assets:
                           this.vspeed = place.occupied(this, this.x, this.y + 10 * actions.P1MoveY.value, "Terreno") ? 0 : this.vspeed;
                       }
 
-                      var offsetSpazzatura = 35;
+                      // "Rendering" spazzatura grande ancorata al giocatore
+                      var offsetSpazzatura = 40;
 
-                      for (let i = 0; i < this.spazzaturaGrande.length; i++) {
+                      for (let i = 0; i < this.spazzaturaGrande.length; i++) { // Yay inefficienza!!
                           this.spazzaturaGrande[i].x = this.x;
-                          this.spazzaturaGrande[i].y = this.y + (offsetSpazzatura * (i + 1));
+                          this.spazzaturaGrande[i].y = this.y + offsetSpazzatura;
                       }
+
                       
+                      //
                       this.move();
                   }
                 arguments: {}
@@ -190,7 +193,7 @@ assets:
               cgroup: Giocatore
               'editor:myCollidingCGroups':
                 - Terreno
-            lastmod: 1775564254338
+            lastmod: 1775572981492
             uid: DL9BczP5Cd4RMz
             behaviors: []
             extendTypes: ''
@@ -459,13 +462,13 @@ assets:
             source: >-
               C:\Users\nekosnugz\Desktop\texturePackForTrashNautica\Bubble\bubble.png
             r: 11
-          - lastmod: 1775552709031
+          - lastmod: 1775574318224
             type: texture
             name: Medusa
-            untill: 4
+            untill: 5
             grid:
-              - 7
               - 5
+              - 2
             axis:
               - 8
               - 8
@@ -474,9 +477,9 @@ assets:
             imgWidth: 224
             imgHeight: 160
             width: 16
-            height: 17
+            height: 16
             offx: 8
-            offy: 8
+            offy: 11
             origname: iGgCk1fwPDqDpj8.png
             shape: circle
             left: 0
@@ -1354,6 +1357,59 @@ assets:
             uid: w2cpWbbRcqhr4F
             behaviors: []
             extendTypes: ''
+      - name: moseni
+        uid: 1tFkj9FkcBnh33
+        type: sound
+        lastmod: 1775571594880
+        preload: true
+        variants:
+          - uid: KGJ23Dd2HLPjQ5
+            source: 'C:\Users\nekosnugz\Downloads\Moseni_lotus.ogg'
+        distortion:
+          enabled: true
+          min: 0
+          max: 0.01
+        pitch:
+          enabled: true
+          min: 1.4
+          max: 1.41
+        reverb:
+          enabled: false
+          decayMin: 2
+          decayMax: 2
+          secondsMin: 0
+          secondsMax: 10
+          reverse: false
+        volume:
+          enabled: true
+          min: 0.18
+          max: 0.19
+        eq:
+          enabled: false
+          bands:
+            - min: -1
+              max: 1
+            - min: -1
+              max: 1
+            - min: -1
+              max: 1
+            - min: -1
+              max: 1
+            - min: -1
+              max: 1
+            - min: -1
+              max: 1
+            - min: -1
+              max: 1
+            - min: -1
+              max: 1
+            - min: -1
+              max: 1
+            - min: -1
+              max: 1
+        panning:
+          refDistance: 0.5
+          rolloffFactor: 1
   - type: folder
     uid: b9RMdjDDgP9Hg8
     colorClass: warning
@@ -21912,7 +21968,7 @@ assets:
             hidden: false
             cache: true
         extends: {}
-        lastmod: 1775564778695
+        lastmod: 1775574672910
         events:
           - eventKey: OnRoomStart
             code: |-
@@ -21923,14 +21979,27 @@ assets:
               let scoreP1 = 0;
               let scoreP2 = 0;
 
+              camera.borderX = 200;
+              camera.borderY = 200;
 
-              camera.borderX = 200
-              camera.borderY = 200
-              camera.minX = 0
-              camera.minY = 0
-              camera.maxX = 1280
-              camera.maxY = 2112
-              camera.drift = 0.9
+              camera.minX = 0;
+              camera.minY = 0;
+
+              camera.maxX = 1280;
+              camera.maxY = 2112;
+
+              camera.drift = 0.9;
+
+              //
+              sounds.play('moseni', {
+                  loop: true,
+              }); 
+            arguments: {}
+            lib: core
+          - eventKey: OnRoomEnd
+            code: |-
+              sounds.stop('moseni');
+              this.kill = true;
             arguments: {}
             lib: core
         behaviors: []
@@ -22167,12 +22236,12 @@ assets:
             bindings: {}
         tiles: []
         extends: {}
-        lastmod: 1775569740139
+        lastmod: 1775571984784
         events:
           - eventKey: OnRoomStart
             code: |-
-              transition.circleIn(500,0);
-              const score = new Array(2).fill(0);
+              transition.fadeIn(500,0);
+              score = new Array(2).fill(0);
             arguments: {}
             lib: core
         behaviors: []
@@ -22324,8 +22393,12 @@ assets:
             hidden: false
             cache: true
         extends: {}
-        lastmod: 1775568665863
-        events: []
+        lastmod: 1775572245371
+        events:
+          - eventKey: OnRoomStart
+            code: 'console.log(rooms.list[''livello'']);'
+            arguments: {}
+            lib: core
         behaviors: []
         extendTypes: ''
         uid: Cz8bGmhtp2FdWr
@@ -23029,7 +23102,7 @@ settings:
     splashScreen: -1
     forceSmoothIcons: false
     forceSmoothSplashScreen: false
-    hideLoadingLogo: false
+    hideLoadingLogo: true
     alternativeLogo: false
     customLoadingText: ''
   fps: 30

@@ -17,6 +17,7 @@ libs:
   vkeys: {}
   transition: {}
   tween: {}
+  random: {}
 startroom: n8zd3bf8c5jPWg
 contentTypes: []
 actions:
@@ -42,7 +43,7 @@ actions:
       - code: keyboard.ArrowDown
 scripts:
   - name: tutto
-    code: |
+    code: |-
       /* Use scripts to define frequent functions and import small libraries */
 
       // Gestione pausa
@@ -52,6 +53,8 @@ scripts:
               this.isPaused = !this.isPaused;
           }
       }
+
+      let score = new Array(2).fill(0);
 assets:
   - type: folder
     uid: r5HR4k2wtQq24z
@@ -70,7 +73,7 @@ assets:
           - type: template
             baseClass: AnimatedSprite
             name: Giocatore1
-            depth: 10
+            depth: 3
             texture: 391HtTF4DJcp5r
             playAnimationOnStart: false
             loopAnimation: true
@@ -85,16 +88,13 @@ assets:
                       var friction = 0.05
 
                       //direzione del personaggio
-                      this.scale.y = actions.P1MoveY.value>=0 ? this.defaultScale.y : -this.defaultScale.y
-                      this.scale.x = actions.P1MoveX.value>0 ? -this.defaultScale.x : this.defaultScale.x
-                      if (this.scale.y > 0) {
-                          this.rotation = 0
-                      }
-                      else {
-                          this.scale.x *= -1
-                          this.rotation = this.scale.x < 0 ? -45 : 45
-                      }
+                      if (actions.P1MoveY.down) this.scale.y = this.defaultScale.y * (actions.P1MoveY.value >= 0 ? 1 : -1);
+                      if (actions.P1MoveX.down) this.scale.x = this.defaultScale.x * (actions.P1MoveX.value > 0 ?  -1 : 1);
+                      if (actions.P1MoveY.value == -1) {
+                          this.rotation = (actions.P1MoveX.down) ? (this.scale.x > 0 ? -45 : 45) : 0;
+                      } else this.rotation = 0;
 
+                      // Gestione movimento e collisione
                       if (this.hasCollidedWithEnemy) {
                           this.hspeed = !place.occupied(this, this.x + 3 * actions.P1MoveX.value, this.y, "Terreno") ? this.hspeed : -this.hspeed;
                           this.vspeed = !place.occupied(this, this.x, this.y + 3 * actions.P1MoveY.value, "Terreno") ? this.vspeed : -this.hspeed;
@@ -109,13 +109,16 @@ assets:
                           this.vspeed = place.occupied(this, this.x, this.y + 10 * actions.P1MoveY.value, "Terreno") ? 0 : this.vspeed;
                       }
 
-                      var offsetSpazzatura = 35;
+                      // "Rendering" spazzatura grande ancorata al giocatore
+                      var offsetSpazzatura = 40;
 
-                      for (let i = 0; i < this.spazzaturaGrande.length; i++) {
+                      for (let i = 0; i < this.spazzaturaGrande.length; i++) { // Yay inefficienza!!
                           this.spazzaturaGrande[i].x = this.x;
-                          this.spazzaturaGrande[i].y = this.y + (offsetSpazzatura * (i + 1));
+                          this.spazzaturaGrande[i].y = this.y + offsetSpazzatura;
                       }
+
                       
+                      //
                       this.move();
                   }
                 arguments: {}
@@ -124,7 +127,8 @@ assets:
                   if (!this.hasCollidedWithEnemy && !pause.isPaused) {
                       this.hspeed = -this.hspeed;
                       this.vspeed = -this.vspeed;
-                      
+                      sounds.play('Danno');
+
                       if (this.spazzaturaGrande.length > 0) {
                           // TODO: Gestione migliore della posizione nuova della spazzatura
                           do {
@@ -178,6 +182,7 @@ assets:
                 code: |-
                   if (this.spazzaturaGrande.length > 0) {
 
+                      sounds.play('Spazzatura Presa');
                       window.scoreP1 += 100 * this.spazzaturaGrande.length;
                       for (let i of this.spazzaturaGrande) i.kill = true;
 
@@ -190,7 +195,7 @@ assets:
               cgroup: Giocatore
               'editor:myCollidingCGroups':
                 - Terreno
-            lastmod: 1775564254338
+            lastmod: 1775577150493
             uid: DL9BczP5Cd4RMz
             behaviors: []
             extendTypes: ''
@@ -459,13 +464,13 @@ assets:
             source: >-
               C:\Users\nekosnugz\Desktop\texturePackForTrashNautica\Bubble\bubble.png
             r: 11
-          - lastmod: 1775552709031
+          - lastmod: 1775574318224
             type: texture
             name: Medusa
-            untill: 4
+            untill: 5
             grid:
-              - 7
               - 5
+              - 2
             axis:
               - 8
               - 8
@@ -474,9 +479,9 @@ assets:
             imgWidth: 224
             imgHeight: 160
             width: 16
-            height: 17
+            height: 16
             offx: 8
-            offy: 8
+            offy: 11
             origname: iGgCk1fwPDqDpj8.png
             shape: circle
             left: 0
@@ -757,6 +762,34 @@ assets:
             isBlank: false
             source: 'C:\Users\nekosnugz\Downloads\New Piskel(6).png'
             tiled: true
+          - lastmod: 1775576563119
+            type: texture
+            name: wave.webp
+            untill: 0
+            grid:
+              - 1
+              - 1
+            axis:
+              - 0
+              - 0
+            marginx: 0
+            marginy: 0
+            imgWidth: 998
+            imgHeight: 998
+            width: 998
+            height: 998
+            offx: 0
+            offy: 0
+            origname: iPGbTGNw4Hf2f55.png
+            shape: rect
+            left: 0
+            right: 998
+            top: 0
+            bottom: 998
+            uid: PGbTGNw4Hf2f55
+            padding: 1
+            isBlank: false
+            source: 'C:\Users\nekosnugz\Downloads\wave.webp'
       - type: folder
         uid: r75phJ99KmB7KH
         colorClass: accent1
@@ -809,7 +842,8 @@ assets:
             events: []
             extends:
               cgroup: ''
-            lastmod: 1774442914123
+              'editor:myCollidingCGroups': []
+            lastmod: 1775574985749
             uid: Kb2kRd6fn9MgNJ
             behaviors: []
             extendTypes: ''
@@ -827,15 +861,16 @@ assets:
             events:
               - eventKey: OnPointerClick
                 code: |-
-
-                  transition.circleOut(2000, 0).then(() => {
+                  sounds.play('Start');
+                  transition.circleOut(500, 0).then(() => {
                       rooms.switch("livello");
                   });
                 arguments: {}
                 lib: core
             extends:
               cgroup: ''
-            lastmod: 1775562252827
+              'editor:myCollidingCGroups': []
+            lastmod: 1775576835214
             uid: 81gL4p22k1BDzg
             behaviors: []
             extendTypes: ''
@@ -863,6 +898,7 @@ assets:
             events:
               - eventKey: OnPointerClick
                 code: |-
+                  sounds.play('Start');
                   transition.circleOut(1000, 0).then(() => {
                       rooms.switch('Titolo');
                   });
@@ -871,7 +907,7 @@ assets:
             extends:
               cgroup: ''
               'editor:myCollidingCGroups': []
-            lastmod: 1775568942918
+            lastmod: 1775576854951
             uid: pCbH9hHM8hTn3n
             behaviors: []
             extendTypes: ''
@@ -883,8 +919,8 @@ assets:
               bottom: 16
               right: 16
               autoUpdate: false
-            hoverTexture: jfcJq6M6mKfBhP
-            pressedTexture: hk8994GCLR8wBK
+            hoverTexture: hk8994GCLR8wBK
+            pressedTexture: jfcJq6M6mKfBhP
             disabledTexture: -1
           - type: template
             baseClass: Button
@@ -959,7 +995,7 @@ assets:
             extends:
               cgroup: Nemici
               'editor:myCollidingCGroups': []
-            lastmod: 1775557636561
+            lastmod: 1775577096576
             uid: MPdrNr8hhh5b2R
             behaviors: []
             extendTypes: ''
@@ -1019,13 +1055,16 @@ assets:
             visible: true
             events:
               - eventKey: OnCreate
-                code: this.isCollected = false;
+                code: |-
+                  this.isCollected = false;
+                  sounds.play('Generazione Spazzatura');
                 arguments: {}
                 lib: core
               - eventKey: collisionCGroup
                 code: >-
                   if (!this.isCollected && !place.occupied(this, this.x, this.y,
                   'Giocatore').hasCollidedWithEnemy) {
+                      sounds.play('Raccolta');
                       this.isCollected = true;
                       place.occupied(this, this.x, this.y, 'Giocatore').spazzaturaGrande.push(this);
                   }
@@ -1038,7 +1077,8 @@ assets:
                 lib: core
             extends:
               cgroup: ''
-            lastmod: 1774436118947
+              'editor:myCollidingCGroups': []
+            lastmod: 1775577089656
             uid: Q5Dz7qRNWK3PLm
             behaviors: []
             extendTypes: ''
@@ -1172,13 +1212,14 @@ assets:
                 code: |-
                   this.kill = true;
                   score[0] += 100;
+                  sounds.play('Raccolta');
                 arguments:
                   template: DL9BczP5Cd4RMz
                 lib: place
             extends:
               cgroup: ''
               'editor:myCollidingCGroups': []
-            lastmod: 1775405658456
+            lastmod: 1775577065405
             uid: zG7nGRb2Bbht5p
             behaviors: []
             extendTypes: ''
@@ -1200,12 +1241,13 @@ assets:
             visible: true
             events:
               - eventKey: OnStep
-                code: 'this.text = "Giocatore 1: " + window.scoreP1 + " punti";'
+                code: 'this.text = "Giocatore 1: " + score[0] + " punti";'
                 arguments: {}
                 lib: core
             extends:
               cgroup: ''
-            lastmod: 1775027582189
+              'editor:myCollidingCGroups': []
+            lastmod: 1775575263829
             uid: TPkR7Gqr26Q4hp
             behaviors: []
             extendTypes: ''
@@ -1263,7 +1305,7 @@ assets:
             extends:
               cgroup: ''
               'editor:myCollidingCGroups': []
-            lastmod: 1775396506072
+            lastmod: 1775576117602
             uid: r6g7J6J9TntC1H
             behaviors: []
             extendTypes: ''
@@ -1280,13 +1322,15 @@ assets:
             visible: true
             events:
               - eventKey: OnStep
-                code: 'this.text = "Giocatore 2: " + window.scoreP2 + " punti";'
+                code: |-
+
+                  this.text = "Giocatore 2: " + score[1] + " punti";
                 arguments: {}
                 lib: core
             extends:
               cgroup: ''
               'editor:myCollidingCGroups': []
-            lastmod: 1775555653849
+            lastmod: 1775576733983
             uid: f3M4kKqQ3njTfw
             behaviors: []
             extendTypes: ''
@@ -1354,59 +1398,390 @@ assets:
             uid: w2cpWbbRcqhr4F
             behaviors: []
             extendTypes: ''
-      - name: moseni
-        uid: 1tFkj9FkcBnh33
-        type: sound
-        lastmod: 1775570407830
-        preload: true
-        variants:
-          - uid: KGJ23Dd2HLPjQ5
-            source: 'C:\Users\nekosnugz\Downloads\Moseni_lotus.ogg'
-        distortion:
-          enabled: false
-          min: 0
-          max: 1
-        pitch:
-          enabled: false
-          min: 0
-          max: 1
-        reverb:
-          enabled: false
-          decayMin: 2
-          decayMax: 2
-          secondsMin: 2
-          secondsMax: 3
-          reverse: false
-        volume:
-          enabled: false
-          min: 0
-          max: 1
-        eq:
-          enabled: false
-          bands:
-            - min: -1
+      - type: folder
+        uid: wfGMB8qFhjkWbh
+        colorClass: warning
+        icon: headphones
+        name: Suoni
+        lastmod: 1775575586761
+        entries:
+          - name: moseni
+            uid: 1tFkj9FkcBnh33
+            type: sound
+            lastmod: 1775571594880
+            preload: true
+            variants:
+              - uid: KGJ23Dd2HLPjQ5
+                source: 'C:\Users\nekosnugz\Downloads\Moseni_lotus.ogg'
+            distortion:
+              enabled: true
+              min: 0
+              max: 0.01
+            pitch:
+              enabled: true
+              min: 1.4
+              max: 1.41
+            reverb:
+              enabled: false
+              decayMin: 2
+              decayMax: 2
+              secondsMin: 0
+              secondsMax: 10
+              reverse: false
+            volume:
+              enabled: true
+              min: 0.18
+              max: 0.19
+            eq:
+              enabled: false
+              bands:
+                - min: -1
+                  max: 1
+                - min: -1
+                  max: 1
+                - min: -1
+                  max: 1
+                - min: -1
+                  max: 1
+                - min: -1
+                  max: 1
+                - min: -1
+                  max: 1
+                - min: -1
+                  max: 1
+                - min: -1
+                  max: 1
+                - min: -1
+                  max: 1
+                - min: -1
+                  max: 1
+            panning:
+              refDistance: 0.5
+              rolloffFactor: 1
+          - name: Start
+            uid: 8zkPP91C2C56tJ
+            type: sound
+            lastmod: 1775575925945
+            preload: true
+            variants:
+              - uid: nqt6FghzC1QzBq
+                source: >-
+                  C:\Users\nekosnugz\Desktop\TrashNautica\TrashNautica\snd\sBrhgBcJrMNF1f1_nNT48g2mc5PjRw.wav
+            distortion:
+              enabled: false
+              min: 0
               max: 1
-            - min: -1
+            pitch:
+              enabled: false
+              min: 0
               max: 1
-            - min: -1
+            reverb:
+              enabled: false
+              decayMin: 2
+              decayMax: 2
+              secondsMin: 2
+              secondsMax: 3
+              reverse: false
+            volume:
+              enabled: false
+              min: 0
               max: 1
-            - min: -1
+            eq:
+              enabled: false
+              bands:
+                - min: -1
+                  max: 1
+                - min: -1
+                  max: 1
+                - min: -1
+                  max: 1
+                - min: -1
+                  max: 1
+                - min: -1
+                  max: 1
+                - min: -1
+                  max: 1
+                - min: -1
+                  max: 1
+                - min: -1
+                  max: 1
+                - min: -1
+                  max: 1
+                - min: -1
+                  max: 1
+            panning:
+              refDistance: 0.5
+              rolloffFactor: 1
+          - name: Generazione Spazzatura
+            uid: Nm34cL4RfnqRDw
+            type: sound
+            lastmod: 1775577022462
+            preload: true
+            variants:
+              - uid: D1QLFPdNjKBpHr
+                source: >-
+                  C:\Users\nekosnugz\Desktop\TrashNautica\TrashNautica\snd\sC5HJHGNm7NgB5f_mD5Q8ckDrzrmkr.wav
+            distortion:
+              enabled: false
+              min: 0
               max: 1
-            - min: -1
+            pitch:
+              enabled: false
+              min: 0
               max: 1
-            - min: -1
+            reverb:
+              enabled: false
+              decayMin: 2
+              decayMax: 2
+              secondsMin: 2
+              secondsMax: 3
+              reverse: false
+            volume:
+              enabled: false
+              min: 0
               max: 1
-            - min: -1
+            eq:
+              enabled: false
+              bands:
+                - min: -1
+                  max: 1
+                - min: -1
+                  max: 1
+                - min: -1
+                  max: 1
+                - min: -1
+                  max: 1
+                - min: -1
+                  max: 1
+                - min: -1
+                  max: 1
+                - min: -1
+                  max: 1
+                - min: -1
+                  max: 1
+                - min: -1
+                  max: 1
+                - min: -1
+                  max: 1
+            panning:
+              refDistance: 0.5
+              rolloffFactor: 1
+          - name: Danno
+            uid: z4t7zG75NKB3Fk
+            type: sound
+            lastmod: 1775577025030
+            preload: true
+            variants:
+              - uid: gPG8bq8nwDRPJ1
+                source: >-
+                  C:\Users\nekosnugz\Desktop\TrashNautica\TrashNautica\snd\sPGQkfbL4nfb2TJ_kLJhRDqC9cnWHT.wav
+            distortion:
+              enabled: false
+              min: 0
               max: 1
-            - min: -1
+            pitch:
+              enabled: false
+              min: 0
               max: 1
-            - min: -1
+            reverb:
+              enabled: false
+              decayMin: 2
+              decayMax: 2
+              secondsMin: 2
+              secondsMax: 3
+              reverse: false
+            volume:
+              enabled: false
+              min: 0
               max: 1
-            - min: -1
+            eq:
+              enabled: false
+              bands:
+                - min: -1
+                  max: 1
+                - min: -1
+                  max: 1
+                - min: -1
+                  max: 1
+                - min: -1
+                  max: 1
+                - min: -1
+                  max: 1
+                - min: -1
+                  max: 1
+                - min: -1
+                  max: 1
+                - min: -1
+                  max: 1
+                - min: -1
+                  max: 1
+                - min: -1
+                  max: 1
+            panning:
+              refDistance: 0.5
+              rolloffFactor: 1
+          - name: Ambience
+            uid: 7qnkd6tKHPGMqF
+            type: sound
+            lastmod: 1775576143940
+            preload: true
+            variants:
+              - uid: Wd3DRJDN3g5hTW
+                source: >-
+                  C:\Users\nekosnugz\Downloads\Programs\ctjs\package.nw\bundledAssets\sounds\NOX
+                  Essentials — Ambiance\Sea.ogg
+            distortion:
+              enabled: false
+              min: 0
               max: 1
-        panning:
-          refDistance: 0.5
-          rolloffFactor: 1
+            pitch:
+              enabled: false
+              min: 0
+              max: 1
+            reverb:
+              enabled: false
+              decayMin: 2
+              decayMax: 2
+              secondsMin: 2
+              secondsMax: 3
+              reverse: false
+            volume:
+              enabled: false
+              min: 0
+              max: 0.09
+            eq:
+              enabled: false
+              bands:
+                - min: -1
+                  max: 1
+                - min: -1
+                  max: 1
+                - min: -1
+                  max: 1
+                - min: -1
+                  max: 1
+                - min: -1
+                  max: 1
+                - min: -1
+                  max: 1
+                - min: -1
+                  max: 1
+                - min: -1
+                  max: 1
+                - min: -1
+                  max: 1
+                - min: -1
+                  max: 1
+            panning:
+              refDistance: 0.5
+              rolloffFactor: 1
+          - name: Spazzatura depositata
+            uid: M6K78Kqk93wWq1
+            type: sound
+            lastmod: 1775577011135
+            preload: true
+            variants:
+              - uid: pd7g8B6PWpPTmj
+                source: >-
+                  C:\Users\nekosnugz\Desktop\TrashNautica\TrashNautica\snd\sf3D1jRKNLwKGrM_d8NhbDhPRWF8cC.mp3
+            distortion:
+              enabled: false
+              min: 0
+              max: 1
+            pitch:
+              enabled: false
+              min: 0
+              max: 1
+            reverb:
+              enabled: false
+              decayMin: 2
+              decayMax: 2
+              secondsMin: 2
+              secondsMax: 3
+              reverse: false
+            volume:
+              enabled: false
+              min: 0
+              max: 1
+            eq:
+              enabled: false
+              bands:
+                - min: -1
+                  max: 1
+                - min: -1
+                  max: 1
+                - min: -1
+                  max: 1
+                - min: -1
+                  max: 1
+                - min: -1
+                  max: 1
+                - min: -1
+                  max: 1
+                - min: -1
+                  max: 1
+                - min: -1
+                  max: 1
+                - min: -1
+                  max: 1
+                - min: -1
+                  max: 1
+            panning:
+              refDistance: 0.5
+              rolloffFactor: 1
+          - name: Raccolta
+            uid: FFNGnJLrmm8NjT
+            type: sound
+            lastmod: 1775577052237
+            preload: true
+            variants:
+              - uid: Q3pfN2D2223F4t
+                source: 'C:\Users\nekosnugz\Downloads\sounalt.wav'
+            distortion:
+              enabled: false
+              min: 0
+              max: 1
+            pitch:
+              enabled: false
+              min: 0
+              max: 1
+            reverb:
+              enabled: false
+              decayMin: 2
+              decayMax: 2
+              secondsMin: 2
+              secondsMax: 3
+              reverse: false
+            volume:
+              enabled: false
+              min: 0
+              max: 1
+            eq:
+              enabled: false
+              bands:
+                - min: -1
+                  max: 1
+                - min: -1
+                  max: 1
+                - min: -1
+                  max: 1
+                - min: -1
+                  max: 1
+                - min: -1
+                  max: 1
+                - min: -1
+                  max: 1
+                - min: -1
+                  max: 1
+                - min: -1
+                  max: 1
+                - min: -1
+                  max: 1
+                - min: -1
+                  max: 1
+            panning:
+              refDistance: 0.5
+              rolloffFactor: 1
   - type: folder
     uid: b9RMdjDDgP9Hg8
     colorClass: warning
@@ -21965,7 +22340,7 @@ assets:
             hidden: false
             cache: true
         extends: {}
-        lastmod: 1775564778695
+        lastmod: 1775576498996
         events:
           - eventKey: OnRoomStart
             code: |-
@@ -21973,17 +22348,41 @@ assets:
                   isUI: true
               });
 
-              let scoreP1 = 0;
-              let scoreP2 = 0;
+              if (!window.scoreP1) {let scoreP1 = 0;}
+              if (!window.scoreP2) {let scoreP2 = 0;}
+
+              camera.borderX = 200;
+              camera.borderY = 200;
+
+              camera.minX = 0;
+              camera.minY = 0;
+
+              camera.maxX = 1280;
+              camera.maxY = 2112;
+
+              camera.drift = 0.9;
 
 
-              camera.borderX = 200
-              camera.borderY = 200
-              camera.minX = 0
-              camera.minY = 0
-              camera.maxX = 1280
-              camera.maxY = 2112
-              camera.drift = 0.9
+              sounds.play('moseni', {
+                  loop: true,
+              }); 
+
+              sounds.play('Ambience', {
+                  loop: true,
+              });
+
+              sounds.volume('moseni', 1);
+              sounds.volume('Ambience', 0.3);
+            arguments: {}
+            lib: core
+          - eventKey: OnRoomEnd
+            code: |-
+              sounds.stop('moseni');
+              sounds.stop('Ambience');
+              this.kill = true;
+
+              score[0] = window.scoreP1;
+              score[1] = window.scoreP2;
             arguments: {}
             lib: core
         behaviors: []
@@ -22072,7 +22471,7 @@ assets:
             uid: bfFmdF4mDChMGQ
             exts: {}
             customProperties: {}
-            customText: !<tag:yaml.org,2002:js/undefined> ''
+            customText: Pronti...
             customSize: '64'
             customWordWrap: !<tag:yaml.org,2002:js/undefined> ''
             bindings: {}
@@ -22081,7 +22480,7 @@ assets:
               'y': 0.5
         tiles: []
         extends: {}
-        lastmod: 1775567187954
+        lastmod: 1775574964242
         events:
           - eventKey: OnRoomStart
             code: |-
@@ -22092,7 +22491,8 @@ assets:
               this.text = "Tempo: " + Math.ceil(countDown).toString() + 's';
 
               // Lo sta facendo Orlando
-              pause.togglePaused();
+              if (!pause.isPaused) pause.togglePaused();
+
               transition.fadeIn(1500, 0)
               .then(() => {
                   var prep_time = 3;
@@ -22220,12 +22620,12 @@ assets:
             bindings: {}
         tiles: []
         extends: {}
-        lastmod: 1775569740139
+        lastmod: 1775575408691
         events:
           - eventKey: OnRoomStart
             code: |-
-              transition.circleIn(500,0);
-              const score = new Array(2).fill(0);
+              transition.fadeIn(500,0);
+              score = new Array(2).fill(0);
             arguments: {}
             lib: core
         behaviors: []
@@ -22377,12 +22777,16 @@ assets:
             hidden: false
             cache: true
         extends: {}
-        lastmod: 1775568665863
-        events: []
+        lastmod: 1775576693001
+        events:
+          - eventKey: OnRoomStart
+            code: 'console.log(rooms.list[''livello'']);'
+            arguments: {}
+            lib: core
         behaviors: []
         extendTypes: ''
         uid: Cz8bGmhtp2FdWr
-        lastPickedTileset: bgDnrg3R9qgFjG
+        lastPickedTileset: PGbTGNw4Hf2f55
       - type: room
         oncreate: ''
         onstep: ''
@@ -23082,7 +23486,7 @@ settings:
     splashScreen: -1
     forceSmoothIcons: false
     forceSmoothSplashScreen: false
-    hideLoadingLogo: false
+    hideLoadingLogo: true
     alternativeLogo: false
     customLoadingText: ''
   fps: 30
