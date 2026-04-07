@@ -1,5 +1,5 @@
 ctjsVersion: 5.3.1
-backups: 3
+backups: 2
 language: typescript
 notes: /* empty */
 libs:
@@ -190,7 +190,7 @@ assets:
               cgroup: Giocatore
               'editor:myCollidingCGroups':
                 - Terreno
-            lastmod: 1775561297356
+            lastmod: 1775564254338
             uid: DL9BczP5Cd4RMz
             behaviors: []
             extendTypes: ''
@@ -671,6 +671,92 @@ assets:
             isBlank: false
             source: 'C:\Users\nekosnugz\Downloads\sprite_sheet_1_256x64.png'
             r: 20
+          - lastmod: 1775568156144
+            type: texture
+            name: document_5.webp
+            untill: 0
+            grid:
+              - 1
+              - 1
+            axis:
+              - 0
+              - 0
+            marginx: 0
+            marginy: 0
+            imgWidth: 785
+            imgHeight: 785
+            width: 785
+            height: 785
+            offx: 0
+            offy: 0
+            origname: ibgDnrg3R9qgFjG.png
+            shape: rect
+            left: 0
+            right: 785
+            top: 0
+            bottom: 785
+            uid: bgDnrg3R9qgFjG
+            padding: 1
+            isBlank: false
+            source: 'C:\Users\nekosnugz\Downloads\document_5.webp'
+          - lastmod: 1775568179277
+            type: texture
+            name: document_0.webp
+            untill: 0
+            grid:
+              - 1
+              - 1
+            axis:
+              - 0
+              - 0
+            marginx: 0
+            marginy: 0
+            imgWidth: 855
+            imgHeight: 855
+            width: 855
+            height: 855
+            offx: 0
+            offy: 0
+            origname: iwdGwgFBjdfgNJ1.png
+            shape: rect
+            left: 0
+            right: 855
+            top: 0
+            bottom: 855
+            uid: wdGwgFBjdfgNJ1
+            padding: 1
+            isBlank: false
+            source: 'C:\Users\nekosnugz\Downloads\document_0.webp'
+            tiled: true
+          - lastmod: 1775568623129
+            type: texture
+            name: New_Piskel(6)
+            untill: 0
+            grid:
+              - 1
+              - 1
+            axis:
+              - 0
+              - 0
+            marginx: 0
+            marginy: 0
+            imgWidth: 32
+            imgHeight: 32
+            width: 32
+            height: 32
+            offx: 0
+            offy: 0
+            origname: iwrcRnJhWfN9tbN.png
+            shape: rect
+            left: 0
+            right: 32
+            top: 0
+            bottom: 32
+            uid: wrcRnJhWfN9tbN
+            padding: 1
+            isBlank: false
+            source: 'C:\Users\nekosnugz\Downloads\New Piskel(6).png'
+            tiled: true
       - type: folder
         uid: r75phJ99KmB7KH
         colorClass: accent1
@@ -695,11 +781,12 @@ assets:
             extends:
               cgroup: ''
               alpha: 1
-            lastmod: 1774251368486
+              'editor:myCollidingCGroups': []
+            lastmod: 1775567226762
             uid: GTztBzH7cdTRQ5
             behaviors: []
             extendTypes: ''
-            defaultText: ''
+            defaultText: Pausa
             textStyle: CmM2gPcw8mNdTQ
             nineSliceSettings:
               top: 16
@@ -710,25 +797,6 @@ assets:
             hoverTexture: -1
             pressedTexture: jfcJq6M6mKfBhP
             disabledTexture: -1
-          - type: template
-            baseClass: AnimatedSprite
-            name: PulsanteStart
-            depth: 0
-            texture: -1
-            playAnimationOnStart: false
-            loopAnimation: true
-            animationFPS: 30
-            visible: true
-            events:
-              - eventKey: OnStep
-                lib: core
-                code: this.move();
-                arguments: {}
-            extends: {}
-            lastmod: 1774433995398
-            uid: 86pT7Mg9T9JRqq
-            behaviors: []
-            extendTypes: ''
           - type: template
             baseClass: Text
             name: Titolo
@@ -783,6 +851,73 @@ assets:
             pressedTexture: jfcJq6M6mKfBhP
             disabledTexture: -1
             useBitmapText: false
+          - type: template
+            baseClass: Button
+            name: PulsanteHome
+            depth: 0
+            texture: MncJLwgnCf9Hk3
+            playAnimationOnStart: false
+            loopAnimation: true
+            animationFPS: 30
+            visible: true
+            events:
+              - eventKey: OnPointerClick
+                code: |-
+                  transition.circleOut(1000, 0).then(() => {
+                      rooms.switch('Titolo');
+                  });
+                arguments: {}
+                lib: core
+            extends:
+              cgroup: ''
+              'editor:myCollidingCGroups': []
+            lastmod: 1775568942918
+            uid: pCbH9hHM8hTn3n
+            behaviors: []
+            extendTypes: ''
+            defaultText: Ritorna alla schermata iniziale
+            textStyle: CmM2gPcw8mNdTQ
+            nineSliceSettings:
+              top: 16
+              left: 16
+              bottom: 16
+              right: 16
+              autoUpdate: false
+            hoverTexture: jfcJq6M6mKfBhP
+            pressedTexture: hk8994GCLR8wBK
+            disabledTexture: -1
+          - type: template
+            baseClass: Button
+            name: PulsanteComandi
+            depth: 0
+            texture: MncJLwgnCf9Hk3
+            playAnimationOnStart: false
+            loopAnimation: true
+            animationFPS: 30
+            visible: true
+            events:
+              - eventKey: OnStep
+                lib: core
+                code: ''
+                arguments: {}
+            extends:
+              cgroup: ''
+              'editor:myCollidingCGroups': []
+            lastmod: 1775567392189
+            uid: qnp4gR8tQrDCk1
+            behaviors: []
+            extendTypes: ''
+            defaultText: Come giocare
+            textStyle: -1
+            nineSliceSettings:
+              top: 16
+              left: 16
+              bottom: 16
+              right: 16
+              autoUpdate: false
+            hoverTexture: jfcJq6M6mKfBhP
+            pressedTexture: hk8994GCLR8wBK
+            disabledTexture: -1
       - type: folder
         uid: 79kQbKmF72Nbdq
         colorClass: act
@@ -1157,6 +1292,44 @@ assets:
             extendTypes: ''
             defaultText: 'Giocatore 2: 0 punti'
             textStyle: CmM2gPcw8mNdTQ
+          - type: template
+            baseClass: Text
+            name: Countdown
+            depth: 5
+            texture: -1
+            playAnimationOnStart: false
+            loopAnimation: true
+            animationFPS: 30
+            visible: true
+            events: []
+            extends:
+              cgroup: ''
+              'editor:myCollidingCGroups': []
+            lastmod: 1775563514609
+            uid: bfFmdF4mDChMGQ
+            behaviors: []
+            extendTypes: ''
+            defaultText: ''
+            textStyle: CmM2gPcw8mNdTQ
+          - type: template
+            baseClass: Text
+            name: CampoTesto
+            depth: 0
+            texture: -1
+            playAnimationOnStart: false
+            loopAnimation: true
+            animationFPS: 30
+            visible: true
+            events: []
+            extends:
+              cgroup: ''
+              'editor:myCollidingCGroups': []
+            lastmod: 1775565460867
+            uid: wbtP9fdMRM245z
+            behaviors: []
+            extendTypes: ''
+            defaultText: ''
+            textStyle: CmM2gPcw8mNdTQ
       - type: folder
         uid: 4Dj8ngmwDRLcTz
         colorClass: act
@@ -1181,6 +1354,59 @@ assets:
             uid: w2cpWbbRcqhr4F
             behaviors: []
             extendTypes: ''
+      - name: moseni
+        uid: 1tFkj9FkcBnh33
+        type: sound
+        lastmod: 1775570407830
+        preload: true
+        variants:
+          - uid: KGJ23Dd2HLPjQ5
+            source: 'C:\Users\nekosnugz\Downloads\Moseni_lotus.ogg'
+        distortion:
+          enabled: false
+          min: 0
+          max: 1
+        pitch:
+          enabled: false
+          min: 0
+          max: 1
+        reverb:
+          enabled: false
+          decayMin: 2
+          decayMax: 2
+          secondsMin: 2
+          secondsMax: 3
+          reverse: false
+        volume:
+          enabled: false
+          min: 0
+          max: 1
+        eq:
+          enabled: false
+          bands:
+            - min: -1
+              max: 1
+            - min: -1
+              max: 1
+            - min: -1
+              max: 1
+            - min: -1
+              max: 1
+            - min: -1
+              max: 1
+            - min: -1
+              max: 1
+            - min: -1
+              max: 1
+            - min: -1
+              max: 1
+            - min: -1
+              max: 1
+            - min: -1
+              max: 1
+        panning:
+          refDistance: 0.5
+          rolloffFactor: 1
   - type: folder
     uid: b9RMdjDDgP9Hg8
     colorClass: warning
@@ -21739,7 +21965,7 @@ assets:
             hidden: false
             cache: true
         extends: {}
-        lastmod: 1775563234559
+        lastmod: 1775564778695
         events:
           - eventKey: OnRoomStart
             code: |-
@@ -21798,7 +22024,7 @@ assets:
             uid: GTztBzH7cdTRQ5
             exts: {}
             customProperties: {}
-            customText: Pausa
+            customText: !<tag:yaml.org,2002:js/undefined> ''
             customSize: !<tag:yaml.org,2002:js/undefined> ''
             customWordWrap: !<tag:yaml.org,2002:js/undefined> ''
             bindings: {}
@@ -21835,18 +22061,59 @@ assets:
             customAnchor:
               x: 0
               'y': 0
+          - x: 640
+            'y': 336
+            opacity: 1
+            tint: 16777215
+            scale:
+              x: 1
+              'y': 1
+            rotation: 0
+            uid: bfFmdF4mDChMGQ
+            exts: {}
+            customProperties: {}
+            customText: !<tag:yaml.org,2002:js/undefined> ''
+            customSize: '64'
+            customWordWrap: !<tag:yaml.org,2002:js/undefined> ''
+            bindings: {}
+            customAnchor:
+              x: 0.5
+              'y': 0.5
         tiles: []
         extends: {}
-        lastmod: 1775562832073
+        lastmod: 1775567187954
         events:
           - eventKey: OnRoomStart
             code: |-
-              countDown = 60; // In secondi 
+              countDown = 10; // In secondi 
 
               this.isOver = false;
 
-
               this.text = "Tempo: " + Math.ceil(countDown).toString() + 's';
+
+              // Lo sta facendo Orlando
+              pause.togglePaused();
+              transition.fadeIn(1500, 0)
+              .then(() => {
+                  var prep_time = 3;
+                  var cd = setInterval(() => {
+                      if (prep_time > 0) {
+                          // Cambia i secondi 
+                          templates.list['Countdown'][0].text = prep_time;
+                          prep_time--;
+                      } else {
+                          //
+                          pause.togglePaused();
+                          templates.list['Countdown'][0].text = "Via!";
+
+                          setTimeout(() => {
+                              templates.list['Countdown'][0].kill = true;
+                          }, 1000);
+                          
+                          clearInterval(cd);
+                      }
+                  }, 1000);
+              });
             arguments: {}
             lib: core
           - eventKey: OnDraw
@@ -21860,18 +22127,15 @@ assets:
                   let timerText = templates.list['Timer'][0];
 
                   if (timerText) {
-                      timerText.text = "Tempo rimasto: " + timeInSec.toString();
+                      timerText.text = "Tempo: " + timeInSec.toString() + "s";
                   }
 
                   if (countDown <= 0) {
-                      this.finito = true;
-                      
-                      if (timerText) {
-                          timerText.text = "FINE!";
-                      }
-                      
-                      pause.togglePaused();
-                      rooms.switch("risultati");
+                      transition.fadeOut(1000, 0).then(() => {
+                          this.finito = true;
+                          pause.togglePaused();
+                          rooms.switch("risultati");
+                      });
                   }
               }
             arguments: {}
@@ -21884,8 +22148,8 @@ assets:
         onstep: ''
         ondraw: ''
         onleave: ''
-        gridX: 64
-        gridY: 64
+        gridX: 32
+        gridY: 32
         diagonalGrid: false
         disableGrid: false
         simulate: true
@@ -21901,24 +22165,35 @@ assets:
         backgroundColor: '#000000'
         follow: -1
         backgrounds:
-          - depth: 0
-            texture: 6H77NK9zKkdKCC
+          - depth: -1
+            texture: wdGwgFBjdfgNJ1
             shiftX: 0
             shiftY: 0
-            parallaxX: 0
-            parallaxY: 0
-            movementX: 25
+            parallaxX: 1
+            parallaxY: 1
+            movementX: 50
             movementY: 0
-            scaleX: 2
-            scaleY: 2
-            repeat: repeat
+            scaleX: 1
+            scaleY: 1
+            repeat: repeat-x
+          - depth: 0
+            texture: wrcRnJhWfN9tbN
+            shiftX: 0
+            shiftY: 688
+            parallaxX: 20
+            parallaxY: 1
+            movementX: 50
+            movementY: 0
+            scaleX: 1
+            scaleY: 1
+            repeat: repeat-x
         copies:
-          - x: 256
+          - x: 288
             'y': 128
             opacity: 1
             tint: 16777215
             scale:
-              x: 6.25968653
+              x: 5.73804599
               'y': 5.61766736
             rotation: 0
             uid: Kb2kRd6fn9MgNJ
@@ -21928,7 +22203,7 @@ assets:
             customSize: !<tag:yaml.org,2002:js/undefined> ''
             customWordWrap: !<tag:yaml.org,2002:js/undefined> ''
             bindings: {}
-          - x: 512
+          - x: 544
             'y': 512
             opacity: 1
             tint: 16777215
@@ -21943,18 +22218,14 @@ assets:
             customSize: !<tag:yaml.org,2002:js/undefined> ''
             customWordWrap: !<tag:yaml.org,2002:js/undefined> ''
             bindings: {}
-        tiles:
-          - depth: 0
-            tiles: []
-            extends:
-              cgroup: ''
-            hidden: false
-            cache: true
+        tiles: []
         extends: {}
-        lastmod: 1775553045022
+        lastmod: 1775569740139
         events:
           - eventKey: OnRoomStart
-            code: const score = new Array(2).fill(0);
+            code: |-
+              transition.circleIn(500,0);
+              const score = new Array(2).fill(0);
             arguments: {}
             lib: core
         behaviors: []
@@ -21965,8 +22236,8 @@ assets:
         onstep: ''
         ondraw: ''
         onleave: ''
-        gridX: 64
-        gridY: 64
+        gridX: 32
+        gridY: 32
         diagonalGrid: false
         disableGrid: false
         simulate: true
@@ -21982,20 +22253,20 @@ assets:
         backgroundColor: '#000000'
         follow: -1
         backgrounds:
-          - depth: 0
-            texture: 6H77NK9zKkdKCC
+          - depth: -3
+            texture: wrcRnJhWfN9tbN
             shiftX: 0
             shiftY: 0
             parallaxX: 1
             parallaxY: 1
             movementX: 0
             movementY: 0
-            scaleX: 1
-            scaleY: 1
+            scaleX: 8
+            scaleY: 8
             repeat: repeat
         copies:
-          - x: 64
-            'y': 64
+          - x: 256
+            'y': 384
             opacity: 1
             tint: 16777215
             scale:
@@ -22009,28 +22280,109 @@ assets:
             customSize: !<tag:yaml.org,2002:js/undefined> ''
             customWordWrap: !<tag:yaml.org,2002:js/undefined> ''
             bindings: {}
-          - x: 64
-            'y': 640
+            customAnchor:
+              x: 0.5
+              'y': 0.5
+          - x: 1024
+            'y': 384
             opacity: 1
             tint: 16777215
             scale:
               x: 1
               'y': 1
             rotation: 0
-            uid: TPkR7Gqr26Q4hp
+            uid: f3M4kKqQ3njTfw
             exts: {}
             customProperties: {}
             customText: !<tag:yaml.org,2002:js/undefined> ''
             customSize: !<tag:yaml.org,2002:js/undefined> ''
             customWordWrap: !<tag:yaml.org,2002:js/undefined> ''
             bindings: {}
-        tiles: []
+            customAnchor:
+              x: 0.5
+              'y': 0.5
+          - x: 640
+            'y': 96
+            opacity: 1
+            tint: 16777215
+            scale:
+              x: 1
+              'y': 1
+            rotation: 0
+            uid: wbtP9fdMRM245z
+            exts: {}
+            customProperties: {}
+            customText: Risultati
+            customSize: '48'
+            customWordWrap: !<tag:yaml.org,2002:js/undefined> ''
+            bindings: {}
+            customAnchor:
+              x: 0.5
+              'y': 0.5
+          - x: 480
+            'y': 448
+            opacity: 1
+            tint: 16777215
+            scale:
+              x: 6.66666667
+              'y': 1
+            rotation: 0
+            uid: pCbH9hHM8hTn3n
+            exts: {}
+            customProperties: {}
+            customText: !<tag:yaml.org,2002:js/undefined> ''
+            customSize: !<tag:yaml.org,2002:js/undefined> ''
+            customWordWrap: !<tag:yaml.org,2002:js/undefined> ''
+            bindings: {}
+          - x: 544
+            'y': 352
+            opacity: 1
+            tint: 16777215
+            scale:
+              x: 4
+              'y': 1
+            rotation: 0
+            uid: 81gL4p22k1BDzg
+            exts: {}
+            customProperties: {}
+            customText: Nuova partita
+            customSize: !<tag:yaml.org,2002:js/undefined> ''
+            customWordWrap: !<tag:yaml.org,2002:js/undefined> ''
+            bindings: {}
+        tiles:
+          - depth: -1
+            tiles:
+              - x: 64
+                'y': 192
+                opacity: 1
+                tint: 16777215
+                scale:
+                  x: 0.5
+                  'y': 0.5
+                frame: 0
+                rotation: 0
+                texture: bgDnrg3R9qgFjG
+              - x: 832
+                'y': 192
+                opacity: 1
+                tint: 16777215
+                scale:
+                  x: 0.5
+                  'y': 0.5
+                frame: 0
+                rotation: 0
+                texture: bgDnrg3R9qgFjG
+            extends:
+              cgroup: ''
+            hidden: false
+            cache: true
         extends: {}
-        lastmod: 1775406170397
+        lastmod: 1775568665863
         events: []
         behaviors: []
         extendTypes: ''
         uid: Cz8bGmhtp2FdWr
+        lastPickedTileset: bgDnrg3R9qgFjG
       - type: room
         oncreate: ''
         onstep: ''
@@ -22685,11 +23037,11 @@ settings:
   authoring:
     author: 4G
     site: ''
-    title: ThrashNautica
+    title: TrashNautica
     version:
       - 0
       - 0
-      - 0
+      - 1
     versionPostfix: ''
     appId: ''
   rendering:
