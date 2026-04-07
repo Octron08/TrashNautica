@@ -83,7 +83,7 @@ assets:
             name: Giocatore1
             depth: 3
             texture: 391HtTF4DJcp5r
-            playAnimationOnStart: false
+            playAnimationOnStart: true
             loopAnimation: true
             animationFPS: 30
             visible: true
@@ -120,11 +120,6 @@ assets:
                       // "Rendering" spazzatura grande ancorata al giocatore
                       var offsetSpazzatura = 40;
 
-                      for (let i = 0; i < this.spazzaturaGrande.length; i++) { // Yay inefficienza!!
-                          this.spazzaturaGrande[i].x = this.x;
-                          this.spazzaturaGrande[i].y = this.y + offsetSpazzatura;
-                      }
-
                       if (actions.P1Reset.down) {
                           this.x = this.spawnX;
                           this.y = this.spawnY;
@@ -136,7 +131,12 @@ assets:
                               this.spazzaturaGrande = [];
                           }
                       }
-                      //
+
+                      for (let i = 0; i < this.spazzaturaGrande.length; i++) { // Yay inefficienza!!
+                          this.spazzaturaGrande[i].x = this.x;
+                          this.spazzaturaGrande[i].y = this.y + offsetSpazzatura * i;
+                      }
+
                       this.move();
                   }
                 arguments: {}
@@ -186,7 +186,7 @@ assets:
                   this.spazzaturaGrande = [];
                   if (!window.scoreP1) window.scoreP1 = 0;
 
-                  this.animationSpeed = 0.24
+                  this.animationSpeed = 0.12;
                   this.defaultScale = {
                       x: this.scale.x,
                       y: this.scale.y
@@ -213,7 +213,7 @@ assets:
               cgroup: Giocatore
               'editor:myCollidingCGroups':
                 - Terreno
-            lastmod: 1775589495954
+            lastmod: 1775591277678
             uid: DL9BczP5Cd4RMz
             behaviors: []
             extendTypes: ''
@@ -221,8 +221,8 @@ assets:
             baseClass: AnimatedSprite
             name: Giocatore2
             depth: 3
-            texture: 391HtTF4DJcp5r
-            playAnimationOnStart: false
+            texture: hL74Ct37cz39cr
+            playAnimationOnStart: true
             loopAnimation: true
             animationFPS: 30
             visible: true
@@ -273,7 +273,7 @@ assets:
 
                       for (let i = 0; i < this.spazzaturaGrande.length; i++) { // Yay inefficienza!!
                           this.spazzaturaGrande[i].x = this.x;
-                          this.spazzaturaGrande[i].y = this.y + offsetSpazzatura;
+                          this.spazzaturaGrande[i].y = this.y + offsetSpazzatura * (i + 1);
                       }
 
                       this.move();
@@ -325,7 +325,7 @@ assets:
                   this.spazzaturaGrande = [];
                   if (!window.scoreP1) window.scoreP1 = 0;
 
-                  this.animationSpeed = 0.24
+                  this.animationSpeed = 0.12;
                   this.defaultScale = {
                       x: this.scale.x,
                       y: this.scale.y
@@ -352,7 +352,7 @@ assets:
               cgroup: Giocatore
               'editor:myCollidingCGroups':
                 - Terreno
-            lastmod: 1775588574283
+            lastmod: 1775591228513
             uid: k4T35dNQG6RP66
             behaviors: []
             extendTypes: ''
@@ -668,7 +668,7 @@ assets:
                 source: >-
                   C:\Users\nekosnugz\Desktop\texturePackForTrashNautica\il resto
                   degli sprite\tire.png
-          - lastmod: 1775588907924
+          - lastmod: 1775589931646
             type: texture
             name: rocks
             untill: 0
@@ -752,9 +752,9 @@ assets:
             padding: 1
             isBlank: false
             source: 'C:\Users\nekosnugz\Downloads\sprite_sheet2_64x64.png'
-          - lastmod: 1775561183526
+          - lastmod: 1775590903038
             type: texture
-            name: Giocatore
+            name: G1
             untill: 4
             grid:
               - 4
@@ -981,6 +981,35 @@ assets:
             padding: 1
             isBlank: false
             source: 'C:\Users\nekosnugz\Downloads\spazzatura.webp'
+          - lastmod: 1775590898787
+            type: texture
+            name: G2
+            untill: 4
+            grid:
+              - 2
+              - 2
+            axis:
+              - 32
+              - 32
+            marginx: 0
+            marginy: 0
+            imgWidth: 128
+            imgHeight: 128
+            width: 64
+            height: 64
+            offx: 0
+            offy: 0
+            origname: ihL74Ct37cz39cr.png
+            shape: circle
+            left: 0
+            right: 128
+            top: 0
+            bottom: 128
+            uid: hL74Ct37cz39cr
+            padding: 1
+            isBlank: false
+            source: 'C:\Users\nekosnugz\Downloads\sprite_sheet5_128x128.webp'
+            r: 20
       - type: folder
         uid: r75phJ99KmB7KH
         colorClass: accent1
@@ -1168,10 +1197,15 @@ assets:
                 lib: core
                 code: |-
                   if (!pause.isPaused) {
-                      if (place.occupied(this, this.x + 5, this.y, 'Terreno')) {
-                          this.direction = 180;
-                      } else if (place.occupied(this, this.x - 5, this.y, 'Terreno')) {
-                          this.direction = 0;
+                      // move() calculates the next x/y based on speed and direction
+                      // but doesn't apply it yet. 
+                      
+                      // We check if the NEXT horizontal step will hit a wall
+                      let dx = Math.cos(this.direction * Math.PI / 180) * this.speed;
+                      
+                      if (place.occupied(this, this.x + dx, this.y, 'Terreno')) {
+                          // Flip direction
+                          this.direction = (this.direction === 0) ? 180 : 0;
                       }
 
                       this.move();
@@ -1188,7 +1222,7 @@ assets:
             extends:
               cgroup: Nemici
               'editor:myCollidingCGroups': []
-            lastmod: 1775577096576
+            lastmod: 1775590210883
             uid: MPdrNr8hhh5b2R
             behaviors: []
             extendTypes: ''
@@ -2400,8 +2434,8 @@ assets:
             customSize: !<tag:yaml.org,2002:js/undefined> ''
             customWordWrap: !<tag:yaml.org,2002:js/undefined> ''
             bindings: {}
-          - x: 320
-            'y': 256
+          - x: 512
+            'y': 480
             opacity: 1
             tint: 16777215
             scale:
@@ -2415,8 +2449,8 @@ assets:
             customSize: !<tag:yaml.org,2002:js/undefined> ''
             customWordWrap: !<tag:yaml.org,2002:js/undefined> ''
             bindings: {}
-          - x: 960
-            'y': 224
+          - x: 768
+            'y': 352
             opacity: 1
             tint: 16777215
             scale:
@@ -2445,8 +2479,8 @@ assets:
             customSize: !<tag:yaml.org,2002:js/undefined> ''
             customWordWrap: !<tag:yaml.org,2002:js/undefined> ''
             bindings: {}
-          - x: 192
-            'y': 1168
+          - x: 320
+            'y': 1040
             opacity: 1
             tint: 16777215
             scale:
@@ -2460,7 +2494,7 @@ assets:
             customSize: !<tag:yaml.org,2002:js/undefined> ''
             customWordWrap: !<tag:yaml.org,2002:js/undefined> ''
             bindings: {}
-          - x: 1136
+          - x: 1040
             'y': 1280
             opacity: 1
             tint: 16777215
@@ -2475,8 +2509,8 @@ assets:
             customSize: !<tag:yaml.org,2002:js/undefined> ''
             customWordWrap: !<tag:yaml.org,2002:js/undefined> ''
             bindings: {}
-          - x: 1072
-            'y': 1792
+          - x: 656
+            'y': 1984
             opacity: 1
             tint: 16777215
             scale:
@@ -2505,8 +2539,8 @@ assets:
             customSize: !<tag:yaml.org,2002:js/undefined> ''
             customWordWrap: !<tag:yaml.org,2002:js/undefined> ''
             bindings: {}
-          - x: 656
-            'y': 1952
+          - x: 1072
+            'y': 1824
             opacity: 1
             tint: 16777215
             scale:
@@ -2550,8 +2584,8 @@ assets:
             customSize: !<tag:yaml.org,2002:js/undefined> ''
             customWordWrap: !<tag:yaml.org,2002:js/undefined> ''
             bindings: {}
-          - x: 240
-            'y': 1696
+          - x: 368
+            'y': 1536
             opacity: 1
             tint: 16777215
             scale:
@@ -2580,30 +2614,15 @@ assets:
             customSize: !<tag:yaml.org,2002:js/undefined> ''
             customWordWrap: !<tag:yaml.org,2002:js/undefined> ''
             bindings: {}
-          - x: 288
-            'y': 720
-            opacity: 1
-            tint: 16777215
-            scale:
-              x: 2
-              'y': 2
-            rotation: 0
-            uid: MPdrNr8hhh5b2R
-            exts: {}
-            customProperties: {}
-            customText: !<tag:yaml.org,2002:js/undefined> ''
-            customSize: !<tag:yaml.org,2002:js/undefined> ''
-            customWordWrap: !<tag:yaml.org,2002:js/undefined> ''
-            bindings: {}
-          - x: 624
-            'y': 992
+          - x: 1024
+            'y': 944
             opacity: 1
             tint: 16777215
             scale:
               x: 3
               'y': 3
             rotation: 0
-            uid: gMww9zTNWQRDPT
+            uid: MPdrNr8hhh5b2R
             exts: {}
             customProperties: {}
             customText: !<tag:yaml.org,2002:js/undefined> ''
@@ -2820,52 +2839,7 @@ assets:
             customSize: !<tag:yaml.org,2002:js/undefined> ''
             customWordWrap: !<tag:yaml.org,2002:js/undefined> ''
             bindings: {}
-          - x: 192
-            'y': 1408
-            opacity: 1
-            tint: 16777215
-            scale:
-              x: 1
-              'y': 1
-            rotation: 0
-            uid: zG7nGRb2Bbht5p
-            exts: {}
-            customProperties: {}
-            customText: !<tag:yaml.org,2002:js/undefined> ''
-            customSize: !<tag:yaml.org,2002:js/undefined> ''
-            customWordWrap: !<tag:yaml.org,2002:js/undefined> ''
-            bindings: {}
-          - x: 288
-            'y': 1376
-            opacity: 1
-            tint: 16777215
-            scale:
-              x: 1
-              'y': 1
-            rotation: 0
-            uid: zG7nGRb2Bbht5p
-            exts: {}
-            customProperties: {}
-            customText: !<tag:yaml.org,2002:js/undefined> ''
-            customSize: !<tag:yaml.org,2002:js/undefined> ''
-            customWordWrap: !<tag:yaml.org,2002:js/undefined> ''
-            bindings: {}
-          - x: 384
-            'y': 1408
-            opacity: 1
-            tint: 16777215
-            scale:
-              x: 1
-              'y': 1
-            rotation: 0
-            uid: zG7nGRb2Bbht5p
-            exts: {}
-            customProperties: {}
-            customText: !<tag:yaml.org,2002:js/undefined> ''
-            customSize: !<tag:yaml.org,2002:js/undefined> ''
-            customWordWrap: !<tag:yaml.org,2002:js/undefined> ''
-            bindings: {}
-          - x: 416
+          - x: 448
             'y': 1472
             opacity: 1
             tint: 16777215
@@ -2880,53 +2854,8 @@ assets:
             customSize: !<tag:yaml.org,2002:js/undefined> ''
             customWordWrap: !<tag:yaml.org,2002:js/undefined> ''
             bindings: {}
-          - x: 384
-            'y': 1536
-            opacity: 1
-            tint: 16777215
-            scale:
-              x: 1
-              'y': 1
-            rotation: 0
-            uid: zG7nGRb2Bbht5p
-            exts: {}
-            customProperties: {}
-            customText: !<tag:yaml.org,2002:js/undefined> ''
-            customSize: !<tag:yaml.org,2002:js/undefined> ''
-            customWordWrap: !<tag:yaml.org,2002:js/undefined> ''
-            bindings: {}
-          - x: 288
-            'y': 1568
-            opacity: 1
-            tint: 16777215
-            scale:
-              x: 1
-              'y': 1
-            rotation: 0
-            uid: zG7nGRb2Bbht5p
-            exts: {}
-            customProperties: {}
-            customText: !<tag:yaml.org,2002:js/undefined> ''
-            customSize: !<tag:yaml.org,2002:js/undefined> ''
-            customWordWrap: !<tag:yaml.org,2002:js/undefined> ''
-            bindings: {}
           - x: 192
-            'y': 1536
-            opacity: 1
-            tint: 16777215
-            scale:
-              x: 1
-              'y': 1
-            rotation: 0
-            uid: zG7nGRb2Bbht5p
-            exts: {}
-            customProperties: {}
-            customText: !<tag:yaml.org,2002:js/undefined> ''
-            customSize: !<tag:yaml.org,2002:js/undefined> ''
-            customWordWrap: !<tag:yaml.org,2002:js/undefined> ''
-            bindings: {}
-          - x: 160
-            'y': 1472
+            'y': 1440
             opacity: 1
             tint: 16777215
             scale:
@@ -3000,21 +2929,6 @@ assets:
             customSize: !<tag:yaml.org,2002:js/undefined> ''
             customWordWrap: !<tag:yaml.org,2002:js/undefined> ''
             bindings: {}
-          - x: 992
-            'y': 1952
-            opacity: 1
-            tint: 16777215
-            scale:
-              x: 1
-              'y': 1
-            rotation: 0
-            uid: zG7nGRb2Bbht5p
-            exts: {}
-            customProperties: {}
-            customText: !<tag:yaml.org,2002:js/undefined> ''
-            customSize: !<tag:yaml.org,2002:js/undefined> ''
-            customWordWrap: !<tag:yaml.org,2002:js/undefined> ''
-            bindings: {}
           - x: 1152
             'y': 1824
             opacity: 1
@@ -3060,8 +2974,8 @@ assets:
             customSize: !<tag:yaml.org,2002:js/undefined> ''
             customWordWrap: !<tag:yaml.org,2002:js/undefined> ''
             bindings: {}
-          - x: 608
-            'y': 1984
+          - x: 896
+            'y': 1952
             opacity: 1
             tint: 16777215
             scale:
@@ -3077,36 +2991,6 @@ assets:
             bindings: {}
           - x: 512
             'y': 2016
-            opacity: 1
-            tint: 16777215
-            scale:
-              x: 1
-              'y': 1
-            rotation: 0
-            uid: Q5Dz7qRNWK3PLm
-            exts: {}
-            customProperties: {}
-            customText: !<tag:yaml.org,2002:js/undefined> ''
-            customSize: !<tag:yaml.org,2002:js/undefined> ''
-            customWordWrap: !<tag:yaml.org,2002:js/undefined> ''
-            bindings: {}
-          - x: 800
-            'y': 1856
-            opacity: 1
-            tint: 16777215
-            scale:
-              x: 1
-              'y': 1
-            rotation: 0
-            uid: Q5Dz7qRNWK3PLm
-            exts: {}
-            customProperties: {}
-            customText: !<tag:yaml.org,2002:js/undefined> ''
-            customSize: !<tag:yaml.org,2002:js/undefined> ''
-            customWordWrap: !<tag:yaml.org,2002:js/undefined> ''
-            bindings: {}
-          - x: 608
-            'y': 1568
             opacity: 1
             tint: 16777215
             scale:
@@ -3180,36 +3064,6 @@ assets:
             customSize: !<tag:yaml.org,2002:js/undefined> ''
             customWordWrap: !<tag:yaml.org,2002:js/undefined> ''
             bindings: {}
-          - x: 1216
-            'y': 864
-            opacity: 1
-            tint: 16777215
-            scale:
-              x: 1
-              'y': 1
-            rotation: 0
-            uid: Q5Dz7qRNWK3PLm
-            exts: {}
-            customProperties: {}
-            customText: !<tag:yaml.org,2002:js/undefined> ''
-            customSize: !<tag:yaml.org,2002:js/undefined> ''
-            customWordWrap: !<tag:yaml.org,2002:js/undefined> ''
-            bindings: {}
-          - x: 384
-            'y': 736
-            opacity: 1
-            tint: 16777215
-            scale:
-              x: 1
-              'y': 1
-            rotation: 0
-            uid: Q5Dz7qRNWK3PLm
-            exts: {}
-            customProperties: {}
-            customText: !<tag:yaml.org,2002:js/undefined> ''
-            customSize: !<tag:yaml.org,2002:js/undefined> ''
-            customWordWrap: !<tag:yaml.org,2002:js/undefined> ''
-            bindings: {}
           - x: 288
             'y': 1472
             opacity: 1
@@ -3228,7 +3082,7 @@ assets:
           - x: 992
             'y': 96
             opacity: 1
-            tint: '#e66bff'
+            tint: 16777215
             scale:
               x: 1
               'y': 1
@@ -3240,8 +3094,8 @@ assets:
             customSize: !<tag:yaml.org,2002:js/undefined> ''
             customWordWrap: !<tag:yaml.org,2002:js/undefined> ''
             bindings: {}
-          - x: 576
-            'y': 1200
+          - x: 544
+            'y': 1136
             opacity: 1
             tint: 16777215
             scale:
@@ -23633,7 +23487,7 @@ assets:
             hidden: false
             cache: true
         extends: {}
-        lastmod: 1775589292932
+        lastmod: 1775592384473
         events:
           - eventKey: OnRoomStart
             code: |-
@@ -23641,32 +23495,30 @@ assets:
                   isUI: true
               });
 
-              if (!window.scoreP1) {let scoreP1 = 0;}
-              if (!window.scoreP2) {let scoreP2 = 0;}
+              // Fixed the variable scoping! 
+              if (!window.scoreP1) { window.scoreP1 = 0; }
+              if (!window.scoreP2) { window.scoreP2 = 0; }
 
-              camera.borderX = 200;
-              camera.borderY = 200;
-
-              camera.minX = -Infinity;
-              camera.minY = 0;
-
-              camera.maxX = Infinity;
-              camera.maxY = 2112; // I numeri magici di Gini l'ebreo
-
-              camera.drift = 0.9;
-              sounds.play('moseni', {
-                  loop: true,
-              }); 
-
-              sounds.play('Ambience', {
-                  loop: true,
-              });
+              sounds.play('moseni', { loop: true }); 
+              sounds.play('Ambience', { loop: true });
 
               sounds.volume('moseni', 1);
               sounds.volume('Ambience', 0.3);
 
-              this.cx = camera.width
-              this.cy = camera.height
+              // ... keep your UI and Sound code ...
+
+              // IMPORTANT: Tell the camera NOT to follow any specific object 
+              // so our manual Frame End code can take control.
+              camera.follow = null; 
+
+              // Boundaries for a vertical level
+              camera.minX = 0;
+              camera.maxX = 1920; // Set this to your room width
+              camera.minY = 0;
+              camera.maxY = 2112; // Your "Magic Number" for the level bottom
+
+              this.cx = camera.width;
+              this.cy = camera.height;
             arguments: {}
             lib: core
           - eventKey: OnRoomEnd
@@ -23684,22 +23536,30 @@ assets:
             code: |-
               let g1 = templates.list["Giocatore1"][0];
               let g2 = templates.list["Giocatore2"][0];
-              let margin = 200;
 
-              // 1. Smooth Position
-              camera.x = u.lerp(camera.x, (g1.x + g2.x) / 2, 0.1);
-              camera.y = u.lerp(camera.y, (g1.y + g2.y) / 2, 0.1);
+              if (g1 && g2) {
+                  let margin = 300; // Increase this to keep players further from the screen edges
 
-              // 2. Calculate Target Scale (with a minimum of 1.0)
-              let targetScale = Math.max(
-                  1.0, 
-                  Math.abs(g1.x - g2.x) / (this.cx - margin),
-                  Math.abs(g1.y - g2.y) / (this.cy - margin)
-              );
+                  // 1. Calculate Midpoint
+                  let targetX = (g1.x + g2.x) / 2;
+                  let targetY = (g1.y + g2.y) / 2;
 
-              // 3. Smooth Scale (Prevents the "shake")
-              camera.scale.x = u.lerp(camera.scale.x, targetScale, 0.05);
-              camera.scale.y = u.lerp(camera.scale.y, targetScale, 0.05);
+                  // 2. Calculate Scale (Zoom)
+                  // We check both horizontal and vertical distance. 
+                  // The camera will zoom out based on whichever distance is "tighter".
+                  let zoomX = Math.abs(g1.x - g2.x) / (this.cx - margin);
+                  let zoomY = Math.abs(g1.y - g2.y) / (this.cy - margin);
+                  
+                  // Choose the largest zoom needed, but never zoom in closer than 1.0
+                  let targetScale = Math.max(1.0, zoomX, zoomY);
+
+                  // 3. Apply Smoothly
+                  camera.x = u.lerp(camera.x, targetX, 0.1);
+                  camera.y = u.lerp(camera.y, targetY, 0.1);
+                  
+                  camera.scale.x = u.lerp(camera.scale.x, targetScale, 0.05);
+                  camera.scale.y = u.lerp(camera.scale.y, targetScale, 0.05);
+              }
             arguments: {}
             lib: core
         behaviors: []
@@ -23729,21 +23589,6 @@ assets:
         follow: -1
         backgrounds: []
         copies:
-          - x: 592
-            'y': 656
-            opacity: 1
-            tint: 16777215
-            scale:
-              x: 2
-              'y': 1
-            rotation: 0
-            uid: GTztBzH7cdTRQ5
-            exts: {}
-            customProperties: {}
-            customText: !<tag:yaml.org,2002:js/undefined> ''
-            customSize: !<tag:yaml.org,2002:js/undefined> ''
-            customWordWrap: !<tag:yaml.org,2002:js/undefined> ''
-            bindings: {}
           - x: 16
             'y': 672
             opacity: 1
@@ -23795,9 +23640,39 @@ assets:
             customAnchor:
               x: 0.5
               'y': 0.5
+          - x: 1088
+            'y': 672
+            opacity: 1
+            tint: 16777215
+            scale:
+              x: 1
+              'y': 1
+            rotation: 0
+            uid: f3M4kKqQ3njTfw
+            exts: {}
+            customProperties: {}
+            customText: !<tag:yaml.org,2002:js/undefined> ''
+            customSize: !<tag:yaml.org,2002:js/undefined> ''
+            customWordWrap: !<tag:yaml.org,2002:js/undefined> ''
+            bindings: {}
+          - x: 592
+            'y': 16
+            opacity: 1
+            tint: 16777215
+            scale:
+              x: 2
+              'y': 1
+            rotation: 0
+            uid: GTztBzH7cdTRQ5
+            exts: {}
+            customProperties: {}
+            customText: !<tag:yaml.org,2002:js/undefined> ''
+            customSize: !<tag:yaml.org,2002:js/undefined> ''
+            customWordWrap: !<tag:yaml.org,2002:js/undefined> ''
+            bindings: {}
         tiles: []
         extends: {}
-        lastmod: 1775580902989
+        lastmod: 1775592265250
         events:
           - eventKey: OnRoomStart
             code: |-
@@ -23975,7 +23850,7 @@ assets:
             repeat: repeat
         copies:
           - x: 256
-            'y': 384
+            'y': 480
             opacity: 1
             tint: 16777215
             scale:
@@ -23986,14 +23861,14 @@ assets:
             exts: {}
             customProperties: {}
             customText: !<tag:yaml.org,2002:js/undefined> ''
-            customSize: !<tag:yaml.org,2002:js/undefined> ''
+            customSize: '24'
             customWordWrap: !<tag:yaml.org,2002:js/undefined> ''
             bindings: {}
             customAnchor:
               x: 0.5
               'y': 0.5
           - x: 1024
-            'y': 384
+            'y': 480
             opacity: 1
             tint: 16777215
             scale:
@@ -24004,7 +23879,7 @@ assets:
             exts: {}
             customProperties: {}
             customText: !<tag:yaml.org,2002:js/undefined> ''
-            customSize: !<tag:yaml.org,2002:js/undefined> ''
+            customSize: '24'
             customWordWrap: !<tag:yaml.org,2002:js/undefined> ''
             bindings: {}
             customAnchor:
@@ -24086,7 +23961,7 @@ assets:
             hidden: false
             cache: true
         extends: {}
-        lastmod: 1775589685841
+        lastmod: 1775590797531
         events:
           - eventKey: OnRoomStart
             code: 'console.log(rooms.list[''livello'']);'
@@ -24114,7 +23989,7 @@ settings:
   rendering:
     usePixiLegacy: true
     transparent: false
-    maxFPS: 30
+    maxFPS: 120
     pixelatedrender: true
     highDensity: true
     desktopMode: maximized
