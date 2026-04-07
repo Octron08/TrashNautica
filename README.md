@@ -8,3 +8,4 @@ Lista di cose che mancano da fare:
 - [ ] Transizioni tra schermi
 - [ ] Animazioni
 - [ ] Spriting
+- [ ] Suoni e bgm
