@@ -87,12 +87,12 @@ assets:
                       //direzione del personaggio
                       this.scale.y = actions.P1MoveY.value>=0 ? this.defaultScale.y : -this.defaultScale.y
                       this.scale.x = actions.P1MoveX.value>0 ? -this.defaultScale.x : this.defaultScale.x
-                      if (this.scale.y>0) {
+                      if (this.scale.y > 0) {
                           this.rotation = 0
                       }
                       else {
                           this.scale.x *= -1
-                          this.rotation = this.scale.x<0 ? -45 : 45
+                          this.rotation = this.scale.x < 0 ? -45 : 45
                       }
 
                       if (this.hasCollidedWithEnemy) {
@@ -167,7 +167,7 @@ assets:
                   camera.followX = false;
                   camera.follow = this;
 
-                  this.animationSpeed = 0.12
+                  this.animationSpeed = 0.24
                   this.defaultScale = {
                       x: this.scale.x,
                       y: this.scale.y
@@ -190,7 +190,7 @@ assets:
               cgroup: Giocatore
               'editor:myCollidingCGroups':
                 - Terreno
-            lastmod: 1775560789804
+            lastmod: 1775561297356
             uid: DL9BczP5Cd4RMz
             behaviors: []
             extendTypes: ''
@@ -642,7 +642,7 @@ assets:
             padding: 1
             isBlank: false
             source: 'C:\Users\nekosnugz\Downloads\sprite_sheet2_64x64.png'
-          - lastmod: 1775560896129
+          - lastmod: 1775561183526
             type: texture
             name: Giocatore
             untill: 4
@@ -759,13 +759,15 @@ assets:
             events:
               - eventKey: OnPointerClick
                 code: |-
-                  rooms.switch("livello");
-                  rooms.remove(rooms.list["Titolo"][0]);
+
+                  transition.circleOut(2000, 0).then(() => {
+                      rooms.switch("livello");
+                  });
                 arguments: {}
                 lib: core
             extends:
               cgroup: ''
-            lastmod: 1774856327612
+            lastmod: 1775562252827
             uid: 81gL4p22k1BDzg
             behaviors: []
             extendTypes: ''
@@ -1045,27 +1047,10 @@ assets:
             uid: zG7nGRb2Bbht5p
             behaviors: []
             extendTypes: ''
-      - type: template
-        baseClass: AnimatedSprite
-        name: ZonaPunti
-        depth: 0
-        texture: qgD6mbDcPwF8GM
-        playAnimationOnStart: false
-        loopAnimation: true
-        animationFPS: 30
-        visible: true
-        events: []
-        extends:
-          cgroup: ''
-          'editor:myCollidingCGroups': []
-        lastmod: 1775405567666
-        uid: w2cpWbbRcqhr4F
-        behaviors: []
-        extendTypes: ''
       - type: folder
         uid: Lh8B9t57wNN6Qf
-        colorClass: act
-        icon: help-circle
+        colorClass: warning
+        icon: font
         name: Testo
         lastmod: 1774855543129
         entries:
@@ -1172,6 +1157,30 @@ assets:
             extendTypes: ''
             defaultText: 'Giocatore 2: 0 punti'
             textStyle: CmM2gPcw8mNdTQ
+      - type: folder
+        uid: 4Dj8ngmwDRLcTz
+        colorClass: act
+        icon: help-circle
+        name: Altro
+        lastmod: 1775562868717
+        entries:
+          - type: template
+            baseClass: AnimatedSprite
+            name: ZonaPunti
+            depth: 0
+            texture: qgD6mbDcPwF8GM
+            playAnimationOnStart: false
+            loopAnimation: true
+            animationFPS: 30
+            visible: true
+            events: []
+            extends:
+              cgroup: ''
+              'editor:myCollidingCGroups': []
+            lastmod: 1775405567666
+            uid: w2cpWbbRcqhr4F
+            behaviors: []
+            extendTypes: ''
   - type: folder
     uid: b9RMdjDDgP9Hg8
     colorClass: warning
@@ -1247,21 +1256,6 @@ assets:
             customSize: !<tag:yaml.org,2002:js/undefined> ''
             customWordWrap: !<tag:yaml.org,2002:js/undefined> ''
             bindings: {}
-          - x: -128
-            'y': 720
-            opacity: 1
-            tint: 16777215
-            scale:
-              x: 1
-              'y': 1
-            rotation: 0
-            uid: F5fWzk4DBQT5Cd
-            exts: &ref_0 {}
-            customProperties: {}
-            customText: !<tag:yaml.org,2002:js/undefined> ''
-            customSize: !<tag:yaml.org,2002:js/undefined> ''
-            customWordWrap: !<tag:yaml.org,2002:js/undefined> ''
-            bindings: {}
           - x: -96
             'y': 720
             opacity: 1
@@ -1271,7 +1265,7 @@ assets:
               'y': 1
             rotation: 0
             uid: F5fWzk4DBQT5Cd
-            exts: *ref_0
+            exts: &ref_0 {}
             customProperties: {}
             customText: !<tag:yaml.org,2002:js/undefined> ''
             customSize: !<tag:yaml.org,2002:js/undefined> ''
@@ -1818,7 +1812,7 @@ assets:
             customWordWrap: !<tag:yaml.org,2002:js/undefined> ''
             bindings: {}
         tiles:
-          - depth: 5
+          - depth: -1
             tiles:
               - x: -128
                 'y': -96
@@ -9570,17 +9564,7 @@ assets:
                 frame: 6
                 rotation: 0
                 texture: c8671kJP2h1d83
-              - x: 1216
-                'y': 768
-                opacity: 1
-                tint: 16777215
-                scale:
-                  x: 1
-                  'y': 1
-                frame: 1
-                rotation: 0
-                texture: c8671kJP2h1d83
-              - x: 1280
+              - x: 1248
                 'y': 768
                 opacity: 1
                 tint: 16777215
@@ -9790,7 +9774,7 @@ assets:
                 frame: 7
                 rotation: 0
                 texture: c8671kJP2h1d83
-              - x: 1248
+              - x: 1216
                 'y': 800
                 opacity: 1
                 tint: 16777215
@@ -9970,7 +9954,7 @@ assets:
                 frame: 7
                 rotation: 0
                 texture: c8671kJP2h1d83
-              - x: 1280
+              - x: 1248
                 'y': 832
                 opacity: 1
                 tint: 16777215
@@ -10100,7 +10084,7 @@ assets:
                 frame: 3
                 rotation: 0
                 texture: c8671kJP2h1d83
-              - x: 1280
+              - x: 1248
                 'y': 864
                 opacity: 1
                 tint: 16777215
@@ -10220,7 +10204,7 @@ assets:
                 frame: 7
                 rotation: 0
                 texture: c8671kJP2h1d83
-              - x: 1280
+              - x: 1248
                 'y': 896
                 opacity: 1
                 tint: 16777215
@@ -10330,7 +10314,7 @@ assets:
                 frame: 7
                 rotation: 0
                 texture: c8671kJP2h1d83
-              - x: 1280
+              - x: 1248
                 'y': 928
                 opacity: 1
                 tint: 16777215
@@ -10440,7 +10424,7 @@ assets:
                 frame: 3
                 rotation: 0
                 texture: c8671kJP2h1d83
-              - x: 1280
+              - x: 1248
                 'y': 960
                 opacity: 1
                 tint: 16777215
@@ -10550,7 +10534,7 @@ assets:
                 frame: 3
                 rotation: 0
                 texture: c8671kJP2h1d83
-              - x: 1280
+              - x: 1248
                 'y': 992
                 opacity: 1
                 tint: 16777215
@@ -10660,7 +10644,7 @@ assets:
                 frame: 4
                 rotation: 0
                 texture: c8671kJP2h1d83
-              - x: 1280
+              - x: 1248
                 'y': 1024
                 opacity: 1
                 tint: 16777215
@@ -10780,7 +10764,7 @@ assets:
                 frame: 3
                 rotation: 0
                 texture: c8671kJP2h1d83
-              - x: 1280
+              - x: 1248
                 'y': 1056
                 opacity: 1
                 tint: 16777215
@@ -11170,7 +11154,7 @@ assets:
                 frame: 4
                 rotation: 0
                 texture: c8671kJP2h1d83
-              - x: 1280
+              - x: 1248
                 'y': 1120
                 opacity: 1
                 tint: 16777215
@@ -12130,7 +12114,7 @@ assets:
                 frame: 8
                 rotation: 0
                 texture: c8671kJP2h1d83
-              - x: -32
+              - x: 0
                 'y': 1248
                 opacity: 1
                 tint: 16777215
@@ -12138,16 +12122,6 @@ assets:
                   x: 1
                   'y': 1
                 frame: 8
-                rotation: 0
-                texture: c8671kJP2h1d83
-              - x: 32
-                'y': 1248
-                opacity: 1
-                tint: 16777215
-                scale:
-                  x: 1
-                  'y': 1
-                frame: 1
                 rotation: 0
                 texture: c8671kJP2h1d83
               - x: 64
@@ -12430,7 +12404,7 @@ assets:
                 frame: 8
                 rotation: 0
                 texture: c8671kJP2h1d83
-              - x: 0
+              - x: 32
                 'y': 1280
                 opacity: 1
                 tint: 16777215
@@ -12740,7 +12714,7 @@ assets:
                 frame: 8
                 rotation: 0
                 texture: c8671kJP2h1d83
-              - x: -32
+              - x: 0
                 'y': 1312
                 opacity: 1
                 tint: 16777215
@@ -13020,7 +12994,7 @@ assets:
                 frame: 8
                 rotation: 0
                 texture: c8671kJP2h1d83
-              - x: -32
+              - x: 0
                 'y': 1344
                 opacity: 1
                 tint: 16777215
@@ -13280,7 +13254,7 @@ assets:
                 frame: 8
                 rotation: 0
                 texture: c8671kJP2h1d83
-              - x: -32
+              - x: 0
                 'y': 1376
                 opacity: 1
                 tint: 16777215
@@ -13510,7 +13484,7 @@ assets:
                 frame: 8
                 rotation: 0
                 texture: c8671kJP2h1d83
-              - x: -32
+              - x: 0
                 'y': 1408
                 opacity: 1
                 tint: 16777215
@@ -13730,7 +13704,7 @@ assets:
                 frame: 8
                 rotation: 0
                 texture: c8671kJP2h1d83
-              - x: -32
+              - x: 0
                 'y': 1440
                 opacity: 1
                 tint: 16777215
@@ -13938,16 +13912,6 @@ assets:
                   x: 1
                   'y': 1
                 frame: 8
-                rotation: 0
-                texture: c8671kJP2h1d83
-              - x: 0
-                'y': 1472
-                opacity: 1
-                tint: 16777215
-                scale:
-                  x: 1
-                  'y': 1
-                frame: 0
                 rotation: 0
                 texture: c8671kJP2h1d83
               - x: 32
@@ -16928,16 +16892,6 @@ assets:
                   x: 1
                   'y': 1
                 frame: 3
-                rotation: 0
-                texture: c8671kJP2h1d83
-              - x: 416
-                'y': 1856
-                opacity: 1
-                tint: 16777215
-                scale:
-                  x: 1
-                  'y': 1
-                frame: 8
                 rotation: 0
                 texture: c8671kJP2h1d83
               - x: 448
@@ -20560,7 +20514,7 @@ assets:
                 frame: 2
                 rotation: 0
                 texture: Nf5gWphgd3C6RB
-              - x: 1280
+              - x: 1248
                 'y': 1088
                 opacity: 1
                 tint: 16777215
@@ -20590,7 +20544,7 @@ assets:
                 frame: 1
                 rotation: 0
                 texture: Nf5gWphgd3C6RB
-              - x: 1248
+              - x: 1216
                 'y': 768
                 opacity: 1
                 tint: 16777215
@@ -20600,7 +20554,7 @@ assets:
                 frame: 1
                 rotation: 0
                 texture: Nf5gWphgd3C6RB
-              - x: 1280
+              - x: 1248
                 'y': 800
                 opacity: 1
                 tint: 16777215
@@ -20990,7 +20944,7 @@ assets:
                 frame: 0
                 rotation: 0
                 texture: Nf5gWphgd3C6RB
-              - x: -32
+              - x: 0
                 'y': 1280
                 opacity: 1
                 tint: 16777215
@@ -21000,7 +20954,7 @@ assets:
                 frame: 0
                 rotation: 0
                 texture: Nf5gWphgd3C6RB
-              - x: 0
+              - x: 32
                 'y': 1248
                 opacity: 1
                 tint: 16777215
@@ -21110,7 +21064,7 @@ assets:
                 frame: 3
                 rotation: 0
                 texture: Nf5gWphgd3C6RB
-              - x: -32
+              - x: 0
                 'y': 1472
                 opacity: 1
                 tint: 16777215
@@ -21511,26 +21465,6 @@ assets:
                 rotation: 0
                 texture: p5K3dzGWqfhcHT
               - x: 1216
-                'y': 1120
-                opacity: 1
-                tint: 16777215
-                scale:
-                  x: 1
-                  'y': 1
-                frame: 5
-                rotation: 0
-                texture: c8671kJP2h1d83
-              - x: 1248
-                'y': 1120
-                opacity: 1
-                tint: 16777215
-                scale:
-                  x: 1
-                  'y': 1
-                frame: 2
-                rotation: 0
-                texture: Nf5gWphgd3C6RB
-              - x: 1248
                 'y': 1088
                 opacity: 1
                 tint: 16777215
@@ -21580,12 +21514,232 @@ assets:
                 frame: 1
                 rotation: 0
                 texture: Nf5gWphgd3C6RB
+              - x: 416
+                'y': 1856
+                opacity: 1
+                tint: 16777215
+                scale:
+                  x: 1
+                  'y': 1
+                frame: 1
+                rotation: 0
+                texture: Nf5gWphgd3C6RB
+              - x: 1216
+                'y': 1120
+                opacity: 1
+                tint: 16777215
+                scale:
+                  x: 1
+                  'y': 1
+                frame: 4
+                rotation: 0
+                texture: p5K3dzGWqfhcHT
+              - x: 1280
+                'y': 768
+                opacity: 1
+                tint: 16777215
+                scale:
+                  x: 1
+                  'y': 1
+                frame: 14
+                rotation: 0
+                texture: p5K3dzGWqfhcHT
+              - x: 1280
+                'y': 800
+                opacity: 1
+                tint: 16777215
+                scale:
+                  x: 1
+                  'y': 1
+                frame: 14
+                rotation: 0
+                texture: p5K3dzGWqfhcHT
+              - x: 1280
+                'y': 832
+                opacity: 1
+                tint: 16777215
+                scale:
+                  x: 1
+                  'y': 1
+                frame: 14
+                rotation: 0
+                texture: p5K3dzGWqfhcHT
+              - x: 1280
+                'y': 864
+                opacity: 1
+                tint: 16777215
+                scale:
+                  x: 1
+                  'y': 1
+                frame: 14
+                rotation: 0
+                texture: p5K3dzGWqfhcHT
+              - x: 1280
+                'y': 896
+                opacity: 1
+                tint: 16777215
+                scale:
+                  x: 1
+                  'y': 1
+                frame: 14
+                rotation: 0
+                texture: p5K3dzGWqfhcHT
+              - x: 1280
+                'y': 928
+                opacity: 1
+                tint: 16777215
+                scale:
+                  x: 1
+                  'y': 1
+                frame: 14
+                rotation: 0
+                texture: p5K3dzGWqfhcHT
+              - x: 1280
+                'y': 960
+                opacity: 1
+                tint: 16777215
+                scale:
+                  x: 1
+                  'y': 1
+                frame: 14
+                rotation: 0
+                texture: p5K3dzGWqfhcHT
+              - x: 1280
+                'y': 992
+                opacity: 1
+                tint: 16777215
+                scale:
+                  x: 1
+                  'y': 1
+                frame: 14
+                rotation: 0
+                texture: p5K3dzGWqfhcHT
+              - x: 1280
+                'y': 1024
+                opacity: 1
+                tint: 16777215
+                scale:
+                  x: 1
+                  'y': 1
+                frame: 14
+                rotation: 0
+                texture: p5K3dzGWqfhcHT
+              - x: 1280
+                'y': 1056
+                opacity: 1
+                tint: 16777215
+                scale:
+                  x: 1
+                  'y': 1
+                frame: 14
+                rotation: 0
+                texture: p5K3dzGWqfhcHT
+              - x: 1280
+                'y': 1088
+                opacity: 1
+                tint: 16777215
+                scale:
+                  x: 1
+                  'y': 1
+                frame: 14
+                rotation: 0
+                texture: p5K3dzGWqfhcHT
+              - x: 1280
+                'y': 1120
+                opacity: 1
+                tint: 16777215
+                scale:
+                  x: 1
+                  'y': 1
+                frame: 14
+                rotation: 0
+                texture: p5K3dzGWqfhcHT
+              - x: -32
+                'y': 1248
+                opacity: 1
+                tint: 16777215
+                scale:
+                  x: 1
+                  'y': 1
+                frame: 8
+                rotation: 0
+                texture: c8671kJP2h1d83
+              - x: -32
+                'y': 1280
+                opacity: 1
+                tint: 16777215
+                scale:
+                  x: 1
+                  'y': 1
+                frame: 8
+                rotation: 0
+                texture: c8671kJP2h1d83
+              - x: -32
+                'y': 1312
+                opacity: 1
+                tint: 16777215
+                scale:
+                  x: 1
+                  'y': 1
+                frame: 8
+                rotation: 0
+                texture: c8671kJP2h1d83
+              - x: -32
+                'y': 1344
+                opacity: 1
+                tint: 16777215
+                scale:
+                  x: 1
+                  'y': 1
+                frame: 8
+                rotation: 0
+                texture: c8671kJP2h1d83
+              - x: -32
+                'y': 1376
+                opacity: 1
+                tint: 16777215
+                scale:
+                  x: 1
+                  'y': 1
+                frame: 8
+                rotation: 0
+                texture: c8671kJP2h1d83
+              - x: -32
+                'y': 1408
+                opacity: 1
+                tint: 16777215
+                scale:
+                  x: 1
+                  'y': 1
+                frame: 8
+                rotation: 0
+                texture: c8671kJP2h1d83
+              - x: -32
+                'y': 1440
+                opacity: 1
+                tint: 16777215
+                scale:
+                  x: 1
+                  'y': 1
+                frame: 8
+                rotation: 0
+                texture: c8671kJP2h1d83
+              - x: -32
+                'y': 1472
+                opacity: 1
+                tint: 16777215
+                scale:
+                  x: 1
+                  'y': 1
+                frame: 8
+                rotation: 0
+                texture: c8671kJP2h1d83
             extends:
               cgroup: Terreno
             hidden: false
             cache: true
         extends: {}
-        lastmod: 1775560584572
+        lastmod: 1775563234559
         events:
           - eventKey: OnRoomStart
             code: |-
@@ -21609,7 +21763,7 @@ assets:
         behaviors: []
         extendTypes: ''
         uid: qHGRDbKPggp36C
-        lastPickedTileset: Nf5gWphgd3C6RB
+        lastPickedTileset: p5K3dzGWqfhcHT
       - type: room
         oncreate: ''
         onstep: ''
@@ -21634,7 +21788,7 @@ assets:
         backgrounds: []
         copies:
           - x: 592
-            'y': 0
+            'y': 656
             opacity: 1
             tint: 16777215
             scale:
@@ -21648,8 +21802,8 @@ assets:
             customSize: !<tag:yaml.org,2002:js/undefined> ''
             customWordWrap: !<tag:yaml.org,2002:js/undefined> ''
             bindings: {}
-          - x: 32
-            'y': 16
+          - x: 16
+            'y': 672
             opacity: 1
             tint: 16777215
             scale:
@@ -21663,8 +21817,8 @@ assets:
             customSize: !<tag:yaml.org,2002:js/undefined> ''
             customWordWrap: !<tag:yaml.org,2002:js/undefined> ''
             bindings: {}
-          - x: 602
-            'y': 50
+          - x: 10
+            'y': 18
             opacity: 1
             tint: 16777215
             scale:
@@ -21674,22 +21828,25 @@ assets:
             uid: r6g7J6J9TntC1H
             exts: {}
             customProperties: {}
-            customText: !<tag:yaml.org,2002:js/undefined> ''
+            customText: 'Tempo: 0s'
             customSize: !<tag:yaml.org,2002:js/undefined> ''
             customWordWrap: !<tag:yaml.org,2002:js/undefined> ''
             bindings: {}
+            customAnchor:
+              x: 0
+              'y': 0
         tiles: []
         extends: {}
-        lastmod: 1775407243736
+        lastmod: 1775562832073
         events:
           - eventKey: OnRoomStart
-            code: |+
-              countDown = 60; 
+            code: |-
+              countDown = 60; // In secondi 
 
               this.isOver = false;
 
-              this.text = Math.ceil(countDown).toString();
 
+              this.text = "Tempo: " + Math.ceil(countDown).toString() + 's';
             arguments: {}
             lib: core
           - eventKey: OnDraw
