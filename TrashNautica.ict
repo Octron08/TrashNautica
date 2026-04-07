@@ -356,6 +356,27 @@ assets:
             uid: k4T35dNQG6RP66
             behaviors: []
             extendTypes: ''
+          - type: template
+            baseClass: AnimatedSprite
+            name: ghost
+            depth: 0
+            texture: -1
+            playAnimationOnStart: false
+            loopAnimation: true
+            animationFPS: 30
+            visible: true
+            events:
+              - eventKey: OnStep
+                lib: core
+                code: this.move();
+                arguments: {}
+            extends:
+              cgroup: ''
+              'editor:myCollidingCGroups': []
+            lastmod: 1775595016771
+            uid: mPcNJBzgjFGFDC
+            behaviors: []
+            extendTypes: ''
       - type: folder
         uid: hR93C6WL57hJ48
         colorClass: warning
@@ -781,7 +802,7 @@ assets:
             isBlank: false
             source: 'C:\Users\nekosnugz\Downloads\sprite_sheet_1_256x64.png'
             r: 20
-          - lastmod: 1775568156144
+          - lastmod: 1775593298464
             type: texture
             name: document_5.webp
             untill: 0
@@ -808,7 +829,7 @@ assets:
             uid: bgDnrg3R9qgFjG
             padding: 1
             isBlank: false
-            source: 'C:\Users\nekosnugz\Downloads\document_5.webp'
+            source: 'C:\Users\nekosnugz\Pictures\document_5.PNG'
           - lastmod: 1775568179277
             type: texture
             name: document_0.webp
@@ -1082,7 +1103,7 @@ assets:
               - eventKey: OnPointerClick
                 code: |-
                   sounds.play('Start');
-                  transition.circleOut(500, 0).then(() => {
+                  transition.fadeOut(500, 0).then(() => {
                       rooms.switch("livello");
                   });
                 arguments: {}
@@ -1090,7 +1111,7 @@ assets:
             extends:
               cgroup: ''
               'editor:myCollidingCGroups': []
-            lastmod: 1775583901045
+            lastmod: 1775593740646
             uid: 81gL4p22k1BDzg
             behaviors: []
             extendTypes: ''
@@ -1121,7 +1142,7 @@ assets:
                   sounds.play('Start');
                   sounds.stop('moseni');
                   sounds.stop('Ambience');
-                  transition.fadeIn(1000, 0).then(() => {
+                  transition.fadeOut(1000, 0).then(() => {
                       rooms.switch('Titolo');
                   });
                 arguments: {}
@@ -1129,7 +1150,7 @@ assets:
             extends:
               cgroup: ''
               'editor:myCollidingCGroups': []
-            lastmod: 1775583891724
+            lastmod: 1775593714734
             uid: pCbH9hHM8hTn3n
             behaviors: []
             extendTypes: ''
@@ -1671,6 +1692,58 @@ assets:
               color2: '#ffffff'
               gradtype: 1
             lastmod: 1775579366679
+          - type: template
+            baseClass: Text
+            name: StatoG1
+            depth: 0
+            texture: -1
+            playAnimationOnStart: false
+            loopAnimation: true
+            animationFPS: 30
+            visible: true
+            events:
+              - eventKey: OnCreate
+                code: |-
+                  if (score[0] > score[1]) this.text = "Vittoria!";
+                  else if (score[0] < score[1]) this.text = "Sconfitta..."
+                  else this.text = "Pareggio";
+                arguments: {}
+                lib: core
+            extends:
+              cgroup: ''
+              'editor:myCollidingCGroups': []
+            lastmod: 1775592869472
+            uid: 9dLktBtLF67T44
+            behaviors: []
+            extendTypes: ''
+            defaultText: LOL
+            textStyle: CmM2gPcw8mNdTQ
+          - type: template
+            baseClass: Text
+            name: StatoG2
+            depth: 0
+            texture: -1
+            playAnimationOnStart: false
+            loopAnimation: true
+            animationFPS: 30
+            visible: true
+            events:
+              - eventKey: OnStep
+                lib: core
+                code: |-
+                  if (score[0] < score[1]) this.text = "Vittoria!";
+                  else if (score[0] > score[1]) this.text = "Sconfitta..."
+                  else this.text = "Pareggio";
+                arguments: {}
+            extends:
+              cgroup: ''
+              'editor:myCollidingCGroups': []
+            lastmod: 1775592874377
+            uid: PKhh5PcHCpjJz7
+            behaviors: []
+            extendTypes: ''
+            defaultText: LOL
+            textStyle: CmM2gPcw8mNdTQ
       - type: folder
         uid: 4Dj8ngmwDRLcTz
         colorClass: act
@@ -3224,6 +3297,21 @@ assets:
             rotation: 0
             uid: F5fWzk4DBQT5Cd
             exts: *ref_5
+            customProperties: {}
+            customText: !<tag:yaml.org,2002:js/undefined> ''
+            customSize: !<tag:yaml.org,2002:js/undefined> ''
+            customWordWrap: !<tag:yaml.org,2002:js/undefined> ''
+            bindings: {}
+          - x: 640
+            'y': 384
+            opacity: 1
+            tint: 16777215
+            scale:
+              x: 1
+              'y': 1
+            rotation: 0
+            uid: mPcNJBzgjFGFDC
+            exts: {}
             customProperties: {}
             customText: !<tag:yaml.org,2002:js/undefined> ''
             customSize: !<tag:yaml.org,2002:js/undefined> ''
@@ -23487,38 +23575,33 @@ assets:
             hidden: false
             cache: true
         extends: {}
-        lastmod: 1775592384473
+        lastmod: 1775595272169
         events:
           - eventKey: OnRoomStart
             code: |-
               rooms.append('UI', {
-                  isUI: true
+              isUI: true
               });
-
-              // Fixed the variable scoping! 
               if (!window.scoreP1) { window.scoreP1 = 0; }
               if (!window.scoreP2) { window.scoreP2 = 0; }
 
-              sounds.play('moseni', { loop: true }); 
+              sounds.play('moseni', { loop: true });
               sounds.play('Ambience', { loop: true });
 
-              sounds.volume('moseni', 1);
+              sounds.volume('moseni', 0.7);
               sounds.volume('Ambience', 0.3);
 
-              // ... keep your UI and Sound code ...
-
-              // IMPORTANT: Tell the camera NOT to follow any specific object 
-              // so our manual Frame End code can take control.
-              camera.follow = null; 
-
-              // Boundaries for a vertical level
-              camera.minX = 0;
-              camera.maxX = 1920; // Set this to your room width
+              camera.follow = null;
+              camera.minX = -Infinity;
+              camera.maxX = +Infinity;
               camera.minY = 0;
-              camera.maxY = 2112; // Your "Magic Number" for the level bottom
+              camera.maxY = +Infinity;
 
               this.cx = camera.width;
               this.cy = camera.height;
+
+              camera.followX = false
+              camera.follow = templates.list["ghost"][0]
             arguments: {}
             lib: core
           - eventKey: OnRoomEnd
@@ -23529,37 +23612,32 @@ assets:
               score[0] = window.scoreP1;
               score[1] = window.scoreP2;
 
-              sounds.togglePauseAll();
+              sounds.stop('Ambience');
+              sounds.stop('moseni');
             arguments: {}
             lib: core
           - eventKey: OnDraw
             code: |-
               let g1 = templates.list["Giocatore1"][0];
               let g2 = templates.list["Giocatore2"][0];
+              let margin = 200;
 
-              if (g1 && g2) {
-                  let margin = 300; // Increase this to keep players further from the screen edges
+              let targetX = (g1.x + g2.x) / 2;
+              let targetY = (g1.y + g2.y) / 2;
 
-                  // 1. Calculate Midpoint
-                  let targetX = (g1.x + g2.x) / 2;
-                  let targetY = (g1.y + g2.y) / 2;
+              let zoomX = Math.abs(g1.x - g2.x) / (this.cx - margin);
+              let zoomY = Math.abs(g1.y - g2.y) / (this.cy - margin);
 
-                  // 2. Calculate Scale (Zoom)
-                  // We check both horizontal and vertical distance. 
-                  // The camera will zoom out based on whichever distance is "tighter".
-                  let zoomX = Math.abs(g1.x - g2.x) / (this.cx - margin);
-                  let zoomY = Math.abs(g1.y - g2.y) / (this.cy - margin);
-                  
-                  // Choose the largest zoom needed, but never zoom in closer than 1.0
-                  let targetScale = Math.max(1.0, zoomX, zoomY);
+              let targetScale = Math.max(1.0, zoomX, zoomY);
 
-                  // 3. Apply Smoothly
-                  camera.x = u.lerp(camera.x, targetX, 0.1);
-                  camera.y = u.lerp(camera.y, targetY, 0.1);
-                  
-                  camera.scale.x = u.lerp(camera.scale.x, targetScale, 0.05);
-                  camera.scale.y = u.lerp(camera.scale.y, targetScale, 0.05);
-              }
+              camera.x = u.lerp(camera.x, targetX, 0.2);
+              camera.y = u.lerp(camera.y, targetY, 0.2);
+              camera.scale.x = u.lerp(camera.scale.x, targetScale, 0.2);
+              camera.scale.y = u.lerp(camera.scale.y, targetScale, 0.2);
+
+              let ghost = templates.list["ghost"][0]
+              ghost.x = targetX
+              ghost.y = targetY
             arguments: {}
             lib: core
         behaviors: []
@@ -23904,7 +23982,7 @@ assets:
               x: 0.5
               'y': 0.5
           - x: 480
-            'y': 448
+            'y': 480
             opacity: 1
             tint: 16777215
             scale:
@@ -23919,7 +23997,7 @@ assets:
             customWordWrap: !<tag:yaml.org,2002:js/undefined> ''
             bindings: {}
           - x: 544
-            'y': 352
+            'y': 384
             opacity: 1
             tint: 16777215
             scale:
@@ -23933,6 +24011,42 @@ assets:
             customSize: !<tag:yaml.org,2002:js/undefined> ''
             customWordWrap: !<tag:yaml.org,2002:js/undefined> ''
             bindings: {}
+          - x: 256
+            'y': 288
+            opacity: 1
+            tint: 16777215
+            scale:
+              x: 1
+              'y': 1
+            rotation: 0
+            uid: 9dLktBtLF67T44
+            exts: {}
+            customProperties: {}
+            customText: !<tag:yaml.org,2002:js/undefined> ''
+            customSize: !<tag:yaml.org,2002:js/undefined> ''
+            customWordWrap: !<tag:yaml.org,2002:js/undefined> ''
+            bindings: {}
+            customAnchor:
+              x: 0.5
+              'y': 0.5
+          - x: 1024
+            'y': 288
+            opacity: 1
+            tint: 16777215
+            scale:
+              x: 1
+              'y': 1
+            rotation: 0
+            uid: PKhh5PcHCpjJz7
+            exts: {}
+            customProperties: {}
+            customText: !<tag:yaml.org,2002:js/undefined> ''
+            customSize: !<tag:yaml.org,2002:js/undefined> ''
+            customWordWrap: !<tag:yaml.org,2002:js/undefined> ''
+            bindings: {}
+            customAnchor:
+              x: 0.5
+              'y': 0.5
         tiles:
           - depth: -1
             tiles:
@@ -23956,21 +24070,41 @@ assets:
                 frame: 0
                 rotation: 0
                 texture: bgDnrg3R9qgFjG
+              - x: 256
+                'y': 384
+                opacity: 1
+                tint: 16777215
+                scale:
+                  x: 2
+                  'y': 2
+                frame: 0
+                rotation: 0
+                texture: 391HtTF4DJcp5r
+              - x: 1024
+                'y': 384
+                opacity: 1
+                tint: 16777215
+                scale:
+                  x: 2
+                  'y': 2
+                frame: 0
+                rotation: 0
+                texture: hL74Ct37cz39cr
             extends:
               cgroup: ''
             hidden: false
             cache: true
         extends: {}
-        lastmod: 1775590797531
+        lastmod: 1775593397772
         events:
           - eventKey: OnRoomStart
-            code: 'console.log(rooms.list[''livello'']);'
+            code: ''
             arguments: {}
             lib: core
         behaviors: []
         extendTypes: ''
         uid: Cz8bGmhtp2FdWr
-        lastPickedTileset: PGbTGNw4Hf2f55
+        lastPickedTileset: hL74Ct37cz39cr
 globalVars:
   - name: countDown
     value: '60'
