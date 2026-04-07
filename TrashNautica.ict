@@ -60,8 +60,6 @@ scripts:
           }
       }
 
-      let score = new Array(2).fill(0);
-
       const gini = "ebreo";
 assets:
   - type: folder
@@ -167,7 +165,7 @@ assets:
                       this.hasCollidedWithEnemy = true;
 
                       var blinkInterval = setInterval(() => {
-                          if (!pause.isPaused) this.alpha = this.alpha == 1 ? 0.5 : 1;
+                          if (!pause.isPaused) this.alpha = this.alpha == 1 ? 0.2 : 1;
                       }, 100);
 
                       setTimeout(() => {
@@ -184,7 +182,6 @@ assets:
                 code: |-
                   this.hasCollidedWithEnemy = false;
                   this.spazzaturaGrande = [];
-                  if (!window.scoreP1) window.scoreP1 = 0;
 
                   this.animationSpeed = 0.12;
                   this.defaultScale = {
@@ -201,7 +198,7 @@ assets:
                   if (this.spazzaturaGrande.length > 0) {
 
                       sounds.play('Spazzatura depositata');
-                      window.scoreP1 += 100 * this.spazzaturaGrande.length;
+                      scoreP1 += 100 * this.spazzaturaGrande.length;
                       for (let i of this.spazzaturaGrande) i.kill = true;
 
                       this.spazzaturaGrande = [];
@@ -213,7 +210,7 @@ assets:
               cgroup: Giocatore
               'editor:myCollidingCGroups':
                 - Terreno
-            lastmod: 1775591277678
+            lastmod: 1775596925192
             uid: DL9BczP5Cd4RMz
             behaviors: []
             extendTypes: ''
@@ -323,7 +320,6 @@ assets:
                 code: |-
                   this.hasCollidedWithEnemy = false;
                   this.spazzaturaGrande = [];
-                  if (!window.scoreP1) window.scoreP1 = 0;
 
                   this.animationSpeed = 0.12;
                   this.defaultScale = {
@@ -340,7 +336,7 @@ assets:
                   if (this.spazzaturaGrande.length > 0) {
 
                       sounds.play('Spazzatura depositata');
-                      window.scoreP1 += 100 * this.spazzaturaGrande.length;
+                      scoreP2 += 100 * this.spazzaturaGrande.length;
                       for (let i of this.spazzaturaGrande) i.kill = true;
 
                       this.spazzaturaGrande = [];
@@ -352,7 +348,7 @@ assets:
               cgroup: Giocatore
               'editor:myCollidingCGroups':
                 - Terreno
-            lastmod: 1775591228513
+            lastmod: 1775596933190
             uid: k4T35dNQG6RP66
             behaviors: []
             extendTypes: ''
@@ -689,7 +685,7 @@ assets:
                 source: >-
                   C:\Users\nekosnugz\Desktop\texturePackForTrashNautica\il resto
                   degli sprite\tire.png
-          - lastmod: 1775589931646
+          - lastmod: 1775595884509
             type: texture
             name: rocks
             untill: 0
@@ -716,8 +712,8 @@ assets:
             uid: c8671kJP2h1d83
             padding: 1
             isBlank: false
-            source: 'C:\Users\nekosnugz\Downloads\rocks_96x96.png'
-          - lastmod: 1775588904229
+            source: 'C:\Users\nekosnugz\Desktop\sprite_sheet(0)(2).png'
+          - lastmod: 1775595893023
             type: texture
             name: sprite_sheet1
             untill: 0
@@ -744,8 +740,8 @@ assets:
             uid: p5K3dzGWqfhcHT
             padding: 1
             isBlank: false
-            source: 'C:\Users\nekosnugz\Downloads\sprite_sheet1_128x128.png'
-          - lastmod: 1775588906050
+            source: 'C:\Users\nekosnugz\Desktop\sprite_sheet(1)(2).png'
+          - lastmod: 1775595908370
             type: texture
             name: sprite_sheet2
             untill: 0
@@ -772,7 +768,7 @@ assets:
             uid: Nf5gWphgd3C6RB
             padding: 1
             isBlank: false
-            source: 'C:\Users\nekosnugz\Downloads\sprite_sheet2_64x64.png'
+            source: 'C:\Users\nekosnugz\Desktop\sprite_sheet(2)(2).png'
           - lastmod: 1775590903038
             type: texture
             name: G1
@@ -974,34 +970,34 @@ assets:
             isBlank: false
             source: 'C:\Users\nekosnugz\Downloads\frame-1.png'
             tiled: true
-          - lastmod: 1775587980522
+          - lastmod: 1775598086788
             type: texture
-            name: spazzatura.webp
+            name: SpazzaturaPiccola2
             untill: 0
             grid:
               - 2
               - 2
             axis:
-              - 0
-              - 0
+              - 16
+              - 16
             marginx: 0
             marginy: 0
-            imgWidth: 533
-            imgHeight: 533
-            width: 266
-            height: 266
+            imgWidth: 64
+            imgHeight: 64
+            width: 32
+            height: 32
             offx: 0
             offy: 0
             origname: i5k8hP4bdmFHF2D.png
             shape: rect
-            left: 0
-            right: 533
-            top: 0
-            bottom: 533
+            left: 16
+            right: 16
+            top: 16
+            bottom: 16
             uid: 5k8hP4bdmFHF2D
             padding: 1
             isBlank: false
-            source: 'C:\Users\nekosnugz\Downloads\spazzatura.webp'
+            source: 'C:\Users\nekosnugz\Downloads\spazzatura_64x64.webp'
           - lastmod: 1775590898787
             type: texture
             name: G2
@@ -1031,6 +1027,63 @@ assets:
             isBlank: false
             source: 'C:\Users\nekosnugz\Downloads\sprite_sheet5_128x128.webp'
             r: 20
+          - lastmod: 1775595434410
+            type: texture
+            name: fish_brown
+            untill: 0
+            grid:
+              - 1
+              - 1
+            axis:
+              - 32
+              - 32
+            marginx: 0
+            marginy: 0
+            imgWidth: 64
+            imgHeight: 64
+            width: 64
+            height: 64
+            offx: 0
+            offy: 0
+            origname: i3hwRW3GkH9M4Bj.png
+            shape: circle
+            left: 32
+            right: 32
+            top: 32
+            bottom: 32
+            uid: 3hwRW3GkH9M4Bj
+            padding: 1
+            isBlank: false
+            source: 'C:\Users\nekosnugz\Desktop\fish_brown.png'
+            r: 24
+          - lastmod: 1775597991361
+            type: texture
+            name: aaaaaaaaaa_96x64.webp
+            untill: 0
+            grid:
+              - 3
+              - 2
+            axis:
+              - 16
+              - 16
+            marginx: 0
+            marginy: 0
+            imgWidth: 96
+            imgHeight: 64
+            width: 32
+            height: 32
+            offx: 0
+            offy: 0
+            origname: it8Kc55zPcR7C5h.png
+            shape: rect
+            left: 16
+            right: 16
+            top: 16
+            bottom: 16
+            uid: t8Kc55zPcR7C5h
+            padding: 1
+            isBlank: false
+            source: 'C:\Users\nekosnugz\Downloads\aaaaaaaaaa_96x64.webp'
       - type: folder
         uid: r75phJ99KmB7KH
         colorClass: accent1
@@ -1206,9 +1259,9 @@ assets:
         entries:
           - type: template
             baseClass: AnimatedSprite
-            name: Medusa
+            name: Pesce Palla
             depth: 10
-            texture: GgCk1fwPDqDpj8
+            texture: 3hwRW3GkH9M4Bj
             playAnimationOnStart: true
             loopAnimation: true
             animationFPS: 4
@@ -1227,6 +1280,7 @@ assets:
                       if (place.occupied(this, this.x + dx, this.y, 'Terreno')) {
                           // Flip direction
                           this.direction = (this.direction === 0) ? 180 : 0;
+                          this.scale.x *= -1;
                       }
 
                       this.move();
@@ -1236,20 +1290,20 @@ assets:
                 code: |-
                   this.speed = 150;
                   this.direction = 0;
-                  this.scale.x = 2;
-                  this.scale.y = 2;
+                  this.scale.x = 0.5;
+                  this.scale.y = 0.5;
                 arguments: {}
                 lib: core
             extends:
               cgroup: Nemici
               'editor:myCollidingCGroups': []
-            lastmod: 1775590210883
+            lastmod: 1775595611664
             uid: MPdrNr8hhh5b2R
             behaviors: []
             extendTypes: ''
           - type: template
             baseClass: AnimatedSprite
-            name: Medusa_Verticale
+            name: Medusa
             depth: 10
             texture: GgCk1fwPDqDpj8
             playAnimationOnStart: true
@@ -1281,7 +1335,7 @@ assets:
             extends:
               cgroup: Nemici
               'editor:myCollidingCGroups': []
-            lastmod: 1775557645250
+            lastmod: 1775595571106
             uid: gMww9zTNWQRDPT
             behaviors: []
             extendTypes: ''
@@ -1306,6 +1360,7 @@ assets:
                 code: |-
                   this.isCollected = false;
                   sounds.play('Generazione Spazzatura');
+                  this.tex = "Grande" + Math.floor(Math.random() * 2 + 1);
                 arguments: {}
                 lib: core
               - eventKey: collisionCGroup
@@ -1339,7 +1394,7 @@ assets:
             extends:
               cgroup: ''
               'editor:myCollidingCGroups': []
-            lastmod: 1775583800769
+            lastmod: 1775597569434
             uid: Q5Dz7qRNWK3PLm
             behaviors: []
             extendTypes: ''
@@ -1463,7 +1518,7 @@ assets:
             baseClass: AnimatedSprite
             name: Spazzatura_piccola
             depth: 0
-            texture: f6C1t9dPCH6rwz
+            texture: 5k8hP4bdmFHF2D
             playAnimationOnStart: false
             loopAnimation: true
             animationFPS: 30
@@ -1472,7 +1527,7 @@ assets:
               - eventKey: collisionTemplate
                 code: |-
                   this.kill = true;
-                  score[0] += 100;
+                  scoreP1 += 10;
                   sounds.play('Raccolta');
                 arguments:
                   template: DL9BczP5Cd4RMz
@@ -1493,15 +1548,19 @@ assets:
               - eventKey: collisionTemplate
                 code: |-
                   this.kill = true;
-                  score[1] += 100;
+                  scoreP2 += 10;
                   sounds.play('Raccolta');
                 arguments:
                   template: k4T35dNQG6RP66
                 lib: place
+              - eventKey: OnCreate
+                code: this.currentFrame = Math.floor(Math.random() * 3 + 1);
+                arguments: {}
+                lib: core
             extends:
               cgroup: ''
               'editor:myCollidingCGroups': []
-            lastmod: 1775589545182
+            lastmod: 1775597893792
             uid: zG7nGRb2Bbht5p
             behaviors: []
             extendTypes: ''
@@ -1522,14 +1581,14 @@ assets:
             animationFPS: 30
             visible: true
             events:
-              - eventKey: OnStep
-                code: 'this.text = "Giocatore 1: " + score[0] + " punti";'
+              - eventKey: OnDraw
+                code: 'this.text = "Giocatore 1: " + scoreP1 + " punti"'
                 arguments: {}
                 lib: core
             extends:
               cgroup: ''
               'editor:myCollidingCGroups': []
-            lastmod: 1775575263829
+            lastmod: 1775597138597
             uid: TPkR7Gqr26Q4hp
             behaviors: []
             extendTypes: ''
@@ -1579,15 +1638,11 @@ assets:
             loopAnimation: true
             animationFPS: 30
             visible: true
-            events:
-              - eventKey: OnStep
-                code: ''
-                arguments: {}
-                lib: core
+            events: []
             extends:
               cgroup: ''
               'editor:myCollidingCGroups': []
-            lastmod: 1775576117602
+            lastmod: 1775597160923
             uid: r6g7J6J9TntC1H
             behaviors: []
             extendTypes: ''
@@ -1603,16 +1658,14 @@ assets:
             animationFPS: 30
             visible: true
             events:
-              - eventKey: OnStep
-                code: |-
-
-                  this.text = "Giocatore 2: " + score[1] + " punti";
+              - eventKey: OnDraw
+                code: 'this.text = "Giocatore 2: " + scoreP2 + " punti";'
                 arguments: {}
                 lib: core
             extends:
               cgroup: ''
               'editor:myCollidingCGroups': []
-            lastmod: 1775576733983
+            lastmod: 1775597148028
             uid: f3M4kKqQ3njTfw
             behaviors: []
             extendTypes: ''
@@ -1704,15 +1757,15 @@ assets:
             events:
               - eventKey: OnCreate
                 code: |-
-                  if (score[0] > score[1]) this.text = "Vittoria!";
-                  else if (score[0] < score[1]) this.text = "Sconfitta..."
+                  if (scoreP1 > scoreP2) this.text = "Vittoria!";
+                  else if (scoreP1 < scoreP2) this.text = "Sconfitta..."
                   else this.text = "Pareggio";
                 arguments: {}
                 lib: core
             extends:
               cgroup: ''
               'editor:myCollidingCGroups': []
-            lastmod: 1775592869472
+            lastmod: 1775596583642
             uid: 9dLktBtLF67T44
             behaviors: []
             extendTypes: ''
@@ -1731,14 +1784,14 @@ assets:
               - eventKey: OnStep
                 lib: core
                 code: |-
-                  if (score[0] < score[1]) this.text = "Vittoria!";
-                  else if (score[0] > score[1]) this.text = "Sconfitta..."
+                  if (scoreP1 < scoreP2) this.text = "Vittoria!";
+                  else if (scoreP1 > scoreP2) this.text = "Sconfitta..."
                   else this.text = "Pareggio";
                 arguments: {}
             extends:
               cgroup: ''
               'editor:myCollidingCGroups': []
-            lastmod: 1775592874377
+            lastmod: 1775596593098
             uid: PKhh5PcHCpjJz7
             behaviors: []
             extendTypes: ''
@@ -2557,8 +2610,8 @@ assets:
             opacity: 1
             tint: 16777215
             scale:
-              x: 3
-              'y': 3
+              x: 1
+              'y': 1
             rotation: 0
             uid: MPdrNr8hhh5b2R
             exts: {}
@@ -2572,8 +2625,8 @@ assets:
             opacity: 1
             tint: 16777215
             scale:
-              x: 3
-              'y': 3
+              x: 1
+              'y': 1
             rotation: 0
             uid: MPdrNr8hhh5b2R
             exts: {}
@@ -2587,8 +2640,8 @@ assets:
             opacity: 1
             tint: 16777215
             scale:
-              x: 3
-              'y': 3
+              x: 1
+              'y': 1
             rotation: 0
             uid: MPdrNr8hhh5b2R
             exts: {}
@@ -2662,8 +2715,8 @@ assets:
             opacity: 1
             tint: 16777215
             scale:
-              x: 3
-              'y': 3
+              x: 1
+              'y': 1
             rotation: 0
             uid: MPdrNr8hhh5b2R
             exts: {}
@@ -2692,8 +2745,8 @@ assets:
             opacity: 1
             tint: 16777215
             scale:
-              x: 3
-              'y': 3
+              x: 1
+              'y': 1
             rotation: 0
             uid: MPdrNr8hhh5b2R
             exts: {}
@@ -2707,8 +2760,8 @@ assets:
             opacity: 1
             tint: 16777215
             scale:
-              x: 3
-              'y': 3
+              x: 1
+              'y': 1
             rotation: 0
             uid: MPdrNr8hhh5b2R
             exts: {}
@@ -23574,16 +23627,460 @@ assets:
               cgroup: Terreno
             hidden: false
             cache: true
+          - depth: -1.5
+            tiles:
+              - x: 640
+                'y': 1152
+                opacity: 1
+                tint: 16777215
+                scale:
+                  x: 1
+                  'y': 1
+                frame: 0
+                rotation: 0
+                texture: t8Kc55zPcR7C5h
+              - x: 832
+                'y': 1120
+                opacity: 1
+                tint: 16777215
+                scale:
+                  x: 1
+                  'y': 1
+                frame: 0
+                rotation: 0
+                texture: t8Kc55zPcR7C5h
+              - x: 736
+                'y': 1120
+                opacity: 1
+                tint: 16777215
+                scale:
+                  x: 1
+                  'y': 1
+                frame: 0
+                rotation: 0
+                texture: t8Kc55zPcR7C5h
+              - x: 480
+                'y': 1088
+                opacity: 1
+                tint: 16777215
+                scale:
+                  x: 1
+                  'y': 1
+                frame: 0
+                rotation: 0
+                texture: t8Kc55zPcR7C5h
+              - x: 480
+                'y': 1632
+                opacity: 1
+                tint: 16777215
+                scale:
+                  x: 1
+                  'y': 1
+                frame: 0
+                rotation: 0
+                texture: t8Kc55zPcR7C5h
+              - x: 608
+                'y': 1600
+                opacity: 1
+                tint: 16777215
+                scale:
+                  x: 1
+                  'y': 1
+                frame: 0
+                rotation: 0
+                texture: t8Kc55zPcR7C5h
+              - x: 704
+                'y': 1600
+                opacity: 1
+                tint: 16777215
+                scale:
+                  x: 1
+                  'y': 1
+                frame: 0
+                rotation: 0
+                texture: t8Kc55zPcR7C5h
+              - x: 896
+                'y': 1664
+                opacity: 1
+                tint: 16777215
+                scale:
+                  x: 1
+                  'y': 1
+                frame: 0
+                rotation: 0
+                texture: t8Kc55zPcR7C5h
+              - x: 800
+                'y': 1632
+                opacity: 1
+                tint: 16777215
+                scale:
+                  x: 1
+                  'y': 1
+                frame: 0
+                rotation: 0
+                texture: t8Kc55zPcR7C5h
+              - x: 832
+                'y': 2048
+                opacity: 1
+                tint: 16777215
+                scale:
+                  x: 1
+                  'y': 1
+                frame: 0
+                rotation: 0
+                texture: t8Kc55zPcR7C5h
+              - x: 672
+                'y': 2048
+                opacity: 1
+                tint: 16777215
+                scale:
+                  x: 1
+                  'y': 1
+                frame: 0
+                rotation: 0
+                texture: t8Kc55zPcR7C5h
+              - x: 480
+                'y': 2048
+                opacity: 1
+                tint: 16777215
+                scale:
+                  x: 1
+                  'y': 1
+                frame: 0
+                rotation: 0
+                texture: t8Kc55zPcR7C5h
+              - x: 256
+                'y': 1920
+                opacity: 1
+                tint: 16777215
+                scale:
+                  x: 1
+                  'y': 1
+                frame: 0
+                rotation: 0
+                texture: t8Kc55zPcR7C5h
+              - x: 160
+                'y': 1792
+                opacity: 1
+                tint: 16777215
+                scale:
+                  x: 1
+                  'y': 1
+                frame: 0
+                rotation: 0
+                texture: t8Kc55zPcR7C5h
+              - x: 128
+                'y': 1632
+                opacity: 1
+                tint: 16777215
+                scale:
+                  x: 1
+                  'y': 1
+                frame: 0
+                rotation: 0
+                texture: t8Kc55zPcR7C5h
+              - x: 64
+                'y': 1504
+                opacity: 1
+                tint: 16777215
+                scale:
+                  x: 1
+                  'y': 1
+                frame: 0
+                rotation: 0
+                texture: t8Kc55zPcR7C5h
+              - x: 416
+                'y': 1216
+                opacity: 1
+                tint: 16777215
+                scale:
+                  x: 1
+                  'y': 1
+                frame: 0
+                rotation: 0
+                texture: t8Kc55zPcR7C5h
+              - x: 1248
+                'y': 1088
+                opacity: 1
+                tint: 16777215
+                scale:
+                  x: 1
+                  'y': 1
+                frame: 0
+                rotation: 0
+                texture: t8Kc55zPcR7C5h
+              - x: 864
+                'y': 640
+                opacity: 1
+                tint: 16777215
+                scale:
+                  x: 1
+                  'y': 1
+                frame: 0
+                rotation: 0
+                texture: t8Kc55zPcR7C5h
+              - x: 736
+                'y': 608
+                opacity: 1
+                tint: 16777215
+                scale:
+                  x: 1
+                  'y': 1
+                frame: 0
+                rotation: 0
+                texture: t8Kc55zPcR7C5h
+              - x: 576
+                'y': 576
+                opacity: 1
+                tint: 16777215
+                scale:
+                  x: 1
+                  'y': 1
+                frame: 0
+                rotation: 0
+                texture: t8Kc55zPcR7C5h
+              - x: 288
+                'y': 320
+                opacity: 1
+                tint: 16777215
+                scale:
+                  x: 1
+                  'y': 1
+                frame: 0
+                rotation: 0
+                texture: t8Kc55zPcR7C5h
+              - x: 96
+                'y': 192
+                opacity: 1
+                tint: 16777215
+                scale:
+                  x: 1
+                  'y': 1
+                frame: 0
+                rotation: 0
+                texture: t8Kc55zPcR7C5h
+              - x: 1024
+                'y': 288
+                opacity: 1
+                tint: 16777215
+                scale:
+                  x: 1
+                  'y': 1
+                frame: 0
+                rotation: 0
+                texture: t8Kc55zPcR7C5h
+              - x: 1120
+                'y': 192
+                opacity: 1
+                tint: 16777215
+                scale:
+                  x: 1
+                  'y': 1
+                frame: 0
+                rotation: 0
+                texture: t8Kc55zPcR7C5h
+              - x: 1216
+                'y': 160
+                opacity: 1
+                tint: 16777215
+                scale:
+                  x: 1
+                  'y': 1
+                frame: 0
+                rotation: 0
+                texture: t8Kc55zPcR7C5h
+              - x: 608
+                'y': 576
+                opacity: 1
+                tint: 16777215
+                scale:
+                  x: 1
+                  'y': 1
+                frame: 0
+                rotation: 0
+                texture: 5k8hP4bdmFHF2D
+              - x: 768
+                'y': 608
+                opacity: 1
+                tint: 16777215
+                scale:
+                  x: 1
+                  'y': 1
+                frame: 0
+                rotation: 0
+                texture: 5k8hP4bdmFHF2D
+              - x: 1152
+                'y': 192
+                opacity: 1
+                tint: 16777215
+                scale:
+                  x: 1
+                  'y': 1
+                frame: 0
+                rotation: 0
+                texture: 5k8hP4bdmFHF2D
+              - x: 192
+                'y': 256
+                opacity: 1
+                tint: 16777215
+                scale:
+                  x: 1
+                  'y': 1
+                frame: 0
+                rotation: 0
+                texture: 5k8hP4bdmFHF2D
+              - x: 96
+                'y': 1024
+                opacity: 1
+                tint: 16777215
+                scale:
+                  x: 1
+                  'y': 1
+                frame: 0
+                rotation: 0
+                texture: 5k8hP4bdmFHF2D
+              - x: 544
+                'y': 1120
+                opacity: 1
+                tint: 16777215
+                scale:
+                  x: 1
+                  'y': 1
+                frame: 0
+                rotation: 0
+                texture: 5k8hP4bdmFHF2D
+              - x: 96
+                'y': 1568
+                opacity: 1
+                tint: 16777215
+                scale:
+                  x: 1
+                  'y': 1
+                frame: 0
+                rotation: 0
+                texture: 5k8hP4bdmFHF2D
+              - x: 416
+                'y': 1664
+                opacity: 1
+                tint: 16777215
+                scale:
+                  x: 1
+                  'y': 1
+                frame: 0
+                rotation: 0
+                texture: 5k8hP4bdmFHF2D
+              - x: 640
+                'y': 1600
+                opacity: 1
+                tint: 16777215
+                scale:
+                  x: 1
+                  'y': 1
+                frame: 0
+                rotation: 0
+                texture: 5k8hP4bdmFHF2D
+              - x: 576
+                'y': 2048
+                opacity: 1
+                tint: 16777215
+                scale:
+                  x: 1
+                  'y': 1
+                frame: 0
+                rotation: 0
+                texture: 5k8hP4bdmFHF2D
+              - x: 864
+                'y': 2048
+                opacity: 1
+                tint: 16777215
+                scale:
+                  x: 1
+                  'y': 1
+                frame: 0
+                rotation: 0
+                texture: 5k8hP4bdmFHF2D
+              - x: 1056
+                'y': 1984
+                opacity: 1
+                tint: 16777215
+                scale:
+                  x: 1
+                  'y': 1
+                frame: 0
+                rotation: 0
+                texture: 5k8hP4bdmFHF2D
+              - x: 1152
+                'y': 1920
+                opacity: 1
+                tint: 16777215
+                scale:
+                  x: 1
+                  'y': 1
+                frame: 0
+                rotation: 0
+                texture: 5k8hP4bdmFHF2D
+              - x: 768
+                'y': 2048
+                opacity: 1
+                tint: 16777215
+                scale:
+                  x: 1
+                  'y': 1
+                frame: 0
+                rotation: 0
+                texture: 5k8hP4bdmFHF2D
+              - x: 320
+                'y': 1984
+                opacity: 1
+                tint: 16777215
+                scale:
+                  x: 1
+                  'y': 1
+                frame: 0
+                rotation: 0
+                texture: 5k8hP4bdmFHF2D
+              - x: 224
+                'y': 1920
+                opacity: 1
+                tint: 16777215
+                scale:
+                  x: 1
+                  'y': 1
+                frame: 0
+                rotation: 0
+                texture: 5k8hP4bdmFHF2D
+              - x: 544
+                'y': 1632
+                opacity: 1
+                tint: 16777215
+                scale:
+                  x: 1
+                  'y': 1
+                frame: 0
+                rotation: 0
+                texture: 5k8hP4bdmFHF2D
+              - x: 1056
+                'y': 256
+                opacity: 1
+                tint: 16777215
+                scale:
+                  x: 1
+                  'y': 1
+                frame: 0
+                rotation: 0
+                texture: 5k8hP4bdmFHF2D
+            extends:
+              cgroup: ''
+            hidden: false
+            cache: true
         extends: {}
-        lastmod: 1775595272169
+        lastmod: 1775598133181
         events:
           - eventKey: OnRoomStart
             code: |-
               rooms.append('UI', {
               isUI: true
               });
-              if (!window.scoreP1) { window.scoreP1 = 0; }
-              if (!window.scoreP2) { window.scoreP2 = 0; }
 
               sounds.play('moseni', { loop: true });
               sounds.play('Ambience', { loop: true });
@@ -23600,24 +24097,20 @@ assets:
               this.cx = camera.width;
               this.cy = camera.height;
 
-              camera.followX = false
-              camera.follow = templates.list["ghost"][0]
+              camera.followX = false;
+              camera.follow = templates.list["ghost"][0];
             arguments: {}
             lib: core
           - eventKey: OnRoomEnd
             code: |-
-
               this.kill = true;
-
-              score[0] = window.scoreP1;
-              score[1] = window.scoreP2;
 
               sounds.stop('Ambience');
               sounds.stop('moseni');
             arguments: {}
             lib: core
           - eventKey: OnDraw
-            code: |-
+            code: |+
               let g1 = templates.list["Giocatore1"][0];
               let g2 = templates.list["Giocatore2"][0];
               let margin = 200;
@@ -23629,21 +24122,21 @@ assets:
               let zoomY = Math.abs(g1.y - g2.y) / (this.cy - margin);
 
               let targetScale = Math.max(1.0, zoomX, zoomY);
+              let ghost = templates.list["ghost"][0]
+              ghost.x = targetX;
+              ghost.y = targetY;
 
               camera.x = u.lerp(camera.x, targetX, 0.2);
               camera.y = u.lerp(camera.y, targetY, 0.2);
               camera.scale.x = u.lerp(camera.scale.x, targetScale, 0.2);
               camera.scale.y = u.lerp(camera.scale.y, targetScale, 0.2);
 
-              let ghost = templates.list["ghost"][0]
-              ghost.x = targetX
-              ghost.y = targetY
             arguments: {}
             lib: core
         behaviors: []
         extendTypes: ''
         uid: qHGRDbKPggp36C
-        lastPickedTileset: c8671kJP2h1d83
+        lastPickedTileset: 5k8hP4bdmFHF2D
       - type: room
         oncreate: ''
         onstep: ''
@@ -23750,11 +24243,11 @@ assets:
             bindings: {}
         tiles: []
         extends: {}
-        lastmod: 1775592265250
+        lastmod: 1775598456819
         events:
           - eventKey: OnRoomStart
             code: |-
-              countDown = 60; // In secondi 
+              countDown = 120; // In secondi 
 
               this.isOver = false;
 
@@ -23779,6 +24272,7 @@ assets:
                           setTimeout(() => {
                               templates.list['Countdown'][0].kill = true;
                           }, 1000);
+                          
                           
                           clearInterval(cd);
                       }
@@ -23882,12 +24376,10 @@ assets:
             bindings: {}
         tiles: []
         extends: {}
-        lastmod: 1775587028471
+        lastmod: 1775597371858
         events:
           - eventKey: OnRoomStart
-            code: |-
-              transition.fadeIn(500,0);
-              score = new Array(2).fill(0);
+            code: 'transition.fadeIn(500,0);'
             arguments: {}
             lib: core
         behaviors: []
@@ -24095,7 +24587,7 @@ assets:
             hidden: false
             cache: true
         extends: {}
-        lastmod: 1775593397772
+        lastmod: 1775598438427
         events:
           - eventKey: OnRoomStart
             code: ''
@@ -24109,6 +24601,12 @@ globalVars:
   - name: countDown
     value: '60'
     type: number
+  - name: scoreP1
+    value: '0'
+    type: number
+  - name: scoreP2
+    value: '0'
+    type: number
 settings:
   authoring:
     author: 4G
@@ -24119,11 +24617,11 @@ settings:
       - 0
       - 1
     versionPostfix: ''
-    appId: ''
+    appId: trash.program.
   rendering:
     usePixiLegacy: true
     transparent: false
-    maxFPS: 120
+    maxFPS: 60
     pixelatedrender: true
     highDensity: true
     desktopMode: maximized
