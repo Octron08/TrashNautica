@@ -182,7 +182,7 @@ assets:
                 code: |-
                   if (this.spazzaturaGrande.length > 0) {
 
-                      sounds.play('Spazzatura Presa');
+                      sounds.play('Spazzatura depositata');
                       window.scoreP1 += 100 * this.spazzaturaGrande.length;
                       for (let i of this.spazzaturaGrande) i.kill = true;
 
@@ -195,7 +195,7 @@ assets:
               cgroup: Giocatore
               'editor:myCollidingCGroups':
                 - Terreno
-            lastmod: 1775577150493
+            lastmod: 1775577777490
             uid: DL9BczP5Cd4RMz
             behaviors: []
             extendTypes: ''
@@ -843,12 +843,12 @@ assets:
             extends:
               cgroup: ''
               'editor:myCollidingCGroups': []
-            lastmod: 1775574985749
+            lastmod: 1775579362593
             uid: Kb2kRd6fn9MgNJ
             behaviors: []
             extendTypes: ''
             defaultText: Trash Nautica
-            textStyle: CmM2gPcw8mNdTQ
+            textStyle: gBpbtF2ff1rL81
           - type: template
             baseClass: Button
             name: PulsanteInizia
@@ -899,6 +899,8 @@ assets:
               - eventKey: OnPointerClick
                 code: |-
                   sounds.play('Start');
+                  sounds.stop('moseni');
+                  sounds.stop('Ambience');
                   transition.circleOut(1000, 0).then(() => {
                       rooms.switch('Titolo');
                   });
@@ -907,7 +909,7 @@ assets:
             extends:
               cgroup: ''
               'editor:myCollidingCGroups': []
-            lastmod: 1775576854951
+            lastmod: 1775578755840
             uid: pCbH9hHM8hTn3n
             behaviors: []
             extendTypes: ''
@@ -1266,7 +1268,7 @@ assets:
               wrap: false
               wrapPosition: 640
               lineHeight: .nan
-            lastmod: 1773924934357
+            lastmod: 1775579306468
             stroke:
               color: '#000000'
               weight: 7
@@ -1374,6 +1376,42 @@ assets:
             extendTypes: ''
             defaultText: ''
             textStyle: CmM2gPcw8mNdTQ
+          - name: PirateViking-1Gajg
+            type: typeface
+            fonts:
+              - weight: '400'
+                italic: false
+                uid: Gq1PW1kh4QgGkr
+                origname: PirateViking-1Gajg
+            lastmod: 1775579023978
+            bitmapFont: false
+            bitmapFontSize: 16
+            bitmapFontLineHeight: 18
+            bitmapPrecision: false
+            charsets:
+              - allInFont
+            customCharset: ''
+            uid: 2PnbkFMzTdfGhm
+          - type: style
+            name: StileTesto2
+            uid: gBpbtF2ff1rL81
+            typeface: 2PnbkFMzTdfGhm
+            font:
+              family: sans-serif
+              halign: left
+              italic: false
+              size: 20
+              weight: '400'
+              wrap: false
+              wrapPosition: 640
+              lineHeight: 0
+            fill:
+              type: 0
+              color: '#000000'
+              color1: '#cccccc'
+              color2: '#ffffff'
+              gradtype: 1
+            lastmod: 1775579366679
       - type: folder
         uid: 4Dj8ngmwDRLcTz
         colorClass: act
@@ -1408,7 +1446,7 @@ assets:
           - name: moseni
             uid: 1tFkj9FkcBnh33
             type: sound
-            lastmod: 1775571594880
+            lastmod: 1775577705882
             preload: true
             variants:
               - uid: KGJ23Dd2HLPjQ5
@@ -1461,7 +1499,7 @@ assets:
           - name: Start
             uid: 8zkPP91C2C56tJ
             type: sound
-            lastmod: 1775575925945
+            lastmod: 1775577925524
             preload: true
             variants:
               - uid: nqt6FghzC1QzBq
@@ -1515,7 +1553,7 @@ assets:
           - name: Generazione Spazzatura
             uid: Nm34cL4RfnqRDw
             type: sound
-            lastmod: 1775577022462
+            lastmod: 1775577932079
             preload: true
             variants:
               - uid: D1QLFPdNjKBpHr
@@ -1569,12 +1607,11 @@ assets:
           - name: Danno
             uid: z4t7zG75NKB3Fk
             type: sound
-            lastmod: 1775577025030
+            lastmod: 1775577952988
             preload: true
             variants:
-              - uid: gPG8bq8nwDRPJ1
-                source: >-
-                  C:\Users\nekosnugz\Desktop\TrashNautica\TrashNautica\snd\sPGQkfbL4nfb2TJ_kLJhRDqC9cnWHT.wav
+              - uid: QGHtTMR3BqB9Cz
+                source: /home/edl/Music/forProject/sound.wav
             distortion:
               enabled: false
               min: 0
@@ -1623,7 +1660,7 @@ assets:
           - name: Ambience
             uid: 7qnkd6tKHPGMqF
             type: sound
-            lastmod: 1775576143940
+            lastmod: 1775577914540
             preload: true
             variants:
               - uid: Wd3DRJDN3g5hTW
@@ -1678,7 +1715,7 @@ assets:
           - name: Spazzatura depositata
             uid: M6K78Kqk93wWq1
             type: sound
-            lastmod: 1775577011135
+            lastmod: 1775577918101
             preload: true
             variants:
               - uid: pd7g8B6PWpPTmj
@@ -1732,7 +1769,7 @@ assets:
           - name: Raccolta
             uid: FFNGnJLrmm8NjT
             type: sound
-            lastmod: 1775577052237
+            lastmod: 1775577901675
             preload: true
             variants:
               - uid: Q3pfN2D2223F4t
@@ -22340,10 +22377,10 @@ assets:
             hidden: false
             cache: true
         extends: {}
-        lastmod: 1775576498996
+        lastmod: 1775578576010
         events:
           - eventKey: OnRoomStart
-            code: |-
+            code: |+
               rooms.append('UI', {
                   isUI: true
               });
@@ -22361,8 +22398,6 @@ assets:
               camera.maxY = 2112;
 
               camera.drift = 0.9;
-
-
               sounds.play('moseni', {
                   loop: true,
               }); 
@@ -22373,12 +22408,12 @@ assets:
 
               sounds.volume('moseni', 1);
               sounds.volume('Ambience', 0.3);
+
             arguments: {}
             lib: core
           - eventKey: OnRoomEnd
             code: |-
-              sounds.stop('moseni');
-              sounds.stop('Ambience');
+
               this.kill = true;
 
               score[0] = window.scoreP1;
@@ -22480,7 +22515,7 @@ assets:
               'y': 0.5
         tiles: []
         extends: {}
-        lastmod: 1775574964242
+        lastmod: 1775578291981
         events:
           - eventKey: OnRoomStart
             code: |-
@@ -22620,7 +22655,7 @@ assets:
             bindings: {}
         tiles: []
         extends: {}
-        lastmod: 1775575408691
+        lastmod: 1775579377144
         events:
           - eventKey: OnRoomStart
             code: |-
