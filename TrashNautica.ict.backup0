@@ -206,11 +206,45 @@ assets:
                 arguments:
                   template: w2cpWbbRcqhr4F
                 lib: place
+              - eventKey: OnDraw
+                code: |-
+                  if (place.occupied(this, this.x, this.y, "Terreno")) {
+                      let trovato = false;
+                      let raggio = 2; // Quanto lontano cerchiamo ogni volta
+                      let maxTentativi = 20; // Per evitare che il gioco si blocchi se sei sepolto nel terreno
+                      
+                      // Cerchiamo nelle 8 direzioni attorno al giocatore, espandendo il cerchio
+                      for (let i = 1; i <= maxTentativi; i++) {
+                          let dist = i * raggio;
+                          
+                          // Array di direzioni: Destra, Sinistra, Sopra, Sotto e Diagonali
+                          let direzioni = [
+                              {dx: dist, dy: 0}, {dx: -dist, dy: 0}, 
+                              {dx: 0, dy: dist}, {dx: 0, dy: -dist},
+                              {dx: dist, dy: dist}, {dx: -dist, dy: dist},
+                              {dx: dist, dy: -dist}, {dx: -dist, dy: -dist}
+                          ];
+
+                          for (let dir of direzioni) {
+                              // Controlliamo se la posizione (X + dx, Y + dy) è libera
+                              if (!place.occupied(this, this.x + dir.dx, this.y + dir.dy, "Terreno")) {
+                                  this.x += dir.dx;
+                                  this.y += dir.dy;
+                                  trovato = true;
+                                  break; // Esci dal ciclo delle direzioni
+                              }
+                          }
+                          
+                          if (trovato) break; // Esci dal ciclo dei tentativi
+                      }
+                  }
+                arguments: {}
+                lib: core
             extends:
               cgroup: Giocatore
               'editor:myCollidingCGroups':
                 - Terreno
-            lastmod: 1775596925192
+            lastmod: 1775731657466
             uid: DL9BczP5Cd4RMz
             behaviors: []
             extendTypes: ''
@@ -344,11 +378,45 @@ assets:
                 arguments:
                   template: w2cpWbbRcqhr4F
                 lib: place
+              - eventKey: OnDraw
+                code: |-
+                  if (place.occupied(this, this.x, this.y, "Terreno")) {
+                      let trovato = false;
+                      let raggio = 2; // Quanto lontano cerchiamo ogni volta
+                      let maxTentativi = 20; // Per evitare che il gioco si blocchi se sei sepolto nel terreno
+                      
+                      // Cerchiamo nelle 8 direzioni attorno al giocatore, espandendo il cerchio
+                      for (let i = 1; i <= maxTentativi; i++) {
+                          let dist = i * raggio;
+                          
+                          // Array di direzioni: Destra, Sinistra, Sopra, Sotto e Diagonali
+                          let direzioni = [
+                              {dx: dist, dy: 0}, {dx: -dist, dy: 0}, 
+                              {dx: 0, dy: dist}, {dx: 0, dy: -dist},
+                              {dx: dist, dy: dist}, {dx: -dist, dy: dist},
+                              {dx: dist, dy: -dist}, {dx: -dist, dy: -dist}
+                          ];
+
+                          for (let dir of direzioni) {
+                              // Controlliamo se la posizione (X + dx, Y + dy) è libera
+                              if (!place.occupied(this, this.x + dir.dx, this.y + dir.dy, "Terreno")) {
+                                  this.x += dir.dx;
+                                  this.y += dir.dy;
+                                  trovato = true;
+                                  break; // Esci dal ciclo delle direzioni
+                              }
+                          }
+                          
+                          if (trovato) break; // Esci dal ciclo dei tentativi
+                      }
+                  }
+                arguments: {}
+                lib: core
             extends:
               cgroup: Giocatore
               'editor:myCollidingCGroups':
                 - Terreno
-            lastmod: 1775596933190
+            lastmod: 1775732431611
             uid: k4T35dNQG6RP66
             behaviors: []
             extendTypes: ''
@@ -685,7 +753,7 @@ assets:
                 source: >-
                   C:\Users\nekosnugz\Desktop\texturePackForTrashNautica\il resto
                   degli sprite\tire.png
-          - lastmod: 1775595884509
+          - lastmod: 1775735753312
             type: texture
             name: rocks
             untill: 0
@@ -713,6 +781,7 @@ assets:
             padding: 1
             isBlank: false
             source: 'C:\Users\nekosnugz\Desktop\sprite_sheet(0)(2).png'
+            r: 16
           - lastmod: 1775595893023
             type: texture
             name: sprite_sheet1
@@ -970,16 +1039,16 @@ assets:
             isBlank: false
             source: 'C:\Users\nekosnugz\Downloads\frame-1.png'
             tiled: true
-          - lastmod: 1775597645464
+          - lastmod: 1775598086788
             type: texture
-            name: spazzatura.webp
+            name: SpazzaturaPiccola2
             untill: 0
             grid:
               - 2
               - 2
             axis:
-              - 0
-              - 0
+              - 16
+              - 16
             marginx: 0
             marginy: 0
             imgWidth: 64
@@ -990,15 +1059,15 @@ assets:
             offy: 0
             origname: i5k8hP4bdmFHF2D.png
             shape: rect
-            left: 0
-            right: 266
-            top: 0
-            bottom: 266
+            left: 16
+            right: 16
+            top: 16
+            bottom: 16
             uid: 5k8hP4bdmFHF2D
             padding: 1
             isBlank: false
             source: 'C:\Users\nekosnugz\Downloads\spazzatura_64x64.webp'
-          - lastmod: 1775590898787
+          - lastmod: 1775735531420
             type: texture
             name: G2
             untill: 4
@@ -1018,10 +1087,10 @@ assets:
             offy: 0
             origname: ihL74Ct37cz39cr.png
             shape: circle
-            left: 0
-            right: 128
-            top: 0
-            bottom: 128
+            left: 32
+            right: 32
+            top: 32
+            bottom: 32
             uid: hL74Ct37cz39cr
             padding: 1
             isBlank: false
@@ -1056,6 +1125,34 @@ assets:
             isBlank: false
             source: 'C:\Users\nekosnugz\Desktop\fish_brown.png'
             r: 24
+          - lastmod: 1775597991361
+            type: texture
+            name: aaaaaaaaaa_96x64.webp
+            untill: 0
+            grid:
+              - 3
+              - 2
+            axis:
+              - 16
+              - 16
+            marginx: 0
+            marginy: 0
+            imgWidth: 96
+            imgHeight: 64
+            width: 32
+            height: 32
+            offx: 0
+            offy: 0
+            origname: it8Kc55zPcR7C5h.png
+            shape: rect
+            left: 16
+            right: 16
+            top: 16
+            bottom: 16
+            uid: t8Kc55zPcR7C5h
+            padding: 1
+            isBlank: false
+            source: 'C:\Users\nekosnugz\Downloads\aaaaaaaaaa_96x64.webp'
       - type: folder
         uid: r75phJ99KmB7KH
         colorClass: accent1
@@ -1262,14 +1359,14 @@ assets:
                 code: |-
                   this.speed = 150;
                   this.direction = 0;
-                  this.scale.x = 0.5;
-                  this.scale.y = 0.5;
+                  this.scale.x = .8;
+                  this.scale.y = .8;
                 arguments: {}
                 lib: core
             extends:
               cgroup: Nemici
               'editor:myCollidingCGroups': []
-            lastmod: 1775595611664
+            lastmod: 1775734823805
             uid: MPdrNr8hhh5b2R
             behaviors: []
             extendTypes: ''
@@ -1300,14 +1397,14 @@ assets:
                 code: |-
                   this.speed = 150;
                   this.direction = 90;
-                  this.scale.x = 2;
-                  this.scale.y = 2;
+                  this.scale.x = 3;
+                  this.scale.y = 3;
                 arguments: {}
                 lib: core
             extends:
               cgroup: Nemici
               'editor:myCollidingCGroups': []
-            lastmod: 1775595571106
+            lastmod: 1775735190623
             uid: gMww9zTNWQRDPT
             behaviors: []
             extendTypes: ''
@@ -1333,6 +1430,8 @@ assets:
                   this.isCollected = false;
                   sounds.play('Generazione Spazzatura');
                   this.tex = "Grande" + Math.floor(Math.random() * 2 + 1);
+                  this.scale.x = 1.3
+                  this.scale.y = 1.3
                 arguments: {}
                 lib: core
               - eventKey: collisionCGroup
@@ -1366,7 +1465,7 @@ assets:
             extends:
               cgroup: ''
               'editor:myCollidingCGroups': []
-            lastmod: 1775597569434
+            lastmod: 1775735797144
             uid: Q5Dz7qRNWK3PLm
             behaviors: []
             extendTypes: ''
@@ -1490,7 +1589,7 @@ assets:
             baseClass: AnimatedSprite
             name: Spazzatura_piccola
             depth: 0
-            texture: f6C1t9dPCH6rwz
+            texture: 5k8hP4bdmFHF2D
             playAnimationOnStart: false
             loopAnimation: true
             animationFPS: 30
@@ -1527,15 +1626,15 @@ assets:
                 lib: place
               - eventKey: OnCreate
                 code: |-
-                  if (Math.floor(Math.random()) >= 0.25) {
-                      this.tex = 
-                  }
+                  this.currentFrame = Math.floor(Math.random() * 3 + 1);
+                  this.scale.x = 1.3
+                  this.scale.y = 1.3
                 arguments: {}
                 lib: core
             extends:
               cgroup: ''
               'editor:myCollidingCGroups': []
-            lastmod: 1775597740615
+            lastmod: 1775735531488
             uid: zG7nGRb2Bbht5p
             behaviors: []
             extendTypes: ''
@@ -2565,13 +2664,13 @@ assets:
             customSize: !<tag:yaml.org,2002:js/undefined> ''
             customWordWrap: !<tag:yaml.org,2002:js/undefined> ''
             bindings: {}
-          - x: 272
-            'y': 96
+          - x: 112
+            'y': 128
             opacity: 1
             tint: 16777215
             scale:
-              x: 1
-              'y': 1
+              x: 1.3
+              'y': 1.3
             rotation: 0
             uid: DL9BczP5Cd4RMz
             exts: {}
@@ -3180,13 +3279,13 @@ assets:
             customSize: !<tag:yaml.org,2002:js/undefined> ''
             customWordWrap: !<tag:yaml.org,2002:js/undefined> ''
             bindings: {}
-          - x: 992
-            'y': 96
+          - x: 1120
+            'y': 128
             opacity: 1
             tint: 16777215
             scale:
-              x: 1
-              'y': 1
+              x: 1.3
+              'y': 1.3
             rotation: 0
             uid: k4T35dNQG6RP66
             exts: {}
@@ -23602,8 +23701,454 @@ assets:
               cgroup: Terreno
             hidden: false
             cache: true
+          - depth: -1.5
+            tiles:
+              - x: 640
+                'y': 1152
+                opacity: 1
+                tint: 16777215
+                scale:
+                  x: 1
+                  'y': 1
+                frame: 0
+                rotation: 0
+                texture: t8Kc55zPcR7C5h
+              - x: 832
+                'y': 1120
+                opacity: 1
+                tint: 16777215
+                scale:
+                  x: 1
+                  'y': 1
+                frame: 0
+                rotation: 0
+                texture: t8Kc55zPcR7C5h
+              - x: 736
+                'y': 1120
+                opacity: 1
+                tint: 16777215
+                scale:
+                  x: 1
+                  'y': 1
+                frame: 0
+                rotation: 0
+                texture: t8Kc55zPcR7C5h
+              - x: 480
+                'y': 1088
+                opacity: 1
+                tint: 16777215
+                scale:
+                  x: 1
+                  'y': 1
+                frame: 0
+                rotation: 0
+                texture: t8Kc55zPcR7C5h
+              - x: 480
+                'y': 1632
+                opacity: 1
+                tint: 16777215
+                scale:
+                  x: 1
+                  'y': 1
+                frame: 0
+                rotation: 0
+                texture: t8Kc55zPcR7C5h
+              - x: 608
+                'y': 1600
+                opacity: 1
+                tint: 16777215
+                scale:
+                  x: 1
+                  'y': 1
+                frame: 0
+                rotation: 0
+                texture: t8Kc55zPcR7C5h
+              - x: 704
+                'y': 1600
+                opacity: 1
+                tint: 16777215
+                scale:
+                  x: 1
+                  'y': 1
+                frame: 0
+                rotation: 0
+                texture: t8Kc55zPcR7C5h
+              - x: 896
+                'y': 1664
+                opacity: 1
+                tint: 16777215
+                scale:
+                  x: 1
+                  'y': 1
+                frame: 0
+                rotation: 0
+                texture: t8Kc55zPcR7C5h
+              - x: 800
+                'y': 1632
+                opacity: 1
+                tint: 16777215
+                scale:
+                  x: 1
+                  'y': 1
+                frame: 0
+                rotation: 0
+                texture: t8Kc55zPcR7C5h
+              - x: 832
+                'y': 2048
+                opacity: 1
+                tint: 16777215
+                scale:
+                  x: 1
+                  'y': 1
+                frame: 0
+                rotation: 0
+                texture: t8Kc55zPcR7C5h
+              - x: 672
+                'y': 2048
+                opacity: 1
+                tint: 16777215
+                scale:
+                  x: 1
+                  'y': 1
+                frame: 0
+                rotation: 0
+                texture: t8Kc55zPcR7C5h
+              - x: 480
+                'y': 2048
+                opacity: 1
+                tint: 16777215
+                scale:
+                  x: 1
+                  'y': 1
+                frame: 0
+                rotation: 0
+                texture: t8Kc55zPcR7C5h
+              - x: 256
+                'y': 1920
+                opacity: 1
+                tint: 16777215
+                scale:
+                  x: 1
+                  'y': 1
+                frame: 0
+                rotation: 0
+                texture: t8Kc55zPcR7C5h
+              - x: 160
+                'y': 1792
+                opacity: 1
+                tint: 16777215
+                scale:
+                  x: 1
+                  'y': 1
+                frame: 0
+                rotation: 0
+                texture: t8Kc55zPcR7C5h
+              - x: 128
+                'y': 1632
+                opacity: 1
+                tint: 16777215
+                scale:
+                  x: 1
+                  'y': 1
+                frame: 0
+                rotation: 0
+                texture: t8Kc55zPcR7C5h
+              - x: 64
+                'y': 1504
+                opacity: 1
+                tint: 16777215
+                scale:
+                  x: 1
+                  'y': 1
+                frame: 0
+                rotation: 0
+                texture: t8Kc55zPcR7C5h
+              - x: 416
+                'y': 1216
+                opacity: 1
+                tint: 16777215
+                scale:
+                  x: 1
+                  'y': 1
+                frame: 0
+                rotation: 0
+                texture: t8Kc55zPcR7C5h
+              - x: 1248
+                'y': 1088
+                opacity: 1
+                tint: 16777215
+                scale:
+                  x: 1
+                  'y': 1
+                frame: 0
+                rotation: 0
+                texture: t8Kc55zPcR7C5h
+              - x: 864
+                'y': 640
+                opacity: 1
+                tint: 16777215
+                scale:
+                  x: 1
+                  'y': 1
+                frame: 0
+                rotation: 0
+                texture: t8Kc55zPcR7C5h
+              - x: 736
+                'y': 608
+                opacity: 1
+                tint: 16777215
+                scale:
+                  x: 1
+                  'y': 1
+                frame: 0
+                rotation: 0
+                texture: t8Kc55zPcR7C5h
+              - x: 576
+                'y': 576
+                opacity: 1
+                tint: 16777215
+                scale:
+                  x: 1
+                  'y': 1
+                frame: 0
+                rotation: 0
+                texture: t8Kc55zPcR7C5h
+              - x: 288
+                'y': 320
+                opacity: 1
+                tint: 16777215
+                scale:
+                  x: 1
+                  'y': 1
+                frame: 0
+                rotation: 0
+                texture: t8Kc55zPcR7C5h
+              - x: 96
+                'y': 192
+                opacity: 1
+                tint: 16777215
+                scale:
+                  x: 1
+                  'y': 1
+                frame: 0
+                rotation: 0
+                texture: t8Kc55zPcR7C5h
+              - x: 1024
+                'y': 288
+                opacity: 1
+                tint: 16777215
+                scale:
+                  x: 1
+                  'y': 1
+                frame: 0
+                rotation: 0
+                texture: t8Kc55zPcR7C5h
+              - x: 1120
+                'y': 192
+                opacity: 1
+                tint: 16777215
+                scale:
+                  x: 1
+                  'y': 1
+                frame: 0
+                rotation: 0
+                texture: t8Kc55zPcR7C5h
+              - x: 1216
+                'y': 160
+                opacity: 1
+                tint: 16777215
+                scale:
+                  x: 1
+                  'y': 1
+                frame: 0
+                rotation: 0
+                texture: t8Kc55zPcR7C5h
+              - x: 608
+                'y': 576
+                opacity: 1
+                tint: 16777215
+                scale:
+                  x: 1
+                  'y': 1
+                frame: 0
+                rotation: 0
+                texture: 5k8hP4bdmFHF2D
+              - x: 768
+                'y': 608
+                opacity: 1
+                tint: 16777215
+                scale:
+                  x: 1
+                  'y': 1
+                frame: 0
+                rotation: 0
+                texture: 5k8hP4bdmFHF2D
+              - x: 1152
+                'y': 192
+                opacity: 1
+                tint: 16777215
+                scale:
+                  x: 1
+                  'y': 1
+                frame: 0
+                rotation: 0
+                texture: 5k8hP4bdmFHF2D
+              - x: 192
+                'y': 256
+                opacity: 1
+                tint: 16777215
+                scale:
+                  x: 1
+                  'y': 1
+                frame: 0
+                rotation: 0
+                texture: 5k8hP4bdmFHF2D
+              - x: 96
+                'y': 1024
+                opacity: 1
+                tint: 16777215
+                scale:
+                  x: 1
+                  'y': 1
+                frame: 0
+                rotation: 0
+                texture: 5k8hP4bdmFHF2D
+              - x: 544
+                'y': 1120
+                opacity: 1
+                tint: 16777215
+                scale:
+                  x: 1
+                  'y': 1
+                frame: 0
+                rotation: 0
+                texture: 5k8hP4bdmFHF2D
+              - x: 96
+                'y': 1568
+                opacity: 1
+                tint: 16777215
+                scale:
+                  x: 1
+                  'y': 1
+                frame: 0
+                rotation: 0
+                texture: 5k8hP4bdmFHF2D
+              - x: 416
+                'y': 1664
+                opacity: 1
+                tint: 16777215
+                scale:
+                  x: 1
+                  'y': 1
+                frame: 0
+                rotation: 0
+                texture: 5k8hP4bdmFHF2D
+              - x: 640
+                'y': 1600
+                opacity: 1
+                tint: 16777215
+                scale:
+                  x: 1
+                  'y': 1
+                frame: 0
+                rotation: 0
+                texture: 5k8hP4bdmFHF2D
+              - x: 576
+                'y': 2048
+                opacity: 1
+                tint: 16777215
+                scale:
+                  x: 1
+                  'y': 1
+                frame: 0
+                rotation: 0
+                texture: 5k8hP4bdmFHF2D
+              - x: 864
+                'y': 2048
+                opacity: 1
+                tint: 16777215
+                scale:
+                  x: 1
+                  'y': 1
+                frame: 0
+                rotation: 0
+                texture: 5k8hP4bdmFHF2D
+              - x: 1056
+                'y': 1984
+                opacity: 1
+                tint: 16777215
+                scale:
+                  x: 1
+                  'y': 1
+                frame: 0
+                rotation: 0
+                texture: 5k8hP4bdmFHF2D
+              - x: 1152
+                'y': 1920
+                opacity: 1
+                tint: 16777215
+                scale:
+                  x: 1
+                  'y': 1
+                frame: 0
+                rotation: 0
+                texture: 5k8hP4bdmFHF2D
+              - x: 768
+                'y': 2048
+                opacity: 1
+                tint: 16777215
+                scale:
+                  x: 1
+                  'y': 1
+                frame: 0
+                rotation: 0
+                texture: 5k8hP4bdmFHF2D
+              - x: 320
+                'y': 1984
+                opacity: 1
+                tint: 16777215
+                scale:
+                  x: 1
+                  'y': 1
+                frame: 0
+                rotation: 0
+                texture: 5k8hP4bdmFHF2D
+              - x: 224
+                'y': 1920
+                opacity: 1
+                tint: 16777215
+                scale:
+                  x: 1
+                  'y': 1
+                frame: 0
+                rotation: 0
+                texture: 5k8hP4bdmFHF2D
+              - x: 544
+                'y': 1632
+                opacity: 1
+                tint: 16777215
+                scale:
+                  x: 1
+                  'y': 1
+                frame: 0
+                rotation: 0
+                texture: 5k8hP4bdmFHF2D
+              - x: 1056
+                'y': 256
+                opacity: 1
+                tint: 16777215
+                scale:
+                  x: 1
+                  'y': 1
+                frame: 0
+                rotation: 0
+                texture: 5k8hP4bdmFHF2D
+            extends:
+              cgroup: ''
+            hidden: false
+            cache: true
         extends: {}
-        lastmod: 1775596969458
+        lastmod: 1775736002951
         events:
           - eventKey: OnRoomStart
             code: |-
@@ -23665,7 +24210,7 @@ assets:
         behaviors: []
         extendTypes: ''
         uid: qHGRDbKPggp36C
-        lastPickedTileset: c8671kJP2h1d83
+        lastPickedTileset: 5k8hP4bdmFHF2D
       - type: room
         oncreate: ''
         onstep: ''
@@ -23772,11 +24317,11 @@ assets:
             bindings: {}
         tiles: []
         extends: {}
-        lastmod: 1775597102787
+        lastmod: 1775735998421
         events:
           - eventKey: OnRoomStart
             code: |-
-              countDown = 10; // In secondi 
+              countDown = 40; // In secondi 
 
               this.isOver = false;
 
@@ -23801,6 +24346,7 @@ assets:
                           setTimeout(() => {
                               templates.list['Countdown'][0].kill = true;
                           }, 1000);
+                          
                           
                           clearInterval(cd);
                       }
@@ -23904,7 +24450,7 @@ assets:
             bindings: {}
         tiles: []
         extends: {}
-        lastmod: 1775597371858
+        lastmod: 1775735998260
         events:
           - eventKey: OnRoomStart
             code: 'transition.fadeIn(500,0);'
@@ -24115,10 +24661,12 @@ assets:
             hidden: false
             cache: true
         extends: {}
-        lastmod: 1775597248164
+        lastmod: 1775735998626
         events:
           - eventKey: OnRoomStart
-            code: ''
+            code: |
+              camera.scale.x = 1
+              camera.scale.y = 1
             arguments: {}
             lib: core
         behaviors: []
@@ -24145,7 +24693,7 @@ settings:
       - 0
       - 1
     versionPostfix: ''
-    appId: ''
+    appId: trash.program.
   rendering:
     usePixiLegacy: true
     transparent: false

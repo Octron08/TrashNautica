@@ -206,11 +206,45 @@ assets:
                 arguments:
                   template: w2cpWbbRcqhr4F
                 lib: place
+              - eventKey: OnDraw
+                code: |-
+                  if (place.occupied(this, this.x, this.y, "Terreno")) {
+                      let trovato = false;
+                      let raggio = 2; // Quanto lontano cerchiamo ogni volta
+                      let maxTentativi = 20; // Per evitare che il gioco si blocchi se sei sepolto nel terreno
+                      
+                      // Cerchiamo nelle 8 direzioni attorno al giocatore, espandendo il cerchio
+                      for (let i = 1; i <= maxTentativi; i++) {
+                          let dist = i * raggio;
+                          
+                          // Array di direzioni: Destra, Sinistra, Sopra, Sotto e Diagonali
+                          let direzioni = [
+                              {dx: dist, dy: 0}, {dx: -dist, dy: 0}, 
+                              {dx: 0, dy: dist}, {dx: 0, dy: -dist},
+                              {dx: dist, dy: dist}, {dx: -dist, dy: dist},
+                              {dx: dist, dy: -dist}, {dx: -dist, dy: -dist}
+                          ];
+
+                          for (let dir of direzioni) {
+                              // Controlliamo se la posizione (X + dx, Y + dy) è libera
+                              if (!place.occupied(this, this.x + dir.dx, this.y + dir.dy, "Terreno")) {
+                                  this.x += dir.dx;
+                                  this.y += dir.dy;
+                                  trovato = true;
+                                  break; // Esci dal ciclo delle direzioni
+                              }
+                          }
+                          
+                          if (trovato) break; // Esci dal ciclo dei tentativi
+                      }
+                  }
+                arguments: {}
+                lib: core
             extends:
               cgroup: Giocatore
               'editor:myCollidingCGroups':
                 - Terreno
-            lastmod: 1775596925192
+            lastmod: 1775731657466
             uid: DL9BczP5Cd4RMz
             behaviors: []
             extendTypes: ''
@@ -344,11 +378,45 @@ assets:
                 arguments:
                   template: w2cpWbbRcqhr4F
                 lib: place
+              - eventKey: OnDraw
+                code: |-
+                  if (place.occupied(this, this.x, this.y, "Terreno")) {
+                      let trovato = false;
+                      let raggio = 2; // Quanto lontano cerchiamo ogni volta
+                      let maxTentativi = 20; // Per evitare che il gioco si blocchi se sei sepolto nel terreno
+                      
+                      // Cerchiamo nelle 8 direzioni attorno al giocatore, espandendo il cerchio
+                      for (let i = 1; i <= maxTentativi; i++) {
+                          let dist = i * raggio;
+                          
+                          // Array di direzioni: Destra, Sinistra, Sopra, Sotto e Diagonali
+                          let direzioni = [
+                              {dx: dist, dy: 0}, {dx: -dist, dy: 0}, 
+                              {dx: 0, dy: dist}, {dx: 0, dy: -dist},
+                              {dx: dist, dy: dist}, {dx: -dist, dy: dist},
+                              {dx: dist, dy: -dist}, {dx: -dist, dy: -dist}
+                          ];
+
+                          for (let dir of direzioni) {
+                              // Controlliamo se la posizione (X + dx, Y + dy) è libera
+                              if (!place.occupied(this, this.x + dir.dx, this.y + dir.dy, "Terreno")) {
+                                  this.x += dir.dx;
+                                  this.y += dir.dy;
+                                  trovato = true;
+                                  break; // Esci dal ciclo delle direzioni
+                              }
+                          }
+                          
+                          if (trovato) break; // Esci dal ciclo dei tentativi
+                      }
+                  }
+                arguments: {}
+                lib: core
             extends:
               cgroup: Giocatore
               'editor:myCollidingCGroups':
                 - Terreno
-            lastmod: 1775596933190
+            lastmod: 1775732431611
             uid: k4T35dNQG6RP66
             behaviors: []
             extendTypes: ''
@@ -685,7 +753,7 @@ assets:
                 source: >-
                   C:\Users\nekosnugz\Desktop\texturePackForTrashNautica\il resto
                   degli sprite\tire.png
-          - lastmod: 1775595884509
+          - lastmod: 1775735753312
             type: texture
             name: rocks
             untill: 0
@@ -713,6 +781,7 @@ assets:
             padding: 1
             isBlank: false
             source: 'C:\Users\nekosnugz\Desktop\sprite_sheet(0)(2).png'
+            r: 16
           - lastmod: 1775595893023
             type: texture
             name: sprite_sheet1
@@ -998,7 +1067,7 @@ assets:
             padding: 1
             isBlank: false
             source: 'C:\Users\nekosnugz\Downloads\spazzatura_64x64.webp'
-          - lastmod: 1775590898787
+          - lastmod: 1775735531420
             type: texture
             name: G2
             untill: 4
@@ -1018,10 +1087,10 @@ assets:
             offy: 0
             origname: ihL74Ct37cz39cr.png
             shape: circle
-            left: 0
-            right: 128
-            top: 0
-            bottom: 128
+            left: 32
+            right: 32
+            top: 32
+            bottom: 32
             uid: hL74Ct37cz39cr
             padding: 1
             isBlank: false
@@ -1290,14 +1359,14 @@ assets:
                 code: |-
                   this.speed = 150;
                   this.direction = 0;
-                  this.scale.x = 0.5;
-                  this.scale.y = 0.5;
+                  this.scale.x = .8;
+                  this.scale.y = .8;
                 arguments: {}
                 lib: core
             extends:
               cgroup: Nemici
               'editor:myCollidingCGroups': []
-            lastmod: 1775595611664
+            lastmod: 1775734823805
             uid: MPdrNr8hhh5b2R
             behaviors: []
             extendTypes: ''
@@ -1328,14 +1397,14 @@ assets:
                 code: |-
                   this.speed = 150;
                   this.direction = 90;
-                  this.scale.x = 2;
-                  this.scale.y = 2;
+                  this.scale.x = 3;
+                  this.scale.y = 3;
                 arguments: {}
                 lib: core
             extends:
               cgroup: Nemici
               'editor:myCollidingCGroups': []
-            lastmod: 1775595571106
+            lastmod: 1775735190623
             uid: gMww9zTNWQRDPT
             behaviors: []
             extendTypes: ''
@@ -1361,6 +1430,8 @@ assets:
                   this.isCollected = false;
                   sounds.play('Generazione Spazzatura');
                   this.tex = "Grande" + Math.floor(Math.random() * 2 + 1);
+                  this.scale.x = 1.3
+                  this.scale.y = 1.3
                 arguments: {}
                 lib: core
               - eventKey: collisionCGroup
@@ -1394,7 +1465,7 @@ assets:
             extends:
               cgroup: ''
               'editor:myCollidingCGroups': []
-            lastmod: 1775597569434
+            lastmod: 1775735797144
             uid: Q5Dz7qRNWK3PLm
             behaviors: []
             extendTypes: ''
@@ -1554,13 +1625,16 @@ assets:
                   template: k4T35dNQG6RP66
                 lib: place
               - eventKey: OnCreate
-                code: this.currentFrame = Math.floor(Math.random() * 3 + 1);
+                code: |-
+                  this.currentFrame = Math.floor(Math.random() * 3 + 1);
+                  this.scale.x = 1.3
+                  this.scale.y = 1.3
                 arguments: {}
                 lib: core
             extends:
               cgroup: ''
               'editor:myCollidingCGroups': []
-            lastmod: 1775597893792
+            lastmod: 1775735531488
             uid: zG7nGRb2Bbht5p
             behaviors: []
             extendTypes: ''
@@ -2590,13 +2664,13 @@ assets:
             customSize: !<tag:yaml.org,2002:js/undefined> ''
             customWordWrap: !<tag:yaml.org,2002:js/undefined> ''
             bindings: {}
-          - x: 272
-            'y': 96
+          - x: 112
+            'y': 128
             opacity: 1
             tint: 16777215
             scale:
-              x: 1
-              'y': 1
+              x: 1.3
+              'y': 1.3
             rotation: 0
             uid: DL9BczP5Cd4RMz
             exts: {}
@@ -3205,13 +3279,13 @@ assets:
             customSize: !<tag:yaml.org,2002:js/undefined> ''
             customWordWrap: !<tag:yaml.org,2002:js/undefined> ''
             bindings: {}
-          - x: 992
-            'y': 96
+          - x: 1120
+            'y': 128
             opacity: 1
             tint: 16777215
             scale:
-              x: 1
-              'y': 1
+              x: 1.3
+              'y': 1.3
             rotation: 0
             uid: k4T35dNQG6RP66
             exts: {}
@@ -24074,7 +24148,7 @@ assets:
             hidden: false
             cache: true
         extends: {}
-        lastmod: 1775598133181
+        lastmod: 1775736031437
         events:
           - eventKey: OnRoomStart
             code: |-
@@ -24243,11 +24317,11 @@ assets:
             bindings: {}
         tiles: []
         extends: {}
-        lastmod: 1775598456819
+        lastmod: 1775736031889
         events:
           - eventKey: OnRoomStart
             code: |-
-              countDown = 120; // In secondi 
+              countDown = 40; // In secondi 
 
               this.isOver = false;
 
@@ -24376,7 +24450,7 @@ assets:
             bindings: {}
         tiles: []
         extends: {}
-        lastmod: 1775597371858
+        lastmod: 1775736031704
         events:
           - eventKey: OnRoomStart
             code: 'transition.fadeIn(500,0);'
@@ -24587,10 +24661,12 @@ assets:
             hidden: false
             cache: true
         extends: {}
-        lastmod: 1775598438427
+        lastmod: 1775736032066
         events:
           - eventKey: OnRoomStart
-            code: ''
+            code: |
+              camera.scale.x = 1
+              camera.scale.y = 1
             arguments: {}
             lib: core
         behaviors: []
