@@ -26171,7 +26171,7 @@ assets:
             hidden: false
             cache: true
         extends: {}
-        lastmod: 1776792317355
+        lastmod: 1776792586748
         events:
           - eventKey: OnRoomStart
             code: |-
@@ -26201,8 +26201,6 @@ assets:
               rooms.current.minX = 0
               rooms.current.maxY = 2080
               countDown = defaultCountDown
-
-              if (pause.isPaused) pause.isPaused = false
             arguments: {}
             lib: core
           - eventKey: OnRoomEnd
@@ -136335,7 +136333,7 @@ assets:
             hidden: false
             cache: true
         extends: {}
-        lastmod: 1776792317823
+        lastmod: 1776792587362
         events:
           - eventKey: OnRoomStart
             code: |-
@@ -136366,7 +136364,6 @@ assets:
               rooms.current.maxY = 1500
 
               countDown = defaultCountDown
-              if (!pause.isPaused) pause.isPaused = false
             arguments: {}
             lib: core
           - eventKey: OnRoomEnd
@@ -136626,7 +136623,7 @@ assets:
             bindings: {}
         tiles: []
         extends: {}
-        lastmod: 1776792316815
+        lastmod: 1776792586217
         events:
           - eventKey: OnRoomStart
             code: ''
