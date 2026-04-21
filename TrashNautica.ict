@@ -225,8 +225,8 @@ assets:
                       for (let i of this.spazzaturaGrande) i.kill = true;
 
                       this.spazzaturaGrande = [];
-                      this.air = 3
                   }
+                      this.air = 3
                 arguments:
                   template: w2cpWbbRcqhr4F
                 lib: place
@@ -268,7 +268,7 @@ assets:
               cgroup: Giocatore
               'editor:myCollidingCGroups':
                 - Terreno
-            lastmod: 1776719975206
+            lastmod: 1776778852657
             uid: DL9BczP5Cd4RMz
             behaviors: []
             extendTypes: ''
@@ -336,7 +336,7 @@ assets:
                   }
                 arguments: {}
               - eventKey: collisionCGroup
-                code: this.enemyCollision
+                code: this.enemyCollision()
                 arguments:
                   group: Nemici
                 lib: place
@@ -421,6 +421,7 @@ assets:
 
                       this.spazzaturaGrande = [];
                   }
+                  this.air = 3
                 arguments:
                   template: w2cpWbbRcqhr4F
                 lib: place
@@ -462,7 +463,7 @@ assets:
               cgroup: Giocatore
               'editor:myCollidingCGroups':
                 - Terreno
-            lastmod: 1776719975290
+            lastmod: 1776778850064
             uid: k4T35dNQG6RP66
             behaviors: []
             extendTypes: ''
@@ -800,7 +801,7 @@ assets:
                 source: >-
                   C:\Users\nekosnugz\Desktop\texturePackForTrashNautica\il resto
                   degli sprite\tire.png
-          - lastmod: 1776617051826
+          - lastmod: 1776778917951
             type: texture
             name: rocks
             untill: 0
@@ -825,7 +826,7 @@ assets:
             top: 16
             bottom: 16
             uid: c8671kJP2h1d83
-            padding: 2
+            padding: 20
             isBlank: false
             source: 'C:\Users\nekosnugz\Desktop\sprite_sheet(0)(2).png'
             r: 13
@@ -136530,21 +136531,6 @@ assets:
             customWordWrap: !<tag:yaml.org,2002:js/undefined> ''
             bindings: {}
           - x: 816
-            'y': 320
-            opacity: 1
-            tint: 16777215
-            scale:
-              x: 1.09923664
-              'y': 1.41176471
-            rotation: 0
-            uid: wbtP9fdMRM245z
-            exts: {}
-            customProperties: {}
-            customText: !<tag:yaml.org,2002:js/undefined> ''
-            customSize: !<tag:yaml.org,2002:js/undefined> ''
-            customWordWrap: !<tag:yaml.org,2002:js/undefined> ''
-            bindings: {}
-          - x: 816
             'y': 448
             opacity: 1
             tint: 16777215
@@ -136619,9 +136605,24 @@ assets:
             customSize: !<tag:yaml.org,2002:js/undefined> ''
             customWordWrap: !<tag:yaml.org,2002:js/undefined> ''
             bindings: {}
+          - x: 800
+            'y': 320
+            opacity: 1
+            tint: 16777215
+            scale:
+              x: 1.09923664
+              'y': 1.41176471
+            rotation: 0
+            uid: wbtP9fdMRM245z
+            exts: {}
+            customProperties: {}
+            customText: 0 = false   1 = true
+            customSize: !<tag:yaml.org,2002:js/undefined> ''
+            customWordWrap: !<tag:yaml.org,2002:js/undefined> ''
+            bindings: {}
         tiles: []
         extends: {}
-        lastmod: 1776766691863
+        lastmod: 1776778887698
         events:
           - eventKey: OnRoomStart
             code: ''
