@@ -1469,6 +1469,7 @@ assets:
                   if (Number.parseInt(this.text) > 0) {
                       globalThis[this.globalVariable] = (Number.parseInt(this.text))
                   }
+                  difficulty = 3
                 arguments: {}
                 lib: core
               - eventKey: OnCreate
@@ -1488,7 +1489,7 @@ assets:
             extends:
               cgroup: ''
               'editor:myCollidingCGroups': []
-            lastmod: 1776619808135
+            lastmod: 1776766448275
             uid: P8KM5ggKCbrCh6
             behaviors: []
             extendTypes: ''
@@ -1524,7 +1525,7 @@ assets:
                   this.x = this.follow.x - 32
                   this.y = this.follow.y - 64
                   if (!pause.isPaused) {
-                      this.follow.air -= 0.0004 * airDepletionRate * ((trashAirDepletionMultiplier * this.follow.spazzaturaGrande.length) + 1)
+                      this.follow.air -= 0.0008 * airDepletionRate * ((trashAirDepletionMultiplier * this.follow.spazzaturaGrande.length) + 1)
                       this.count = this.follow.air
 
                       // // --- LOGICA DEL LAMPEGGIO ---
@@ -1532,7 +1533,7 @@ assets:
                       // this.tempoLampeggio += u.time;
 
                       // // 2. Controlliamo se siamo in zona pericolo
-                      // if (this.follow.air < this.sogliaAllarme) {
+                      if (this.follow.air < this.sogliaAllarme) {
 
                       //     // Più l'ossigeno è basso, più questo numero diventa grande (velocità maggiore)
                       //     // Moltiplica per 0.5 (o altro) per regolare quanto diventa "frenetico" alla fine
@@ -1542,14 +1543,11 @@ assets:
                       //     this.alpha = 0.7 + (0.3 * Math.sin(this.tempoLampeggio * velocita));
 
                       //     // TOCCO DI CLASSE OPZIONALE: Diventa anche rossastro!
-                      //     this.tint = 0xff5555;
+                          this.tint = 0xff5555;
 
-                      // } else {
-                      //     // Se l'ossigeno è sopra la soglia (o il giocatore raccoglie una bombola)
-                      //     // riportiamo lo sprite alla normalità
-                      //     this.alpha = 1;         // Visibilità al 100%
-                      //     this.tint = 0xffffff;   // Colore originale
-                      // }
+                      } else {
+                          this.tint = 0xffffff;   // Colore originale
+                      }
 
                       if (this.follow.air <= 0) {
                           this.follow.enemyCollision();
@@ -1575,7 +1573,7 @@ assets:
             extends:
               cgroup: ''
               'editor:myCollidingCGroups': []
-            lastmod: 1776690586721
+            lastmod: 1776766587546
             uid: f4TD3bLf6B57Rh
             behaviors: []
             extendTypes: ''
@@ -1605,6 +1603,7 @@ assets:
                       globalThis[this.globalVariable] = true
                   }
                   else this.text = globalThis[this.globalVariable]
+                  difficulty = 3
                 arguments: {}
                 lib: core
               - eventKey: OnCreate
@@ -1624,7 +1623,7 @@ assets:
             extends:
               cgroup: ''
               'editor:myCollidingCGroups': []
-            lastmod: 1776689934586
+            lastmod: 1776766438277
             uid: pjn3LW63cDP8jk
             behaviors: []
             extendTypes: ''
@@ -1642,6 +1641,111 @@ assets:
             fieldType: number
             maxTextLength: 0
             useBitmapText: false
+          - type: template
+            baseClass: Button
+            name: Normale
+            depth: 2
+            texture: MncJLwgnCf9Hk3
+            playAnimationOnStart: false
+            loopAnimation: true
+            animationFPS: 30
+            visible: true
+            events:
+              - eventKey: OnPointerClick
+                code: |
+                  airOption = true
+                  enemyDamage = false
+                  difficulty = 1
+                arguments: {}
+                lib: core
+            extends:
+              cgroup: ''
+              'editor:myCollidingCGroups': []
+            lastmod: 1776764804265
+            uid: r5Hf1FGtht9RqJ
+            behaviors: []
+            extendTypes: ''
+            defaultText: ''
+            textStyle: CmM2gPcw8mNdTQ
+            nineSliceSettings:
+              top: 16
+              left: 16
+              bottom: 16
+              right: 16
+              autoUpdate: false
+            hoverTexture: hk8994GCLR8wBK
+            pressedTexture: jfcJq6M6mKfBhP
+            disabledTexture: -1
+          - type: template
+            baseClass: Button
+            name: Facile
+            depth: 2
+            texture: MncJLwgnCf9Hk3
+            playAnimationOnStart: false
+            loopAnimation: true
+            animationFPS: 30
+            visible: true
+            events:
+              - eventKey: OnPointerClick
+                code: |
+                  airOption = false
+                  enemyDamage = false
+                  difficulty = 0
+                arguments: {}
+                lib: core
+            extends:
+              cgroup: ''
+              'editor:myCollidingCGroups': []
+            lastmod: 1776764824665
+            uid: 1W3DjjNnB3PWW4
+            behaviors: []
+            extendTypes: ''
+            defaultText: ''
+            textStyle: CmM2gPcw8mNdTQ
+            nineSliceSettings:
+              top: 16
+              left: 16
+              bottom: 16
+              right: 16
+              autoUpdate: false
+            hoverTexture: hk8994GCLR8wBK
+            pressedTexture: jfcJq6M6mKfBhP
+            disabledTexture: -1
+          - type: template
+            baseClass: Button
+            name: Difficile
+            depth: 2
+            texture: MncJLwgnCf9Hk3
+            playAnimationOnStart: false
+            loopAnimation: true
+            animationFPS: 30
+            visible: true
+            events:
+              - eventKey: OnPointerClick
+                code: |
+                  airOption = true
+                  enemyDamage = true
+                  difficulty = 2
+                arguments: {}
+                lib: core
+            extends:
+              cgroup: ''
+              'editor:myCollidingCGroups': []
+            lastmod: 1776764847177
+            uid: BBtLGHDLn4HjN9
+            behaviors: []
+            extendTypes: ''
+            defaultText: ''
+            textStyle: CmM2gPcw8mNdTQ
+            nineSliceSettings:
+              top: 16
+              left: 16
+              bottom: 16
+              right: 16
+              autoUpdate: false
+            hoverTexture: hk8994GCLR8wBK
+            pressedTexture: jfcJq6M6mKfBhP
+            disabledTexture: -1
       - type: folder
         uid: 79kQbKmF72Nbdq
         colorClass: act
@@ -29573,7 +29677,8 @@ assets:
             rotation: 0
             uid: f4TD3bLf6B57Rh
             exts: {}
-            customProperties: {}
+            customProperties:
+              pFollow: Giocatore2
             customText: !<tag:yaml.org,2002:js/undefined> ''
             customSize: !<tag:yaml.org,2002:js/undefined> ''
             customWordWrap: !<tag:yaml.org,2002:js/undefined> ''
@@ -136172,7 +136277,7 @@ assets:
             hidden: false
             cache: true
         extends: {}
-        lastmod: 1776722258707
+        lastmod: 1776766671522
         events:
           - eventKey: OnRoomStart
             code: |+
@@ -136454,9 +136559,69 @@ assets:
             customSize: !<tag:yaml.org,2002:js/undefined> ''
             customWordWrap: !<tag:yaml.org,2002:js/undefined> ''
             bindings: {}
+          - x: 1088
+            'y': 448
+            opacity: 1
+            tint: 16777215
+            scale:
+              x: 2.6
+              'y': 1
+            rotation: 0
+            uid: BBtLGHDLn4HjN9
+            exts: {}
+            customProperties: {}
+            customText: Difficile
+            customSize: !<tag:yaml.org,2002:js/undefined> ''
+            customWordWrap: !<tag:yaml.org,2002:js/undefined> ''
+            bindings: {}
+          - x: 1088
+            'y': 400
+            opacity: 1
+            tint: 16777215
+            scale:
+              x: 2.6
+              'y': 1
+            rotation: 0
+            uid: r5Hf1FGtht9RqJ
+            exts: {}
+            customProperties: {}
+            customText: Normale
+            customSize: !<tag:yaml.org,2002:js/undefined> ''
+            customWordWrap: !<tag:yaml.org,2002:js/undefined> ''
+            bindings: {}
+          - x: 1088
+            'y': 352
+            opacity: 1
+            tint: 16777215
+            scale:
+              x: 2.6
+              'y': 1
+            rotation: 0
+            uid: 1W3DjjNnB3PWW4
+            exts: {}
+            customProperties: {}
+            customText: Facile
+            customSize: !<tag:yaml.org,2002:js/undefined> ''
+            customWordWrap: !<tag:yaml.org,2002:js/undefined> ''
+            bindings: {}
+          - x: 1088
+            'y': 304
+            opacity: 1
+            tint: 16777215
+            scale:
+              x: 1.48837209
+              'y': 1.41176471
+            rotation: 0
+            uid: wbtP9fdMRM245z
+            exts: {}
+            customProperties: {}
+            customText: Difficoltà
+            customSize: !<tag:yaml.org,2002:js/undefined> ''
+            customWordWrap: !<tag:yaml.org,2002:js/undefined> ''
+            bindings: {}
         tiles: []
         extends: {}
-        lastmod: 1776722257189
+        lastmod: 1776766691863
         events:
           - eventKey: OnRoomStart
             code: ''
@@ -136494,14 +136659,14 @@ globalVars:
     value: '100'
     type: number
   - name: levelChoice
-    value: '0'
-    type: number
-  - name: difficulty
-    value: '0'
+    value: '1'
     type: number
   - name: enemyDamage
     value: 'false'
     type: boolean
+  - name: difficulty
+    value: '1'
+    type: number
 settings:
   authoring:
     author: 4G
