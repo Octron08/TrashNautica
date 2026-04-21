@@ -212,6 +212,8 @@ assets:
 
                                   this.alpha = 1;
                               }, 1500);
+
+                              this.air -= 0.2
                           }
                       }
                 arguments: {}
@@ -268,7 +270,7 @@ assets:
               cgroup: Giocatore
               'editor:myCollidingCGroups':
                 - Terreno
-            lastmod: 1776778852657
+            lastmod: 1776790466775
             uid: DL9BczP5Cd4RMz
             behaviors: []
             extendTypes: ''
@@ -341,19 +343,19 @@ assets:
                   group: Nemici
                 lib: place
               - eventKey: OnCreate
-                code: |-
-                  this.hasCollidedWithEnemy = false;
-                  this.spazzaturaGrande = [];
+                code: |2-
+                      this.hasCollidedWithEnemy = false;
+                      this.spazzaturaGrande = [];
 
-                  this.animationSpeed = 0.12;
-                  this.defaultScale = {
-                      x: this.scale.x,
-                      y: this.scale.y
-                  }
+                      this.animationSpeed = 0.12;
+                      this.defaultScale = {
+                          x: this.scale.x,
+                          y: this.scale.y
+                      }
 
-                  this.spawnX = this.x;
-                  this.spawnY = this.y;
-                  this.air = 3
+                      this.spawnX = this.x;
+                      this.spawnY = this.y;
+                      this.air = 3
 
                       this.enemyCollision = function () {
                           if (!this.hasCollidedWithEnemy && !pause.isPaused) {
@@ -407,6 +409,8 @@ assets:
 
                                   this.alpha = 1;
                               }, 1500);
+                              
+                              this.air -= 0.2
                           }
                       }
                 arguments: {}
@@ -463,7 +467,7 @@ assets:
               cgroup: Giocatore
               'editor:myCollidingCGroups':
                 - Terreno
-            lastmod: 1776778850064
+            lastmod: 1776790466778
             uid: k4T35dNQG6RP66
             behaviors: []
             extendTypes: ''
@@ -801,7 +805,7 @@ assets:
                 source: >-
                   C:\Users\nekosnugz\Desktop\texturePackForTrashNautica\il resto
                   degli sprite\tire.png
-          - lastmod: 1776778917951
+          - lastmod: 1776617051826
             type: texture
             name: rocks
             untill: 0
@@ -826,7 +830,7 @@ assets:
             top: 16
             bottom: 16
             uid: c8671kJP2h1d83
-            padding: 20
+            padding: 2
             isBlank: false
             source: 'C:\Users\nekosnugz\Desktop\sprite_sheet(0)(2).png'
             r: 13
@@ -1352,14 +1356,14 @@ assets:
                 code: |-
                   sounds.play('Start');
                   transition.fadeOut(500, 0).then(() => {
-                      rooms.switch(levelChoice == 2 ? 'livello2' : 'livello');
+                      rooms.switch(levelTwo ? 'livello2' : 'livello');
                   });
                 arguments: {}
                 lib: core
             extends:
               cgroup: ''
               'editor:myCollidingCGroups': []
-            lastmod: 1776719541090
+            lastmod: 1776789831001
             uid: 81gL4p22k1BDzg
             behaviors: []
             extendTypes: ''
@@ -1469,6 +1473,7 @@ assets:
                 code: |-
                   if (Number.parseInt(this.text) > 0) {
                       globalThis[this.globalVariable] = (Number.parseInt(this.text))
+                      this.text = countDown.toString()
                   }
                   difficulty = 3
                 arguments: {}
@@ -1490,7 +1495,7 @@ assets:
             extends:
               cgroup: ''
               'editor:myCollidingCGroups': []
-            lastmod: 1776766448275
+            lastmod: 1776790133892
             uid: P8KM5ggKCbrCh6
             behaviors: []
             extendTypes: ''
@@ -1526,7 +1531,7 @@ assets:
                   this.x = this.follow.x - 32
                   this.y = this.follow.y - 64
                   if (!pause.isPaused) {
-                      this.follow.air -= 0.0008 * airDepletionRate * ((trashAirDepletionMultiplier * this.follow.spazzaturaGrande.length) + 1)
+                      this.follow.air -= 0.0006 * airDepletionRate * ((trashAirDepletionMultiplier * this.follow.spazzaturaGrande.length) + 1)
                       this.count = this.follow.air
 
                       // // --- LOGICA DEL LAMPEGGIO ---
@@ -1574,7 +1579,7 @@ assets:
             extends:
               cgroup: ''
               'editor:myCollidingCGroups': []
-            lastmod: 1776766587546
+            lastmod: 1776787940675
             uid: f4TD3bLf6B57Rh
             behaviors: []
             extendTypes: ''
@@ -1644,7 +1649,7 @@ assets:
             useBitmapText: false
           - type: template
             baseClass: Button
-            name: Normale
+            name: Difficoltà
             depth: 2
             texture: MncJLwgnCf9Hk3
             playAnimationOnStart: false
@@ -1654,50 +1659,28 @@ assets:
             events:
               - eventKey: OnPointerClick
                 code: |
-                  airOption = true
-                  enemyDamage = false
-                  difficulty = 1
+                  if (difficulty == 0) {
+                      difficulty = 1
+                      airOption = true
+                      enemyDamage = false
+                      this.text = "Normale"
+                  } else if (difficulty == 1) {
+                      difficulty = 2
+                      airOption = true
+                      enemyDamage = true
+                      this.text = "Difficile"
+                  } else {
+                      difficulty = 0
+                      airOption = false
+                      enemyDamage = false
+                      this.text = "Facile"
+                  }
                 arguments: {}
                 lib: core
             extends:
               cgroup: ''
               'editor:myCollidingCGroups': []
-            lastmod: 1776764804265
-            uid: r5Hf1FGtht9RqJ
-            behaviors: []
-            extendTypes: ''
-            defaultText: ''
-            textStyle: CmM2gPcw8mNdTQ
-            nineSliceSettings:
-              top: 16
-              left: 16
-              bottom: 16
-              right: 16
-              autoUpdate: false
-            hoverTexture: hk8994GCLR8wBK
-            pressedTexture: jfcJq6M6mKfBhP
-            disabledTexture: -1
-          - type: template
-            baseClass: Button
-            name: Facile
-            depth: 2
-            texture: MncJLwgnCf9Hk3
-            playAnimationOnStart: false
-            loopAnimation: true
-            animationFPS: 30
-            visible: true
-            events:
-              - eventKey: OnPointerClick
-                code: |
-                  airOption = false
-                  enemyDamage = false
-                  difficulty = 0
-                arguments: {}
-                lib: core
-            extends:
-              cgroup: ''
-              'editor:myCollidingCGroups': []
-            lastmod: 1776764824665
+            lastmod: 1776789148393
             uid: 1W3DjjNnB3PWW4
             behaviors: []
             extendTypes: ''
@@ -1714,7 +1697,53 @@ assets:
             disabledTexture: -1
           - type: template
             baseClass: Button
-            name: Difficile
+            name: true/false button
+            depth: 2
+            texture: MncJLwgnCf9Hk3
+            playAnimationOnStart: false
+            loopAnimation: true
+            animationFPS: 30
+            visible: true
+            events:
+              - eventKey: OnPointerClick
+                code: >
+                  globalThis[this.globalVariable] =
+                  !globalThis[this.globalVariable]
+
+                  this.text = globalThis[this.globalVariable] ? "Si" : "No"
+                arguments: {}
+                lib: core
+              - eventKey: OnCreate
+                code: |-
+                  this.text = globalThis[this.globalVariable] ? "Si" : "No"
+                  difficulty = 3
+                arguments: {}
+                lib: core
+              - eventKey: OnDraw
+                code: 'this.text = globalThis[this.globalVariable] ? "Si" : "No"'
+                arguments: {}
+                lib: core
+            extends:
+              cgroup: ''
+              'editor:myCollidingCGroups': []
+            lastmod: 1776789830990
+            uid: zRJBThT1tDWQbK
+            behaviors: []
+            extendTypes: ''
+            defaultText: ''
+            textStyle: CmM2gPcw8mNdTQ
+            nineSliceSettings:
+              top: 16
+              left: 16
+              bottom: 16
+              right: 16
+              autoUpdate: false
+            hoverTexture: hk8994GCLR8wBK
+            pressedTexture: jfcJq6M6mKfBhP
+            disabledTexture: -1
+          - type: template
+            baseClass: Button
+            name: true/false button_n5fc
             depth: 2
             texture: MncJLwgnCf9Hk3
             playAnimationOnStart: false
@@ -1724,16 +1753,29 @@ assets:
             events:
               - eventKey: OnPointerClick
                 code: |
-                  airOption = true
-                  enemyDamage = true
-                  difficulty = 2
+                  if (difficulty == 0) {
+                      difficulty = 1
+                      airOption = true
+                      enemyDamage = false
+                      this.text = "Normale"
+                  } else if (difficulty == 1) {
+                      difficulty = 2
+                      airOption = true
+                      enemyDamage = true
+                      this.text = "Difficile"
+                  } else {
+                      difficulty = 0
+                      airOption = false
+                      enemyDamage = false
+                      this.text = "Facile"
+                  }
                 arguments: {}
                 lib: core
             extends:
               cgroup: ''
               'editor:myCollidingCGroups': []
-            lastmod: 1776764847177
-            uid: BBtLGHDLn4HjN9
+            lastmod: 1776789148393
+            uid: n5fc3c2qnTgCKb
             behaviors: []
             extendTypes: ''
             defaultText: ''
@@ -1908,25 +1950,30 @@ assets:
                 arguments:
                   group: Giocatore
                 lib: place
+              - eventKey: OnStep
+                code: |
+                  this.move();
+                arguments: {}
+                lib: core
               - eventKey: OnDestroy
-                code: |-
-                  do {
-                      var x = Math.floor(random.range(rooms.current.maxX,rooms.current.minX));
-                      var y = Math.floor(random(rooms.current.maxY));
-                  } while (place.occupied(this, x, y, 'outOfBounds'));
+                code: |2
+                      do {
+                          var x = Math.floor(random.range(rooms.current.maxX, rooms.current.minX));
+                          var y = Math.floor(random(rooms.current.maxY));
+                      } while (place.occupied(this, x, y, 'outOfBounds'));
 
-                  setTimeout(() => {
-                      templates.copy('Spazzatura_grande', x, y);
-                      sounds.play('Generazione Spazzatura');
-                  }, 2000 + Math.floor(Math.random() * 3 * 1000));
+                      setTimeout(() => {
+                          templates.copy('Spazzatura_grande', x, y);
+                          sounds.play('Generazione Spazzatura');
+                      }, 2000 + Math.floor(Math.random() * 3 * 1000));
 
-                  emitters.stop(this.puzza)
+                      emitters.stop(this.puzza)
                 arguments: {}
                 lib: core
             extends:
               cgroup: ''
               'editor:myCollidingCGroups': []
-            lastmod: 1776780302615
+            lastmod: 1776789829319
             uid: Q5Dz7qRNWK3PLm
             behaviors: []
             extendTypes: ''
@@ -2066,18 +2113,16 @@ assets:
                   template: DL9BczP5Cd4RMz
                 lib: place
               - eventKey: OnDestroy
-                code: |-
-                  do {
-                      var x = Math.floor(random.range(rooms.current.maxX,rooms.current.minX));
-                      var y = Math.floor(random(rooms.current.maxY));
-                  } while (place.occupied(this, x, y, 'outOfBounds'));
-
-                  setTimeout(() => {
-                      if (templates.list["Giocatore1"][0])
-                      templates.copy('Spazzatura_piccola', x, y);
-                      sounds.play('Generazione Spazzatura');
-                  }, 2000 + Math.floor(Math.random() * 3 * 1000));
-                  emitters.stop(this.puzza)
+                code: |2-
+                      do {
+                          var x = Math.floor(random.range(rooms.current.maxX, rooms.current.minX));
+                          var y = Math.floor(random(rooms.current.maxY));
+                      } while (place.occupied(this, x, y, 'outOfBounds'));
+                      setTimeout(() => {
+                          templates.copy('Spazzatura_piccola', x, y);
+                          sounds.play('Generazione Spazzatura');
+                      }, 2000 + Math.floor(Math.random() * 3 * 1000));
+                      emitters.stop(this.puzza)
                 arguments: {}
                 lib: core
               - eventKey: collisionTemplate
@@ -2099,7 +2144,7 @@ assets:
             extends:
               cgroup: ''
               'editor:myCollidingCGroups': []
-            lastmod: 1776780711626
+            lastmod: 1776789829404
             uid: zG7nGRb2Bbht5p
             behaviors: []
             extendTypes: ''
@@ -2996,1266 +3041,6 @@ assets:
             scaleY: 1
             repeat: repeat
         copies:
-          - x: -276.15550277
-            'y': 8.79848698
-            opacity: 1
-            tint: 16777215
-            scale:
-              x: 9.31555101
-              'y': 64.7508291
-            rotation: 0
-            uid: fk2cbf8wwnqTMT
-            exts: {}
-            customProperties: {}
-            customText: !<tag:yaml.org,2002:js/undefined> ''
-            customSize: !<tag:yaml.org,2002:js/undefined> ''
-            customWordWrap: !<tag:yaml.org,2002:js/undefined> ''
-            bindings: {}
-          - x: -160.62245632
-            'y': 19.82378579
-            opacity: 1
-            tint: 16777215
-            scale:
-              x: 7.57258589
-              'y': 52.3902576
-            rotation: -1.5707963267948966
-            uid: fk2cbf8wwnqTMT
-            exts: {}
-            customProperties: {}
-            customText: !<tag:yaml.org,2002:js/undefined> ''
-            customSize: !<tag:yaml.org,2002:js/undefined> ''
-            customWordWrap: !<tag:yaml.org,2002:js/undefined> ''
-            bindings: {}
-          - x: 1259.21550154
-            'y': -20.57068451
-            opacity: 1
-            tint: 16777215
-            scale:
-              x: 11.34156959
-              'y': 64.7508291
-            rotation: 0
-            uid: fk2cbf8wwnqTMT
-            exts: {}
-            customProperties: {}
-            customText: !<tag:yaml.org,2002:js/undefined> ''
-            customSize: !<tag:yaml.org,2002:js/undefined> ''
-            customWordWrap: !<tag:yaml.org,2002:js/undefined> ''
-            bindings: {}
-          - x: -237.55531901
-            'y': 2396.81026482
-            opacity: 1
-            tint: 16777215
-            scale:
-              x: 10.54554893
-              'y': 60.74167133
-            rotation: -1.5686871665580682
-            uid: fk2cbf8wwnqTMT
-            exts: {}
-            customProperties: {}
-            customText: !<tag:yaml.org,2002:js/undefined> ''
-            customSize: !<tag:yaml.org,2002:js/undefined> ''
-            customWordWrap: !<tag:yaml.org,2002:js/undefined> ''
-            bindings: {}
-          - x: 1071.25617274
-            'y': 2058.71655993
-            opacity: 1
-            tint: 16777215
-            scale:
-              x: 2.9711629
-              'y': 5.70368715
-            rotation: -1.5686871665580682
-            uid: fk2cbf8wwnqTMT
-            exts: {}
-            customProperties: {}
-            customText: !<tag:yaml.org,2002:js/undefined> ''
-            customSize: !<tag:yaml.org,2002:js/undefined> ''
-            customWordWrap: !<tag:yaml.org,2002:js/undefined> ''
-            bindings: {}
-          - x: 1035.28968104
-            'y': 2062.10695624
-            opacity: 1
-            tint: 16777215
-            scale:
-              x: 1.9847672699999999
-              'y': 1.07633131
-            rotation: -1.5686871665580682
-            uid: fk2cbf8wwnqTMT
-            exts: {}
-            customProperties: {}
-            customText: !<tag:yaml.org,2002:js/undefined> ''
-            customSize: !<tag:yaml.org,2002:js/undefined> ''
-            customWordWrap: !<tag:yaml.org,2002:js/undefined> ''
-            bindings: {}
-          - x: 1005.3591842
-            'y': 2062.9192894
-            opacity: 1
-            tint: 16777215
-            scale:
-              x: 1.10950693
-              'y': 1.10730796
-            rotation: -1.5686871665580682
-            uid: fk2cbf8wwnqTMT
-            exts: {}
-            customProperties: {}
-            customText: !<tag:yaml.org,2002:js/undefined> ''
-            customSize: !<tag:yaml.org,2002:js/undefined> ''
-            customWordWrap: !<tag:yaml.org,2002:js/undefined> ''
-            bindings: {}
-          - x: 1169.40633942
-            'y': 1965.01635457
-            opacity: 1
-            tint: 16777215
-            scale:
-              x: 1.98480189
-              'y': 5.29676366
-            rotation: -1.5686871665580682
-            uid: fk2cbf8wwnqTMT
-            exts: {}
-            customProperties: {}
-            customText: !<tag:yaml.org,2002:js/undefined> ''
-            customSize: !<tag:yaml.org,2002:js/undefined> ''
-            customWordWrap: !<tag:yaml.org,2002:js/undefined> ''
-            bindings: {}
-          - x: 1135.63853074
-            'y': 1971.01710142
-            opacity: 1
-            tint: 16777215
-            scale:
-              x: 1.10950693
-              'y': 1.10730796
-            rotation: -1.5686871665580682
-            uid: fk2cbf8wwnqTMT
-            exts: {}
-            customProperties: {}
-            customText: !<tag:yaml.org,2002:js/undefined> ''
-            customSize: !<tag:yaml.org,2002:js/undefined> ''
-            customWordWrap: !<tag:yaml.org,2002:js/undefined> ''
-            bindings: {}
-          - x: 1195.18939445
-            'y': 1935.90951496
-            opacity: 1
-            tint: 16777215
-            scale:
-              x: 24.17000502
-              'y': 2.19747982
-            rotation: -1.5686871665580682
-            uid: fk2cbf8wwnqTMT
-            exts: {}
-            customProperties: {}
-            customText: !<tag:yaml.org,2002:js/undefined> ''
-            customSize: !<tag:yaml.org,2002:js/undefined> ''
-            customWordWrap: !<tag:yaml.org,2002:js/undefined> ''
-            bindings: {}
-          - x: 1160.40090953
-            'y': 1741.52014963
-            opacity: 1
-            tint: 16777215
-            scale:
-              x: 15.88068759
-              'y': 2.01775882
-            rotation: -1.5686871665580682
-            uid: fk2cbf8wwnqTMT
-            exts: {}
-            customProperties: {}
-            customText: !<tag:yaml.org,2002:js/undefined> ''
-            customSize: !<tag:yaml.org,2002:js/undefined> ''
-            customWordWrap: !<tag:yaml.org,2002:js/undefined> ''
-            bindings: {}
-          - x: 1129.4963343
-            'y': 1714.1988014
-            opacity: 1
-            tint: 16777215
-            scale:
-              x: 12.0992525
-              'y': 1.63163348
-            rotation: -1.5686871665580682
-            uid: fk2cbf8wwnqTMT
-            exts: {}
-            customProperties: {}
-            customText: !<tag:yaml.org,2002:js/undefined> ''
-            customSize: !<tag:yaml.org,2002:js/undefined> ''
-            customWordWrap: !<tag:yaml.org,2002:js/undefined> ''
-            bindings: {}
-          - x: 1095.25955449
-            'y': 1647.39425669
-            opacity: 1
-            tint: 16777215
-            scale:
-              x: 8.10256182
-              'y': 1.21872525
-            rotation: -1.5686871665580682
-            uid: fk2cbf8wwnqTMT
-            exts: {}
-            customProperties: {}
-            customText: !<tag:yaml.org,2002:js/undefined> ''
-            customSize: !<tag:yaml.org,2002:js/undefined> ''
-            customWordWrap: !<tag:yaml.org,2002:js/undefined> ''
-            bindings: {}
-          - x: 1067.22144951
-            'y': 1588.4696643
-            opacity: 1
-            tint: 16777215
-            scale:
-              x: 3.19613201
-              'y': 1.04864455
-            rotation: -1.5686871665580682
-            uid: fk2cbf8wwnqTMT
-            exts: {}
-            customProperties: {}
-            customText: !<tag:yaml.org,2002:js/undefined> ''
-            customSize: !<tag:yaml.org,2002:js/undefined> ''
-            customWordWrap: !<tag:yaml.org,2002:js/undefined> ''
-            bindings: {}
-          - x: 1226.51420671
-            'y': 1163.91751361
-            opacity: 1
-            tint: 16777215
-            scale:
-              x: 1.97477215
-              'y': 1.32682046
-            rotation: -1.5686871665580682
-            uid: fk2cbf8wwnqTMT
-            exts: &ref_0 {}
-            customProperties: {}
-            customText: !<tag:yaml.org,2002:js/undefined> ''
-            customSize: !<tag:yaml.org,2002:js/undefined> ''
-            customWordWrap: !<tag:yaml.org,2002:js/undefined> ''
-            bindings: {}
-          - x: 1129.56304033
-            'y': 755.49135289
-            opacity: 1
-            tint: 16777215
-            scale:
-              x: 17.34466987
-              'y': 4.69030331
-            rotation: -1.5686871665580682
-            uid: fk2cbf8wwnqTMT
-            exts: *ref_0
-            customProperties: {}
-            customText: !<tag:yaml.org,2002:js/undefined> ''
-            customSize: !<tag:yaml.org,2002:js/undefined> ''
-            customWordWrap: !<tag:yaml.org,2002:js/undefined> ''
-            bindings: {}
-          - x: 1098.89787547
-            'y': 562.48389673
-            opacity: 1
-            tint: 16777215
-            scale:
-              x: 11.24323623
-              'y': 1.47305255
-            rotation: -1.5686871665580682
-            uid: fk2cbf8wwnqTMT
-            exts: {}
-            customProperties: {}
-            customText: !<tag:yaml.org,2002:js/undefined> ''
-            customSize: !<tag:yaml.org,2002:js/undefined> ''
-            customWordWrap: !<tag:yaml.org,2002:js/undefined> ''
-            bindings: {}
-          - x: 1064.43877276
-            'y': 464.79622598
-            opacity: 1
-            tint: 16777215
-            scale:
-              x: 8.18555237
-              'y': 1.57321883
-            rotation: -1.5686871665580682
-            uid: fk2cbf8wwnqTMT
-            exts: {}
-            customProperties: {}
-            customText: !<tag:yaml.org,2002:js/undefined> ''
-            customSize: !<tag:yaml.org,2002:js/undefined> ''
-            customWordWrap: !<tag:yaml.org,2002:js/undefined> ''
-            bindings: {}
-          - x: 1033.62288249
-            'y': 404.36173208
-            opacity: 1
-            tint: 16777215
-            scale:
-              x: 4.34344698
-              'y': 1.6730725899999999
-            rotation: -1.5686871665580682
-            uid: fk2cbf8wwnqTMT
-            exts: &ref_1 {}
-            customProperties: {}
-            customText: !<tag:yaml.org,2002:js/undefined> ''
-            customSize: !<tag:yaml.org,2002:js/undefined> ''
-            customWordWrap: !<tag:yaml.org,2002:js/undefined> ''
-            bindings: {}
-          - x: 1003.39550667
-            'y': 373.21507379
-            opacity: 1
-            tint: 16777215
-            scale:
-              x: 2.3686881
-              'y': 1.57321532
-            rotation: -1.5686871665580682
-            uid: fk2cbf8wwnqTMT
-            exts: *ref_1
-            customProperties: {}
-            customText: !<tag:yaml.org,2002:js/undefined> ''
-            customSize: !<tag:yaml.org,2002:js/undefined> ''
-            customWordWrap: !<tag:yaml.org,2002:js/undefined> ''
-            bindings: {}
-          - x: 1196.69259928
-            'y': 788.57053296
-            opacity: 1
-            tint: 16777215
-            scale:
-              x: 1.1877349
-              'y': 2.40937819
-            rotation: -1.5686871665580682
-            uid: fk2cbf8wwnqTMT
-            exts: {}
-            customProperties: {}
-            customText: !<tag:yaml.org,2002:js/undefined> ''
-            customSize: !<tag:yaml.org,2002:js/undefined> ''
-            customWordWrap: !<tag:yaml.org,2002:js/undefined> ''
-            bindings: {}
-          - x: 1224.20736923
-            'y': 819.74584034
-            opacity: 1
-            tint: 16777215
-            scale:
-              x: 1.18773273
-              'y': 1.41833611
-            rotation: -1.5686871665580682
-            uid: fk2cbf8wwnqTMT
-            exts: {}
-            customProperties: {}
-            customText: !<tag:yaml.org,2002:js/undefined> ''
-            customSize: !<tag:yaml.org,2002:js/undefined> ''
-            customWordWrap: !<tag:yaml.org,2002:js/undefined> ''
-            bindings: {}
-          - x: 1194.07348055
-            'y': 202.68061889
-            opacity: 1
-            tint: 16777215
-            scale:
-              x: 1.04891388
-              'y': 2.15496224
-            rotation: -1.5686871665580682
-            uid: fk2cbf8wwnqTMT
-            exts: &ref_2 {}
-            customProperties: {}
-            customText: !<tag:yaml.org,2002:js/undefined> ''
-            customSize: !<tag:yaml.org,2002:js/undefined> ''
-            customWordWrap: !<tag:yaml.org,2002:js/undefined> ''
-            bindings: {}
-          - x: 331.56347188
-            'y': 83.15919354
-            opacity: 1
-            tint: 16777215
-            scale:
-              x: 2.2713715
-              'y': 19.22895942
-            rotation: -1.5686871665580682
-            uid: fk2cbf8wwnqTMT
-            exts: *ref_2
-            customProperties: {}
-            customText: !<tag:yaml.org,2002:js/undefined> ''
-            customSize: !<tag:yaml.org,2002:js/undefined> ''
-            customWordWrap: !<tag:yaml.org,2002:js/undefined> ''
-            bindings: {}
-          - x: 394.79377789
-            'y': 146.6544729
-            opacity: 1
-            tint: 16777215
-            scale:
-              x: 2.27136943
-              'y': 15.28219804
-            rotation: -1.5686871665580682
-            uid: fk2cbf8wwnqTMT
-            exts: {}
-            customProperties: {}
-            customText: !<tag:yaml.org,2002:js/undefined> ''
-            customSize: !<tag:yaml.org,2002:js/undefined> ''
-            customWordWrap: !<tag:yaml.org,2002:js/undefined> ''
-            bindings: {}
-          - x: 361.80474296
-            'y': 116.08229903
-            opacity: 1
-            tint: 16777215
-            scale:
-              x: 1.1953976
-              'y': 1.05719496
-            rotation: -1.5686871665580682
-            uid: fk2cbf8wwnqTMT
-            exts: {}
-            customProperties: {}
-            customText: !<tag:yaml.org,2002:js/undefined> ''
-            customSize: !<tag:yaml.org,2002:js/undefined> ''
-            customWordWrap: !<tag:yaml.org,2002:js/undefined> ''
-            bindings: {}
-          - x: 457.07587013
-            'y': 183.60203373
-            opacity: 1
-            tint: 16777215
-            scale:
-              x: 1.19540956
-              'y': 3.43514441
-            rotation: -1.5686871665580682
-            uid: fk2cbf8wwnqTMT
-            exts: {}
-            customProperties: {}
-            customText: !<tag:yaml.org,2002:js/undefined> ''
-            customSize: !<tag:yaml.org,2002:js/undefined> ''
-            customWordWrap: !<tag:yaml.org,2002:js/undefined> ''
-            bindings: {}
-          - x: 619.09976522
-            'y': 179.90990115
-            opacity: 1
-            tint: 16777215
-            scale:
-              x: 1.19541251
-              'y': 5.34106473
-            rotation: -1.5686871665580682
-            uid: fk2cbf8wwnqTMT
-            exts: &ref_3 {}
-            customProperties: {}
-            customText: !<tag:yaml.org,2002:js/undefined> ''
-            customSize: !<tag:yaml.org,2002:js/undefined> ''
-            customWordWrap: !<tag:yaml.org,2002:js/undefined> ''
-            bindings: {}
-          - x: 876.37640996
-            'y': 117.53870582
-            opacity: 1
-            tint: 16777215
-            scale:
-              x: 1.19540623
-              'y': 1.28685141
-            rotation: -1.5686871665580682
-            uid: fk2cbf8wwnqTMT
-            exts: *ref_3
-            customProperties: {}
-            customText: !<tag:yaml.org,2002:js/undefined> ''
-            customSize: !<tag:yaml.org,2002:js/undefined> ''
-            customWordWrap: !<tag:yaml.org,2002:js/undefined> ''
-            bindings: {}
-          - x: 652.11245709
-            'y': 215.56164745
-            opacity: 1
-            tint: 16777215
-            scale:
-              x: 1.19905994
-              'y': 3.20305516
-            rotation: -1.5686871665580682
-            uid: fk2cbf8wwnqTMT
-            exts: *ref_3
-            customProperties: {}
-            customText: !<tag:yaml.org,2002:js/undefined> ''
-            customSize: !<tag:yaml.org,2002:js/undefined> ''
-            customWordWrap: !<tag:yaml.org,2002:js/undefined> ''
-            bindings: {}
-          - x: 18.10769134
-            'y': 907.87536652
-            opacity: 1
-            tint: 16777215
-            scale:
-              x: 22.0557397
-              'y': 4.02327816
-            rotation: -1.5686871665580682
-            uid: fk2cbf8wwnqTMT
-            exts: *ref_3
-            customProperties: {}
-            customText: !<tag:yaml.org,2002:js/undefined> ''
-            customSize: !<tag:yaml.org,2002:js/undefined> ''
-            customWordWrap: !<tag:yaml.org,2002:js/undefined> ''
-            bindings: {}
-          - x: 119.89830565
-            'y': 817.46005825
-            opacity: 1
-            tint: 16777215
-            scale:
-              x: 18.2441092
-              'y': 1.85333552
-            rotation: -1.5686871665580682
-            uid: fk2cbf8wwnqTMT
-            exts: &ref_4 {}
-            customProperties: {}
-            customText: !<tag:yaml.org,2002:js/undefined> ''
-            customSize: !<tag:yaml.org,2002:js/undefined> ''
-            customWordWrap: !<tag:yaml.org,2002:js/undefined> ''
-            bindings: {}
-          - x: 176.7113186
-            'y': 589.07210131
-            opacity: 1
-            tint: 16777215
-            scale:
-              x: 9.95827918
-              'y': 0.97440815
-            rotation: -1.5686871665580682
-            uid: fk2cbf8wwnqTMT
-            exts: *ref_4
-            customProperties: {}
-            customText: !<tag:yaml.org,2002:js/undefined> ''
-            customSize: !<tag:yaml.org,2002:js/undefined> ''
-            customWordWrap: !<tag:yaml.org,2002:js/undefined> ''
-            bindings: {}
-          - x: 209.54753145
-            'y': 566.15466165
-            opacity: 1
-            tint: 16777215
-            scale:
-              x: 8.33588339
-              'y': 0.97440744
-            rotation: -1.5686871665580682
-            uid: fk2cbf8wwnqTMT
-            exts: {}
-            customProperties: {}
-            customText: !<tag:yaml.org,2002:js/undefined> ''
-            customSize: !<tag:yaml.org,2002:js/undefined> ''
-            customWordWrap: !<tag:yaml.org,2002:js/undefined> ''
-            bindings: {}
-          - x: 241.22408463
-            'y': 531.76344675
-            opacity: 1
-            tint: 16777215
-            scale:
-              x: 6.39982982
-              'y': 1.0746799
-            rotation: -1.5686871665580682
-            uid: fk2cbf8wwnqTMT
-            exts: {}
-            customProperties: {}
-            customText: !<tag:yaml.org,2002:js/undefined> ''
-            customSize: !<tag:yaml.org,2002:js/undefined> ''
-            customWordWrap: !<tag:yaml.org,2002:js/undefined> ''
-            bindings: {}
-          - x: 276.60514442
-            'y': 469.8100465
-            opacity: 1
-            tint: 16777215
-            scale:
-              x: 3.37396784
-              'y': 2.01293914
-            rotation: -1.5686871665580682
-            uid: fk2cbf8wwnqTMT
-            exts: {}
-            customProperties: {}
-            customText: !<tag:yaml.org,2002:js/undefined> ''
-            customSize: !<tag:yaml.org,2002:js/undefined> ''
-            customWordWrap: !<tag:yaml.org,2002:js/undefined> ''
-            bindings: {}
-          - x: 274.86014737
-            'y': 363.02759531
-            opacity: 1
-            tint: 16777215
-            scale:
-              x: 1.09717163
-              'y': 1.07467594
-            rotation: -1.5686871665580682
-            uid: fk2cbf8wwnqTMT
-            exts: &ref_5 {}
-            customProperties: {}
-            customText: !<tag:yaml.org,2002:js/undefined> ''
-            customSize: !<tag:yaml.org,2002:js/undefined> ''
-            customWordWrap: !<tag:yaml.org,2002:js/undefined> ''
-            bindings: {}
-          - x: 17.40707551
-            'y': 1301.48345781
-            opacity: 1
-            tint: 16777215
-            scale:
-              x: 12.17918026
-              'y': 2.18655035
-            rotation: -1.5686871665580682
-            uid: fk2cbf8wwnqTMT
-            exts: *ref_5
-            customProperties: {}
-            customText: !<tag:yaml.org,2002:js/undefined> ''
-            customSize: !<tag:yaml.org,2002:js/undefined> ''
-            customWordWrap: !<tag:yaml.org,2002:js/undefined> ''
-            bindings: {}
-          - x: 83.07895051
-            'y': 1268.77210236
-            opacity: 1
-            tint: 16777215
-            scale:
-              x: 7.39081831
-              'y': 1.07468064
-            rotation: -1.5686871665580682
-            uid: fk2cbf8wwnqTMT
-            exts: *ref_5
-            customProperties: {}
-            customText: !<tag:yaml.org,2002:js/undefined> ''
-            customSize: !<tag:yaml.org,2002:js/undefined> ''
-            customWordWrap: !<tag:yaml.org,2002:js/undefined> ''
-            bindings: {}
-          - x: 115.56332551
-            'y': 1235.90167099
-            opacity: 1
-            tint: 16777215
-            scale:
-              x: 4.23045433
-              'y': 1.07467828
-            rotation: -1.5686871665580682
-            uid: fk2cbf8wwnqTMT
-            exts: *ref_5
-            customProperties: {}
-            customText: !<tag:yaml.org,2002:js/undefined> ''
-            customSize: !<tag:yaml.org,2002:js/undefined> ''
-            customWordWrap: !<tag:yaml.org,2002:js/undefined> ''
-            bindings: {}
-          - x: 19.79770051
-            'y': 1332.04124533
-            opacity: 1
-            tint: 16777215
-            scale:
-              x: 1.19673684
-              'y': 1.07467601
-            rotation: -1.5686871665580682
-            uid: fk2cbf8wwnqTMT
-            exts: *ref_5
-            customProperties: {}
-            customText: !<tag:yaml.org,2002:js/undefined> ''
-            customSize: !<tag:yaml.org,2002:js/undefined> ''
-            customWordWrap: !<tag:yaml.org,2002:js/undefined> ''
-            bindings: {}
-          - x: 16.84457551
-            'y': 1516.04507976
-            opacity: 1
-            tint: 16777215
-            scale:
-              x: 0.99848417
-              'y': 1.07467587
-            rotation: -1.5686871665580682
-            uid: fk2cbf8wwnqTMT
-            exts: *ref_5
-            customProperties: {}
-            customText: !<tag:yaml.org,2002:js/undefined> ''
-            customSize: !<tag:yaml.org,2002:js/undefined> ''
-            customWordWrap: !<tag:yaml.org,2002:js/undefined> ''
-            bindings: {}
-          - x: 21.35832873
-            'y': 1575.66820588
-            opacity: 1
-            tint: 16777215
-            scale:
-              x: 1.90231014
-              'y': 2.05779924
-            rotation: -1.5686871665580682
-            uid: fk2cbf8wwnqTMT
-            exts: {}
-            customProperties: {}
-            customText: !<tag:yaml.org,2002:js/undefined> ''
-            customSize: !<tag:yaml.org,2002:js/undefined> ''
-            customWordWrap: !<tag:yaml.org,2002:js/undefined> ''
-            bindings: {}
-          - x: 24.07835755
-            'y': 1653.52438041
-            opacity: 1
-            tint: 16777215
-            scale:
-              x: 2.43093762
-              'y': 2.91377724
-            rotation: -1.5686871665580682
-            uid: fk2cbf8wwnqTMT
-            exts: &ref_6 {}
-            customProperties: {}
-            customText: !<tag:yaml.org,2002:js/undefined> ''
-            customSize: !<tag:yaml.org,2002:js/undefined> ''
-            customWordWrap: !<tag:yaml.org,2002:js/undefined> ''
-            bindings: {}
-          - x: 23.09630459
-            'y': 1881.13821101
-            opacity: 1
-            tint: 16777215
-            scale:
-              x: 7.38664632
-              'y': 4.01644416
-            rotation: -1.5686871665580682
-            uid: fk2cbf8wwnqTMT
-            exts: *ref_6
-            customProperties: {}
-            customText: !<tag:yaml.org,2002:js/undefined> ''
-            customSize: !<tag:yaml.org,2002:js/undefined> ''
-            customWordWrap: !<tag:yaml.org,2002:js/undefined> ''
-            bindings: {}
-          - x: -46.17889453
-            'y': 1970.28643169
-            opacity: 1
-            tint: 16777215
-            scale:
-              x: 5.20942171
-              'y': 7.05413874
-            rotation: -1.5686871665580682
-            uid: fk2cbf8wwnqTMT
-            exts: *ref_6
-            customProperties: {}
-            customText: !<tag:yaml.org,2002:js/undefined> ''
-            customSize: !<tag:yaml.org,2002:js/undefined> ''
-            customWordWrap: !<tag:yaml.org,2002:js/undefined> ''
-            bindings: {}
-          - x: 142.98461025
-            'y': 1959.62949409
-            opacity: 1
-            tint: 16777215
-            scale:
-              x: 1.90231014
-              'y': 2.05779924
-            rotation: -1.5686871665580682
-            uid: fk2cbf8wwnqTMT
-            exts: *ref_6
-            customProperties: {}
-            customText: !<tag:yaml.org,2002:js/undefined> ''
-            customSize: !<tag:yaml.org,2002:js/undefined> ''
-            customWordWrap: !<tag:yaml.org,2002:js/undefined> ''
-            bindings: {}
-          - x: -109.11415154
-            'y': 2180.96408219
-            opacity: 1
-            tint: 16777215
-            scale:
-              x: 7.87154895
-              'y': 12.04025611
-            rotation: -1.5686871665580682
-            uid: fk2cbf8wwnqTMT
-            exts: *ref_6
-            customProperties: {}
-            customText: !<tag:yaml.org,2002:js/undefined> ''
-            customSize: !<tag:yaml.org,2002:js/undefined> ''
-            customWordWrap: !<tag:yaml.org,2002:js/undefined> ''
-            bindings: {}
-          - x: 241.78188888
-            'y': 2029.0669476
-            opacity: 1
-            tint: 16777215
-            scale:
-              x: 1.98078777
-              'y': 2.05779962
-            rotation: -1.5686871665580682
-            uid: fk2cbf8wwnqTMT
-            exts: *ref_6
-            customProperties: {}
-            customText: !<tag:yaml.org,2002:js/undefined> ''
-            customSize: !<tag:yaml.org,2002:js/undefined> ''
-            customWordWrap: !<tag:yaml.org,2002:js/undefined> ''
-            bindings: {}
-          - x: 272.37194626
-            'y': 2060.01034893
-            opacity: 1
-            tint: 16777215
-            scale:
-              x: 1.90231014
-              'y': 2.05779924
-            rotation: -1.5686871665580682
-            uid: fk2cbf8wwnqTMT
-            exts: *ref_6
-            customProperties: {}
-            customText: !<tag:yaml.org,2002:js/undefined> ''
-            customSize: !<tag:yaml.org,2002:js/undefined> ''
-            customWordWrap: !<tag:yaml.org,2002:js/undefined> ''
-            bindings: {}
-          - x: 334.94251815
-            'y': 2089.55756343
-            opacity: 1
-            tint: 16777215
-            scale:
-              x: 1.90231028
-              'y': 2.09139894
-            rotation: -1.5686871665580682
-            uid: fk2cbf8wwnqTMT
-            exts: *ref_6
-            customProperties: {}
-            customText: !<tag:yaml.org,2002:js/undefined> ''
-            customSize: !<tag:yaml.org,2002:js/undefined> ''
-            customWordWrap: !<tag:yaml.org,2002:js/undefined> ''
-            bindings: {}
-          - x: 458.11198753
-            'y': 756.5506577
-            opacity: 1
-            tint: 16777215
-            scale:
-              x: 2.25586395
-              'y': 2.05780094
-            rotation: -1.5686871665580682
-            uid: fk2cbf8wwnqTMT
-            exts: *ref_6
-            customProperties: {}
-            customText: !<tag:yaml.org,2002:js/undefined> ''
-            customSize: !<tag:yaml.org,2002:js/undefined> ''
-            customWordWrap: !<tag:yaml.org,2002:js/undefined> ''
-            bindings: {}
-          - x: 491.13534492
-            'y': 814.76648863
-            opacity: 1
-            tint: 16777215
-            scale:
-              x: 6.15349259
-              'y': 2.0578197
-            rotation: -1.5686871665580682
-            uid: fk2cbf8wwnqTMT
-            exts: *ref_6
-            customProperties: {}
-            customText: !<tag:yaml.org,2002:js/undefined> ''
-            customSize: !<tag:yaml.org,2002:js/undefined> ''
-            customWordWrap: !<tag:yaml.org,2002:js/undefined> ''
-            bindings: {}
-          - x: 517.20641655
-            'y': 851.39087836
-            opacity: 1
-            tint: 16777215
-            scale:
-              x: 7.34045898
-              'y': 4.44409202
-            rotation: -1.5686871665580682
-            uid: fk2cbf8wwnqTMT
-            exts: *ref_6
-            customProperties: {}
-            customText: !<tag:yaml.org,2002:js/undefined> ''
-            customSize: !<tag:yaml.org,2002:js/undefined> ''
-            customWordWrap: !<tag:yaml.org,2002:js/undefined> ''
-            bindings: {}
-          - x: 557.18205971
-            'y': 648.01367838
-            opacity: 1
-            tint: 16777215
-            scale:
-              x: 1.98069368
-              'y': 3.14305248
-            rotation: -1.5686871665580682
-            uid: fk2cbf8wwnqTMT
-            exts: *ref_6
-            customProperties: {}
-            customText: !<tag:yaml.org,2002:js/undefined> ''
-            customSize: !<tag:yaml.org,2002:js/undefined> ''
-            customWordWrap: !<tag:yaml.org,2002:js/undefined> ''
-            bindings: {}
-          - x: 635.97463173
-            'y': 791.06646325
-            opacity: 1
-            tint: 16777215
-            scale:
-              x: 5.4191207
-              'y': 5.71609757
-            rotation: -1.5686871665580682
-            uid: fk2cbf8wwnqTMT
-            exts: *ref_6
-            customProperties: {}
-            customText: !<tag:yaml.org,2002:js/undefined> ''
-            customSize: !<tag:yaml.org,2002:js/undefined> ''
-            customWordWrap: !<tag:yaml.org,2002:js/undefined> ''
-            bindings: {}
-          - x: 820.78956169
-            'y': 760.5021035
-            opacity: 1
-            tint: 16777215
-            scale:
-              x: 3.48007109
-              'y': 2.00297824
-            rotation: -1.5686871665580682
-            uid: fk2cbf8wwnqTMT
-            exts: *ref_6
-            customProperties: {}
-            customText: !<tag:yaml.org,2002:js/undefined> ''
-            customSize: !<tag:yaml.org,2002:js/undefined> ''
-            customWordWrap: !<tag:yaml.org,2002:js/undefined> ''
-            bindings: {}
-          - x: 656.48749572
-            'y': 822.63523145
-            opacity: 1
-            tint: 16777215
-            scale:
-              x: 1.90231014
-              'y': 2.05779924
-            rotation: -1.5686871665580682
-            uid: fk2cbf8wwnqTMT
-            exts: *ref_6
-            customProperties: {}
-            customText: !<tag:yaml.org,2002:js/undefined> ''
-            customSize: !<tag:yaml.org,2002:js/undefined> ''
-            customWordWrap: !<tag:yaml.org,2002:js/undefined> ''
-            bindings: {}
-          - x: 395.77490808
-            'y': 1169.51640224
-            opacity: 1
-            tint: 16777215
-            scale:
-              x: 2.27996237
-              'y': 3.18062229
-            rotation: -1.5686871665580682
-            uid: fk2cbf8wwnqTMT
-            exts: *ref_6
-            customProperties: {}
-            customText: !<tag:yaml.org,2002:js/undefined> ''
-            customSize: !<tag:yaml.org,2002:js/undefined> ''
-            customWordWrap: !<tag:yaml.org,2002:js/undefined> ''
-            bindings: {}
-          - x: 484.19877508
-            'y': 1335.43207169
-            opacity: 1
-            tint: 16777215
-            scale:
-              x: 6.58344088
-              'y': 2.34161149
-            rotation: -1.557891600630375
-            uid: fk2cbf8wwnqTMT
-            exts: *ref_6
-            customProperties: {}
-            customText: !<tag:yaml.org,2002:js/undefined> ''
-            customSize: !<tag:yaml.org,2002:js/undefined> ''
-            customWordWrap: !<tag:yaml.org,2002:js/undefined> ''
-            bindings: {}
-          - x: 423.19322365
-            'y': 1300.71869485
-            opacity: 1
-            tint: 16777215
-            scale:
-              x: 4.45822558
-              'y': 2.05781154
-            rotation: -1.5686871665580682
-            uid: fk2cbf8wwnqTMT
-            exts: *ref_6
-            customProperties: {}
-            customText: !<tag:yaml.org,2002:js/undefined> ''
-            customSize: !<tag:yaml.org,2002:js/undefined> ''
-            customWordWrap: !<tag:yaml.org,2002:js/undefined> ''
-            bindings: {}
-          - x: 396.14048927
-            'y': 1269.87457783
-            opacity: 1
-            tint: 16777215
-            scale:
-              x: 1.33225665
-              'y': 1.04334543
-            rotation: -1.5686871665580682
-            uid: fk2cbf8wwnqTMT
-            exts: *ref_6
-            customProperties: {}
-            customText: !<tag:yaml.org,2002:js/undefined> ''
-            customSize: !<tag:yaml.org,2002:js/undefined> ''
-            customWordWrap: !<tag:yaml.org,2002:js/undefined> ''
-            bindings: {}
-          - x: 587.30102594
-            'y': 1395.35920223
-            opacity: 1
-            tint: 16777215
-            scale:
-              x: 7.31141712
-              'y': 10.28867321
-            rotation: -1.5686871665580682
-            uid: fk2cbf8wwnqTMT
-            exts: *ref_6
-            customProperties: {}
-            customText: !<tag:yaml.org,2002:js/undefined> ''
-            customSize: !<tag:yaml.org,2002:js/undefined> ''
-            customWordWrap: !<tag:yaml.org,2002:js/undefined> ''
-            bindings: {}
-          - x: 459.79091315
-            'y': 1267.76475926
-            opacity: 1
-            tint: 16777215
-            scale:
-              x: 1.90231014
-              'y': 2.05779924
-            rotation: 0
-            uid: fk2cbf8wwnqTMT
-            exts: *ref_6
-            customProperties: {}
-            customText: !<tag:yaml.org,2002:js/undefined> ''
-            customSize: !<tag:yaml.org,2002:js/undefined> ''
-            customWordWrap: !<tag:yaml.org,2002:js/undefined> ''
-            bindings: {}
-          - x: 524.13773006
-            'y': 1258.30906965
-            opacity: 1
-            tint: 16777215
-            scale:
-              x: 13.28908775
-              'y': 3.28407966
-            rotation: 0
-            uid: fk2cbf8wwnqTMT
-            exts: &ref_7 {}
-            customProperties: {}
-            customText: !<tag:yaml.org,2002:js/undefined> ''
-            customSize: !<tag:yaml.org,2002:js/undefined> ''
-            customWordWrap: !<tag:yaml.org,2002:js/undefined> ''
-            bindings: {}
-          - x: 539.29463779
-            'y': 1157.96488774
-            opacity: 1
-            tint: 16777215
-            scale:
-              x: 1.90231014
-              'y': 3.13083887
-            rotation: 0
-            uid: fk2cbf8wwnqTMT
-            exts: *ref_7
-            customProperties: {}
-            customText: !<tag:yaml.org,2002:js/undefined> ''
-            customSize: !<tag:yaml.org,2002:js/undefined> ''
-            customWordWrap: !<tag:yaml.org,2002:js/undefined> ''
-            bindings: {}
-          - x: 715.90670276
-            'y': 1131.21740351
-            opacity: 1
-            tint: 16777215
-            scale:
-              x: 5.36399829
-              'y': 2.05779924
-            rotation: 0
-            uid: fk2cbf8wwnqTMT
-            exts: *ref_7
-            customProperties: {}
-            customText: !<tag:yaml.org,2002:js/undefined> ''
-            customSize: !<tag:yaml.org,2002:js/undefined> ''
-            customWordWrap: !<tag:yaml.org,2002:js/undefined> ''
-            bindings: {}
-          - x: 648.64464684
-            'y': 1363.29116372
-            opacity: 1
-            tint: 16777215
-            scale:
-              x: 8.43700888
-              'y': 2.05779924
-            rotation: 0
-            uid: fk2cbf8wwnqTMT
-            exts: *ref_7
-            customProperties: {}
-            customText: !<tag:yaml.org,2002:js/undefined> ''
-            customSize: !<tag:yaml.org,2002:js/undefined> ''
-            customWordWrap: !<tag:yaml.org,2002:js/undefined> ''
-            bindings: {}
-          - x: 712.75993991
-            'y': 1393.97210151
-            opacity: 1
-            tint: 16777215
-            scale:
-              x: 5.51150279
-              'y': 2.11059935
-            rotation: 0
-            uid: fk2cbf8wwnqTMT
-            exts: *ref_7
-            customProperties: {}
-            customText: !<tag:yaml.org,2002:js/undefined> ''
-            customSize: !<tag:yaml.org,2002:js/undefined> ''
-            customWordWrap: !<tag:yaml.org,2002:js/undefined> ''
-            bindings: {}
-          - x: 585.09536665
-            'y': 1609.75502617
-            opacity: 1
-            tint: 16777215
-            scale:
-              x: 5.4122050999999995
-              'y': 5.83756394
-            rotation: 0
-            uid: fk2cbf8wwnqTMT
-            exts: *ref_7
-            customProperties: {}
-            customText: !<tag:yaml.org,2002:js/undefined> ''
-            customSize: !<tag:yaml.org,2002:js/undefined> ''
-            customWordWrap: !<tag:yaml.org,2002:js/undefined> ''
-            bindings: {}
-          - x: 518.35342329
-            'y': 1789.68203416
-            opacity: 1
-            tint: 16777215
-            scale:
-              x: 2.52628231
-              'y': 3.69340181
-            rotation: 0
-            uid: fk2cbf8wwnqTMT
-            exts: *ref_7
-            customProperties: {}
-            customText: !<tag:yaml.org,2002:js/undefined> ''
-            customSize: !<tag:yaml.org,2002:js/undefined> ''
-            customWordWrap: !<tag:yaml.org,2002:js/undefined> ''
-            bindings: {}
-          - x: 428.32132262
-            'y': 1641.3493026
-            opacity: 1
-            tint: 16777215
-            scale:
-              x: 13.28059936
-              'y': 3.46219964
-            rotation: 0
-            uid: fk2cbf8wwnqTMT
-            exts: *ref_7
-            customProperties: {}
-            customText: !<tag:yaml.org,2002:js/undefined> ''
-            customSize: !<tag:yaml.org,2002:js/undefined> ''
-            customWordWrap: !<tag:yaml.org,2002:js/undefined> ''
-            bindings: {}
-          - x: 363.3174507
-            'y': 1674.0250457
-            opacity: 1
-            tint: 16777215
-            scale:
-              x: 1.90231014
-              'y': 5.26544876
-            rotation: 0
-            uid: fk2cbf8wwnqTMT
-            exts: *ref_7
-            customProperties: {}
-            customText: !<tag:yaml.org,2002:js/undefined> ''
-            customSize: !<tag:yaml.org,2002:js/undefined> ''
-            customWordWrap: !<tag:yaml.org,2002:js/undefined> ''
-            bindings: {}
-          - x: 393.90750807
-            'y': 1738.23511949
-            opacity: 1
-            tint: 16777215
-            scale:
-              x: 1.43998766
-              'y': 5.29025495
-            rotation: 0
-            uid: fk2cbf8wwnqTMT
-            exts: *ref_7
-            customProperties: {}
-            customText: !<tag:yaml.org,2002:js/undefined> ''
-            customSize: !<tag:yaml.org,2002:js/undefined> ''
-            customWordWrap: !<tag:yaml.org,2002:js/undefined> ''
-            bindings: {}
-          - x: 405.0311653
-            'y': 1746.67643196
-            opacity: 1
-            tint: 16777215
-            scale:
-              x: 1.90231014
-              'y': 2.05779924
-            rotation: 0
-            uid: fk2cbf8wwnqTMT
-            exts: *ref_7
-            customProperties: {}
-            customText: !<tag:yaml.org,2002:js/undefined> ''
-            customSize: !<tag:yaml.org,2002:js/undefined> ''
-            customWordWrap: !<tag:yaml.org,2002:js/undefined> ''
-            bindings: {}
-          - x: 460.4963563
-            'y': 1748.31593385
-            opacity: 1
-            tint: 16777215
-            scale:
-              x: 4.24741209
-              'y': 2.12913752
-            rotation: 0
-            uid: fk2cbf8wwnqTMT
-            exts: *ref_7
-            customProperties: {}
-            customText: !<tag:yaml.org,2002:js/undefined> ''
-            customSize: !<tag:yaml.org,2002:js/undefined> ''
-            customWordWrap: !<tag:yaml.org,2002:js/undefined> ''
-            bindings: {}
-          - x: 568.40988081
-            'y': 1779.35217507
-            opacity: 1
-            tint: 16777215
-            scale:
-              x: 1.90231014
-              'y': 2.05779924
-            rotation: 0
-            uid: fk2cbf8wwnqTMT
-            exts: *ref_7
-            customProperties: {}
-            customText: !<tag:yaml.org,2002:js/undefined> ''
-            customSize: !<tag:yaml.org,2002:js/undefined> ''
-            customWordWrap: !<tag:yaml.org,2002:js/undefined> ''
-            bindings: {}
-          - x: 654.61822432
-            'y': 1747.37166054
-            opacity: 1
-            tint: 16777215
-            scale:
-              x: 3.16719616
-              'y': 2.05779924
-            rotation: 0
-            uid: fk2cbf8wwnqTMT
-            exts: *ref_7
-            customProperties: {}
-            customText: !<tag:yaml.org,2002:js/undefined> ''
-            customSize: !<tag:yaml.org,2002:js/undefined> ''
-            customWordWrap: !<tag:yaml.org,2002:js/undefined> ''
-            bindings: {}
-          - x: 680.18858652
-            'y': 1789.08537514
-            opacity: 1
-            tint: 16777215
-            scale:
-              x: 1.48822367
-              'y': 3.64686973
-            rotation: 0
-            uid: fk2cbf8wwnqTMT
-            exts: *ref_7
-            customProperties: {}
-            customText: !<tag:yaml.org,2002:js/undefined> ''
-            customSize: !<tag:yaml.org,2002:js/undefined> ''
-            customWordWrap: !<tag:yaml.org,2002:js/undefined> ''
-            bindings: {}
-          - x: 841.13400202
-            'y': 1672.28697426
-            opacity: 1
-            tint: 16777215
-            scale:
-              x: 2.40071118
-              'y': 6.3951952
-            rotation: 0
-            uid: fk2cbf8wwnqTMT
-            exts: *ref_7
-            customProperties: {}
-            customText: !<tag:yaml.org,2002:js/undefined> ''
-            customSize: !<tag:yaml.org,2002:js/undefined> ''
-            customWordWrap: !<tag:yaml.org,2002:js/undefined> ''
-            bindings: {}
-          - x: 812.43511122
-            'y': 1748.66354814
-            opacity: 1
-            tint: 16777215
-            scale:
-              x: 0.99460686
-              'y': 1.02889962
-            rotation: 0
-            uid: fk2cbf8wwnqTMT
-            exts: *ref_7
-            customProperties: {}
-            customText: !<tag:yaml.org,2002:js/undefined> ''
-            customSize: !<tag:yaml.org,2002:js/undefined> ''
-            customWordWrap: !<tag:yaml.org,2002:js/undefined> ''
-            bindings: {}
-          - x: 887.17218321
-            'y': 1776.57126076
-            opacity: 1
-            tint: 16777215
-            scale:
-              x: 1.90231014
-              'y': 3.06027062
-            rotation: 0
-            uid: fk2cbf8wwnqTMT
-            exts: *ref_7
-            customProperties: {}
-            customText: !<tag:yaml.org,2002:js/undefined> ''
-            customSize: !<tag:yaml.org,2002:js/undefined> ''
-            customWordWrap: !<tag:yaml.org,2002:js/undefined> ''
-            bindings: {}
-          - x: 873.96284026
-            'y': 1845.74650414
-            opacity: 1
-            tint: 16777215
-            scale:
-              x: 1.37480998
-              'y': 2.05779924
-            rotation: 0
-            uid: fk2cbf8wwnqTMT
-            exts: *ref_7
-            customProperties: {}
-            customText: !<tag:yaml.org,2002:js/undefined> ''
-            customSize: !<tag:yaml.org,2002:js/undefined> ''
-            customWordWrap: !<tag:yaml.org,2002:js/undefined> ''
-            bindings: {}
-          - x: 1264.80706728
-            'y': 1081.29286596
-            opacity: 1
-            tint: 16777215
-            scale:
-              x: 8.1025883
-              'y': 2.11414008
-            rotation: -1.5686871665580682
-            uid: fk2cbf8wwnqTMT
-            exts: {}
-            customProperties: {}
-            customText: !<tag:yaml.org,2002:js/undefined> ''
-            customSize: !<tag:yaml.org,2002:js/undefined> ''
-            customWordWrap: !<tag:yaml.org,2002:js/undefined> ''
-            bindings: {}
           - x: 0
             'y': 2096
             opacity: 1
@@ -4340,7 +3125,7 @@ assets:
               'y': 1
             rotation: 0
             uid: F5fWzk4DBQT5Cd
-            exts: &ref_8 {}
+            exts: &ref_0 {}
             customProperties: {}
             customText: !<tag:yaml.org,2002:js/undefined> ''
             customSize: !<tag:yaml.org,2002:js/undefined> ''
@@ -4355,7 +3140,7 @@ assets:
               'y': 1
             rotation: 0
             uid: F5fWzk4DBQT5Cd
-            exts: &ref_9 {}
+            exts: &ref_1 {}
             customProperties: {}
             customText: !<tag:yaml.org,2002:js/undefined> ''
             customSize: !<tag:yaml.org,2002:js/undefined> ''
@@ -4370,7 +3155,7 @@ assets:
               'y': 1
             rotation: 0
             uid: F5fWzk4DBQT5Cd
-            exts: &ref_10 {}
+            exts: &ref_2 {}
             customProperties: {}
             customText: !<tag:yaml.org,2002:js/undefined> ''
             customSize: !<tag:yaml.org,2002:js/undefined> ''
@@ -4385,7 +3170,7 @@ assets:
               'y': 1
             rotation: 0
             uid: F5fWzk4DBQT5Cd
-            exts: &ref_11 {}
+            exts: &ref_3 {}
             customProperties: {}
             customText: !<tag:yaml.org,2002:js/undefined> ''
             customSize: !<tag:yaml.org,2002:js/undefined> ''
@@ -4400,7 +3185,7 @@ assets:
               'y': 1
             rotation: 0
             uid: F5fWzk4DBQT5Cd
-            exts: &ref_12 {}
+            exts: &ref_4 {}
             customProperties: {}
             customText: !<tag:yaml.org,2002:js/undefined> ''
             customSize: !<tag:yaml.org,2002:js/undefined> ''
@@ -4415,7 +3200,7 @@ assets:
               'y': 1
             rotation: 0
             uid: F5fWzk4DBQT5Cd
-            exts: *ref_8
+            exts: *ref_0
             customProperties: {}
             customText: !<tag:yaml.org,2002:js/undefined> ''
             customSize: !<tag:yaml.org,2002:js/undefined> ''
@@ -4430,7 +3215,7 @@ assets:
               'y': 1
             rotation: 0
             uid: F5fWzk4DBQT5Cd
-            exts: *ref_9
+            exts: *ref_1
             customProperties: {}
             customText: !<tag:yaml.org,2002:js/undefined> ''
             customSize: !<tag:yaml.org,2002:js/undefined> ''
@@ -4445,7 +3230,7 @@ assets:
               'y': 1
             rotation: 0
             uid: F5fWzk4DBQT5Cd
-            exts: *ref_10
+            exts: *ref_2
             customProperties: {}
             customText: !<tag:yaml.org,2002:js/undefined> ''
             customSize: !<tag:yaml.org,2002:js/undefined> ''
@@ -4460,7 +3245,7 @@ assets:
               'y': 1
             rotation: 0
             uid: F5fWzk4DBQT5Cd
-            exts: *ref_11
+            exts: *ref_3
             customProperties: {}
             customText: !<tag:yaml.org,2002:js/undefined> ''
             customSize: !<tag:yaml.org,2002:js/undefined> ''
@@ -4475,7 +3260,7 @@ assets:
               'y': 1
             rotation: 0
             uid: F5fWzk4DBQT5Cd
-            exts: *ref_12
+            exts: *ref_4
             customProperties: {}
             customText: !<tag:yaml.org,2002:js/undefined> ''
             customSize: !<tag:yaml.org,2002:js/undefined> ''
@@ -4490,7 +3275,7 @@ assets:
               'y': 1
             rotation: 0
             uid: F5fWzk4DBQT5Cd
-            exts: *ref_8
+            exts: *ref_0
             customProperties: {}
             customText: !<tag:yaml.org,2002:js/undefined> ''
             customSize: !<tag:yaml.org,2002:js/undefined> ''
@@ -4505,7 +3290,7 @@ assets:
               'y': 1
             rotation: 0
             uid: F5fWzk4DBQT5Cd
-            exts: *ref_9
+            exts: *ref_1
             customProperties: {}
             customText: !<tag:yaml.org,2002:js/undefined> ''
             customSize: !<tag:yaml.org,2002:js/undefined> ''
@@ -4520,7 +3305,7 @@ assets:
               'y': 1
             rotation: 0
             uid: F5fWzk4DBQT5Cd
-            exts: *ref_10
+            exts: *ref_2
             customProperties: {}
             customText: !<tag:yaml.org,2002:js/undefined> ''
             customSize: !<tag:yaml.org,2002:js/undefined> ''
@@ -4535,7 +3320,7 @@ assets:
               'y': 1
             rotation: 0
             uid: F5fWzk4DBQT5Cd
-            exts: *ref_11
+            exts: *ref_3
             customProperties: {}
             customText: !<tag:yaml.org,2002:js/undefined> ''
             customSize: !<tag:yaml.org,2002:js/undefined> ''
@@ -4550,7 +3335,172 @@ assets:
               'y': 1
             rotation: 0
             uid: F5fWzk4DBQT5Cd
-            exts: *ref_12
+            exts: *ref_4
+            customProperties: {}
+            customText: !<tag:yaml.org,2002:js/undefined> ''
+            customSize: !<tag:yaml.org,2002:js/undefined> ''
+            customWordWrap: !<tag:yaml.org,2002:js/undefined> ''
+            bindings: {}
+          - x: 512
+            'y': 480
+            opacity: 1
+            tint: 16777215
+            scale:
+              x: 3
+              'y': 3
+            rotation: 0
+            uid: gMww9zTNWQRDPT
+            exts: {}
+            customProperties: {}
+            customText: !<tag:yaml.org,2002:js/undefined> ''
+            customSize: !<tag:yaml.org,2002:js/undefined> ''
+            customWordWrap: !<tag:yaml.org,2002:js/undefined> ''
+            bindings: {}
+          - x: 768
+            'y': 352
+            opacity: 1
+            tint: 16777215
+            scale:
+              x: 3
+              'y': 3
+            rotation: 0
+            uid: gMww9zTNWQRDPT
+            exts: {}
+            customProperties: {}
+            customText: !<tag:yaml.org,2002:js/undefined> ''
+            customSize: !<tag:yaml.org,2002:js/undefined> ''
+            customWordWrap: !<tag:yaml.org,2002:js/undefined> ''
+            bindings: {}
+          - x: 112
+            'y': 128
+            opacity: 1
+            tint: 16777215
+            scale:
+              x: 1.3
+              'y': 1.3
+            rotation: 0
+            uid: DL9BczP5Cd4RMz
+            exts: {}
+            customProperties: {}
+            customText: !<tag:yaml.org,2002:js/undefined> ''
+            customSize: !<tag:yaml.org,2002:js/undefined> ''
+            customWordWrap: !<tag:yaml.org,2002:js/undefined> ''
+            bindings: {}
+          - x: 320
+            'y': 1040
+            opacity: 1
+            tint: 16777215
+            scale:
+              x: 1
+              'y': 1
+            rotation: 0
+            uid: MPdrNr8hhh5b2R
+            exts: {}
+            customProperties: {}
+            customText: !<tag:yaml.org,2002:js/undefined> ''
+            customSize: !<tag:yaml.org,2002:js/undefined> ''
+            customWordWrap: !<tag:yaml.org,2002:js/undefined> ''
+            bindings: {}
+          - x: 1040
+            'y': 1280
+            opacity: 1
+            tint: 16777215
+            scale:
+              x: 1
+              'y': 1
+            rotation: 0
+            uid: MPdrNr8hhh5b2R
+            exts: {}
+            customProperties: {}
+            customText: !<tag:yaml.org,2002:js/undefined> ''
+            customSize: !<tag:yaml.org,2002:js/undefined> ''
+            customWordWrap: !<tag:yaml.org,2002:js/undefined> ''
+            bindings: {}
+          - x: 656
+            'y': 1984
+            opacity: 1
+            tint: 16777215
+            scale:
+              x: 1
+              'y': 1
+            rotation: 0
+            uid: MPdrNr8hhh5b2R
+            exts: {}
+            customProperties: {}
+            customText: !<tag:yaml.org,2002:js/undefined> ''
+            customSize: !<tag:yaml.org,2002:js/undefined> ''
+            customWordWrap: !<tag:yaml.org,2002:js/undefined> ''
+            bindings: {}
+          - x: 464
+            'y': 1984
+            opacity: 1
+            tint: 16777215
+            scale:
+              x: 3
+              'y': 3
+            rotation: 0
+            uid: gMww9zTNWQRDPT
+            exts: {}
+            customProperties: {}
+            customText: !<tag:yaml.org,2002:js/undefined> ''
+            customSize: !<tag:yaml.org,2002:js/undefined> ''
+            customWordWrap: !<tag:yaml.org,2002:js/undefined> ''
+            bindings: {}
+          - x: 1072
+            'y': 1824
+            opacity: 1
+            tint: 16777215
+            scale:
+              x: 3
+              'y': 3
+            rotation: 0
+            uid: gMww9zTNWQRDPT
+            exts: {}
+            customProperties: {}
+            customText: !<tag:yaml.org,2002:js/undefined> ''
+            customSize: !<tag:yaml.org,2002:js/undefined> ''
+            customWordWrap: !<tag:yaml.org,2002:js/undefined> ''
+            bindings: {}
+          - x: 784
+            'y': 2016
+            opacity: 1
+            tint: 16777215
+            scale:
+              x: 3
+              'y': 3
+            rotation: 0
+            uid: gMww9zTNWQRDPT
+            exts: {}
+            customProperties: {}
+            customText: !<tag:yaml.org,2002:js/undefined> ''
+            customSize: !<tag:yaml.org,2002:js/undefined> ''
+            customWordWrap: !<tag:yaml.org,2002:js/undefined> ''
+            bindings: {}
+          - x: 800
+            'y': 1552
+            opacity: 1
+            tint: 16777215
+            scale:
+              x: 3
+              'y': 3
+            rotation: 0
+            uid: gMww9zTNWQRDPT
+            exts: {}
+            customProperties: {}
+            customText: !<tag:yaml.org,2002:js/undefined> ''
+            customSize: !<tag:yaml.org,2002:js/undefined> ''
+            customWordWrap: !<tag:yaml.org,2002:js/undefined> ''
+            bindings: {}
+          - x: 368
+            'y': 1536
+            opacity: 1
+            tint: 16777215
+            scale:
+              x: 1
+              'y': 1
+            rotation: 0
+            uid: MPdrNr8hhh5b2R
+            exts: {}
             customProperties: {}
             customText: !<tag:yaml.org,2002:js/undefined> ''
             customSize: !<tag:yaml.org,2002:js/undefined> ''
@@ -4565,6 +3515,36 @@ assets:
               'y': 4.5
             rotation: 0
             uid: w2cpWbbRcqhr4F
+            exts: {}
+            customProperties: {}
+            customText: !<tag:yaml.org,2002:js/undefined> ''
+            customSize: !<tag:yaml.org,2002:js/undefined> ''
+            customWordWrap: !<tag:yaml.org,2002:js/undefined> ''
+            bindings: {}
+          - x: 1024
+            'y': 944
+            opacity: 1
+            tint: 16777215
+            scale:
+              x: 1
+              'y': 1
+            rotation: 0
+            uid: MPdrNr8hhh5b2R
+            exts: {}
+            customProperties: {}
+            customText: !<tag:yaml.org,2002:js/undefined> ''
+            customSize: !<tag:yaml.org,2002:js/undefined> ''
+            customWordWrap: !<tag:yaml.org,2002:js/undefined> ''
+            bindings: {}
+          - x: 1008
+            'y': 576
+            opacity: 1
+            tint: 16777215
+            scale:
+              x: 1
+              'y': 1
+            rotation: 0
+            uid: MPdrNr8hhh5b2R
             exts: {}
             customProperties: {}
             customText: !<tag:yaml.org,2002:js/undefined> ''
@@ -5006,6 +3986,21 @@ assets:
             customSize: !<tag:yaml.org,2002:js/undefined> ''
             customWordWrap: !<tag:yaml.org,2002:js/undefined> ''
             bindings: {}
+          - x: 1120
+            'y': 128
+            opacity: 1
+            tint: 16777215
+            scale:
+              x: 1.3
+              'y': 1.3
+            rotation: 0
+            uid: k4T35dNQG6RP66
+            exts: {}
+            customProperties: {}
+            customText: !<tag:yaml.org,2002:js/undefined> ''
+            customSize: !<tag:yaml.org,2002:js/undefined> ''
+            customWordWrap: !<tag:yaml.org,2002:js/undefined> ''
+            bindings: {}
           - x: 544
             'y': 1136
             opacity: 1
@@ -5030,7 +4025,7 @@ assets:
               'y': 1
             rotation: 0
             uid: F5fWzk4DBQT5Cd
-            exts: &ref_13 {}
+            exts: &ref_5 {}
             customProperties: {}
             customText: !<tag:yaml.org,2002:js/undefined> ''
             customSize: !<tag:yaml.org,2002:js/undefined> ''
@@ -5045,7 +4040,7 @@ assets:
               'y': 1
             rotation: 0
             uid: F5fWzk4DBQT5Cd
-            exts: *ref_13
+            exts: *ref_5
             customProperties: {}
             customText: !<tag:yaml.org,2002:js/undefined> ''
             customSize: !<tag:yaml.org,2002:js/undefined> ''
@@ -5060,7 +4055,7 @@ assets:
               'y': 1
             rotation: 0
             uid: F5fWzk4DBQT5Cd
-            exts: *ref_13
+            exts: *ref_5
             customProperties: {}
             customText: !<tag:yaml.org,2002:js/undefined> ''
             customSize: !<tag:yaml.org,2002:js/undefined> ''
@@ -5075,7 +4070,7 @@ assets:
               'y': 1
             rotation: 0
             uid: F5fWzk4DBQT5Cd
-            exts: *ref_13
+            exts: *ref_5
             customProperties: {}
             customText: !<tag:yaml.org,2002:js/undefined> ''
             customSize: !<tag:yaml.org,2002:js/undefined> ''
@@ -5090,7 +4085,7 @@ assets:
               'y': 1
             rotation: 0
             uid: F5fWzk4DBQT5Cd
-            exts: *ref_13
+            exts: *ref_5
             customProperties: {}
             customText: !<tag:yaml.org,2002:js/undefined> ''
             customSize: !<tag:yaml.org,2002:js/undefined> ''
@@ -5105,7 +4100,7 @@ assets:
               'y': 1
             rotation: 0
             uid: F5fWzk4DBQT5Cd
-            exts: *ref_13
+            exts: *ref_5
             customProperties: {}
             customText: !<tag:yaml.org,2002:js/undefined> ''
             customSize: !<tag:yaml.org,2002:js/undefined> ''
@@ -5120,7 +4115,7 @@ assets:
               'y': 1
             rotation: 0
             uid: F5fWzk4DBQT5Cd
-            exts: *ref_13
+            exts: *ref_5
             customProperties: {}
             customText: !<tag:yaml.org,2002:js/undefined> ''
             customSize: !<tag:yaml.org,2002:js/undefined> ''
@@ -5135,7 +4130,7 @@ assets:
               'y': 1
             rotation: 0
             uid: F5fWzk4DBQT5Cd
-            exts: *ref_13
+            exts: *ref_5
             customProperties: {}
             customText: !<tag:yaml.org,2002:js/undefined> ''
             customSize: !<tag:yaml.org,2002:js/undefined> ''
@@ -5171,6 +4166,1266 @@ assets:
             customSize: !<tag:yaml.org,2002:js/undefined> ''
             customWordWrap: !<tag:yaml.org,2002:js/undefined> ''
             bindings: {}
+          - x: -276.15550277
+            'y': 8.79848698
+            opacity: 1
+            tint: 16777215
+            scale:
+              x: 9.31555101
+              'y': 64.7508291
+            rotation: 0
+            uid: fk2cbf8wwnqTMT
+            exts: {}
+            customProperties: {}
+            customText: !<tag:yaml.org,2002:js/undefined> ''
+            customSize: !<tag:yaml.org,2002:js/undefined> ''
+            customWordWrap: !<tag:yaml.org,2002:js/undefined> ''
+            bindings: {}
+          - x: -160.62245632
+            'y': 19.82378579
+            opacity: 1
+            tint: 16777215
+            scale:
+              x: 7.57258589
+              'y': 52.3902576
+            rotation: -1.5707963267948966
+            uid: fk2cbf8wwnqTMT
+            exts: {}
+            customProperties: {}
+            customText: !<tag:yaml.org,2002:js/undefined> ''
+            customSize: !<tag:yaml.org,2002:js/undefined> ''
+            customWordWrap: !<tag:yaml.org,2002:js/undefined> ''
+            bindings: {}
+          - x: 1259.21550154
+            'y': -20.57068451
+            opacity: 1
+            tint: 16777215
+            scale:
+              x: 11.34156959
+              'y': 64.7508291
+            rotation: 0
+            uid: fk2cbf8wwnqTMT
+            exts: {}
+            customProperties: {}
+            customText: !<tag:yaml.org,2002:js/undefined> ''
+            customSize: !<tag:yaml.org,2002:js/undefined> ''
+            customWordWrap: !<tag:yaml.org,2002:js/undefined> ''
+            bindings: {}
+          - x: -237.55531901
+            'y': 2396.81026482
+            opacity: 1
+            tint: 16777215
+            scale:
+              x: 10.54554893
+              'y': 60.74167133
+            rotation: -1.5686871665580682
+            uid: fk2cbf8wwnqTMT
+            exts: {}
+            customProperties: {}
+            customText: !<tag:yaml.org,2002:js/undefined> ''
+            customSize: !<tag:yaml.org,2002:js/undefined> ''
+            customWordWrap: !<tag:yaml.org,2002:js/undefined> ''
+            bindings: {}
+          - x: 1071.25617274
+            'y': 2058.71655993
+            opacity: 1
+            tint: 16777215
+            scale:
+              x: 2.9711629
+              'y': 5.70368715
+            rotation: -1.5686871665580682
+            uid: fk2cbf8wwnqTMT
+            exts: {}
+            customProperties: {}
+            customText: !<tag:yaml.org,2002:js/undefined> ''
+            customSize: !<tag:yaml.org,2002:js/undefined> ''
+            customWordWrap: !<tag:yaml.org,2002:js/undefined> ''
+            bindings: {}
+          - x: 1035.28968104
+            'y': 2062.10695624
+            opacity: 1
+            tint: 16777215
+            scale:
+              x: 1.9847672699999999
+              'y': 1.07633131
+            rotation: -1.5686871665580682
+            uid: fk2cbf8wwnqTMT
+            exts: {}
+            customProperties: {}
+            customText: !<tag:yaml.org,2002:js/undefined> ''
+            customSize: !<tag:yaml.org,2002:js/undefined> ''
+            customWordWrap: !<tag:yaml.org,2002:js/undefined> ''
+            bindings: {}
+          - x: 1005.3591842
+            'y': 2062.9192894
+            opacity: 1
+            tint: 16777215
+            scale:
+              x: 1.10950693
+              'y': 1.10730796
+            rotation: -1.5686871665580682
+            uid: fk2cbf8wwnqTMT
+            exts: {}
+            customProperties: {}
+            customText: !<tag:yaml.org,2002:js/undefined> ''
+            customSize: !<tag:yaml.org,2002:js/undefined> ''
+            customWordWrap: !<tag:yaml.org,2002:js/undefined> ''
+            bindings: {}
+          - x: 1169.40633942
+            'y': 1965.01635457
+            opacity: 1
+            tint: 16777215
+            scale:
+              x: 1.98480189
+              'y': 5.29676366
+            rotation: -1.5686871665580682
+            uid: fk2cbf8wwnqTMT
+            exts: {}
+            customProperties: {}
+            customText: !<tag:yaml.org,2002:js/undefined> ''
+            customSize: !<tag:yaml.org,2002:js/undefined> ''
+            customWordWrap: !<tag:yaml.org,2002:js/undefined> ''
+            bindings: {}
+          - x: 1135.63853074
+            'y': 1971.01710142
+            opacity: 1
+            tint: 16777215
+            scale:
+              x: 1.10950693
+              'y': 1.10730796
+            rotation: -1.5686871665580682
+            uid: fk2cbf8wwnqTMT
+            exts: {}
+            customProperties: {}
+            customText: !<tag:yaml.org,2002:js/undefined> ''
+            customSize: !<tag:yaml.org,2002:js/undefined> ''
+            customWordWrap: !<tag:yaml.org,2002:js/undefined> ''
+            bindings: {}
+          - x: 1195.18939445
+            'y': 1935.90951496
+            opacity: 1
+            tint: 16777215
+            scale:
+              x: 24.17000502
+              'y': 2.19747982
+            rotation: -1.5686871665580682
+            uid: fk2cbf8wwnqTMT
+            exts: {}
+            customProperties: {}
+            customText: !<tag:yaml.org,2002:js/undefined> ''
+            customSize: !<tag:yaml.org,2002:js/undefined> ''
+            customWordWrap: !<tag:yaml.org,2002:js/undefined> ''
+            bindings: {}
+          - x: 1160.40090953
+            'y': 1741.52014963
+            opacity: 1
+            tint: 16777215
+            scale:
+              x: 15.88068759
+              'y': 2.01775882
+            rotation: -1.5686871665580682
+            uid: fk2cbf8wwnqTMT
+            exts: {}
+            customProperties: {}
+            customText: !<tag:yaml.org,2002:js/undefined> ''
+            customSize: !<tag:yaml.org,2002:js/undefined> ''
+            customWordWrap: !<tag:yaml.org,2002:js/undefined> ''
+            bindings: {}
+          - x: 1129.4963343
+            'y': 1714.1988014
+            opacity: 1
+            tint: 16777215
+            scale:
+              x: 12.0992525
+              'y': 1.63163348
+            rotation: -1.5686871665580682
+            uid: fk2cbf8wwnqTMT
+            exts: {}
+            customProperties: {}
+            customText: !<tag:yaml.org,2002:js/undefined> ''
+            customSize: !<tag:yaml.org,2002:js/undefined> ''
+            customWordWrap: !<tag:yaml.org,2002:js/undefined> ''
+            bindings: {}
+          - x: 1095.25955449
+            'y': 1647.39425669
+            opacity: 1
+            tint: 16777215
+            scale:
+              x: 8.10256182
+              'y': 1.21872525
+            rotation: -1.5686871665580682
+            uid: fk2cbf8wwnqTMT
+            exts: {}
+            customProperties: {}
+            customText: !<tag:yaml.org,2002:js/undefined> ''
+            customSize: !<tag:yaml.org,2002:js/undefined> ''
+            customWordWrap: !<tag:yaml.org,2002:js/undefined> ''
+            bindings: {}
+          - x: 1067.22144951
+            'y': 1588.4696643
+            opacity: 1
+            tint: 16777215
+            scale:
+              x: 3.19613201
+              'y': 1.04864455
+            rotation: -1.5686871665580682
+            uid: fk2cbf8wwnqTMT
+            exts: {}
+            customProperties: {}
+            customText: !<tag:yaml.org,2002:js/undefined> ''
+            customSize: !<tag:yaml.org,2002:js/undefined> ''
+            customWordWrap: !<tag:yaml.org,2002:js/undefined> ''
+            bindings: {}
+          - x: 1226.51420671
+            'y': 1163.91751361
+            opacity: 1
+            tint: 16777215
+            scale:
+              x: 1.97477215
+              'y': 1.32682046
+            rotation: -1.5686871665580682
+            uid: fk2cbf8wwnqTMT
+            exts: &ref_6 {}
+            customProperties: {}
+            customText: !<tag:yaml.org,2002:js/undefined> ''
+            customSize: !<tag:yaml.org,2002:js/undefined> ''
+            customWordWrap: !<tag:yaml.org,2002:js/undefined> ''
+            bindings: {}
+          - x: 1129.56304033
+            'y': 755.49135289
+            opacity: 1
+            tint: 16777215
+            scale:
+              x: 17.34466987
+              'y': 4.69030331
+            rotation: -1.5686871665580682
+            uid: fk2cbf8wwnqTMT
+            exts: *ref_6
+            customProperties: {}
+            customText: !<tag:yaml.org,2002:js/undefined> ''
+            customSize: !<tag:yaml.org,2002:js/undefined> ''
+            customWordWrap: !<tag:yaml.org,2002:js/undefined> ''
+            bindings: {}
+          - x: 1098.89787547
+            'y': 562.48389673
+            opacity: 1
+            tint: 16777215
+            scale:
+              x: 11.24323623
+              'y': 1.47305255
+            rotation: -1.5686871665580682
+            uid: fk2cbf8wwnqTMT
+            exts: {}
+            customProperties: {}
+            customText: !<tag:yaml.org,2002:js/undefined> ''
+            customSize: !<tag:yaml.org,2002:js/undefined> ''
+            customWordWrap: !<tag:yaml.org,2002:js/undefined> ''
+            bindings: {}
+          - x: 1064.43877276
+            'y': 464.79622598
+            opacity: 1
+            tint: 16777215
+            scale:
+              x: 8.18555237
+              'y': 1.57321883
+            rotation: -1.5686871665580682
+            uid: fk2cbf8wwnqTMT
+            exts: {}
+            customProperties: {}
+            customText: !<tag:yaml.org,2002:js/undefined> ''
+            customSize: !<tag:yaml.org,2002:js/undefined> ''
+            customWordWrap: !<tag:yaml.org,2002:js/undefined> ''
+            bindings: {}
+          - x: 1033.62288249
+            'y': 404.36173208
+            opacity: 1
+            tint: 16777215
+            scale:
+              x: 4.34344698
+              'y': 1.6730725899999999
+            rotation: -1.5686871665580682
+            uid: fk2cbf8wwnqTMT
+            exts: &ref_7 {}
+            customProperties: {}
+            customText: !<tag:yaml.org,2002:js/undefined> ''
+            customSize: !<tag:yaml.org,2002:js/undefined> ''
+            customWordWrap: !<tag:yaml.org,2002:js/undefined> ''
+            bindings: {}
+          - x: 1003.39550667
+            'y': 373.21507379
+            opacity: 1
+            tint: 16777215
+            scale:
+              x: 2.3686881
+              'y': 1.57321532
+            rotation: -1.5686871665580682
+            uid: fk2cbf8wwnqTMT
+            exts: *ref_7
+            customProperties: {}
+            customText: !<tag:yaml.org,2002:js/undefined> ''
+            customSize: !<tag:yaml.org,2002:js/undefined> ''
+            customWordWrap: !<tag:yaml.org,2002:js/undefined> ''
+            bindings: {}
+          - x: 1196.69259928
+            'y': 788.57053296
+            opacity: 1
+            tint: 16777215
+            scale:
+              x: 1.1877349
+              'y': 2.40937819
+            rotation: -1.5686871665580682
+            uid: fk2cbf8wwnqTMT
+            exts: {}
+            customProperties: {}
+            customText: !<tag:yaml.org,2002:js/undefined> ''
+            customSize: !<tag:yaml.org,2002:js/undefined> ''
+            customWordWrap: !<tag:yaml.org,2002:js/undefined> ''
+            bindings: {}
+          - x: 1224.20736923
+            'y': 819.74584034
+            opacity: 1
+            tint: 16777215
+            scale:
+              x: 1.18773273
+              'y': 1.41833611
+            rotation: -1.5686871665580682
+            uid: fk2cbf8wwnqTMT
+            exts: {}
+            customProperties: {}
+            customText: !<tag:yaml.org,2002:js/undefined> ''
+            customSize: !<tag:yaml.org,2002:js/undefined> ''
+            customWordWrap: !<tag:yaml.org,2002:js/undefined> ''
+            bindings: {}
+          - x: 1194.07348055
+            'y': 202.68061889
+            opacity: 1
+            tint: 16777215
+            scale:
+              x: 1.04891388
+              'y': 2.15496224
+            rotation: -1.5686871665580682
+            uid: fk2cbf8wwnqTMT
+            exts: &ref_8 {}
+            customProperties: {}
+            customText: !<tag:yaml.org,2002:js/undefined> ''
+            customSize: !<tag:yaml.org,2002:js/undefined> ''
+            customWordWrap: !<tag:yaml.org,2002:js/undefined> ''
+            bindings: {}
+          - x: 331.56347188
+            'y': 83.15919354
+            opacity: 1
+            tint: 16777215
+            scale:
+              x: 2.2713715
+              'y': 19.22895942
+            rotation: -1.5686871665580682
+            uid: fk2cbf8wwnqTMT
+            exts: *ref_8
+            customProperties: {}
+            customText: !<tag:yaml.org,2002:js/undefined> ''
+            customSize: !<tag:yaml.org,2002:js/undefined> ''
+            customWordWrap: !<tag:yaml.org,2002:js/undefined> ''
+            bindings: {}
+          - x: 394.79377789
+            'y': 146.6544729
+            opacity: 1
+            tint: 16777215
+            scale:
+              x: 2.27136943
+              'y': 15.28219804
+            rotation: -1.5686871665580682
+            uid: fk2cbf8wwnqTMT
+            exts: {}
+            customProperties: {}
+            customText: !<tag:yaml.org,2002:js/undefined> ''
+            customSize: !<tag:yaml.org,2002:js/undefined> ''
+            customWordWrap: !<tag:yaml.org,2002:js/undefined> ''
+            bindings: {}
+          - x: 361.80474296
+            'y': 116.08229903
+            opacity: 1
+            tint: 16777215
+            scale:
+              x: 1.1953976
+              'y': 1.05719496
+            rotation: -1.5686871665580682
+            uid: fk2cbf8wwnqTMT
+            exts: {}
+            customProperties: {}
+            customText: !<tag:yaml.org,2002:js/undefined> ''
+            customSize: !<tag:yaml.org,2002:js/undefined> ''
+            customWordWrap: !<tag:yaml.org,2002:js/undefined> ''
+            bindings: {}
+          - x: 457.07587013
+            'y': 183.60203373
+            opacity: 1
+            tint: 16777215
+            scale:
+              x: 1.19540956
+              'y': 3.43514441
+            rotation: -1.5686871665580682
+            uid: fk2cbf8wwnqTMT
+            exts: {}
+            customProperties: {}
+            customText: !<tag:yaml.org,2002:js/undefined> ''
+            customSize: !<tag:yaml.org,2002:js/undefined> ''
+            customWordWrap: !<tag:yaml.org,2002:js/undefined> ''
+            bindings: {}
+          - x: 619.09976522
+            'y': 179.90990115
+            opacity: 1
+            tint: 16777215
+            scale:
+              x: 1.19541251
+              'y': 5.34106473
+            rotation: -1.5686871665580682
+            uid: fk2cbf8wwnqTMT
+            exts: &ref_9 {}
+            customProperties: {}
+            customText: !<tag:yaml.org,2002:js/undefined> ''
+            customSize: !<tag:yaml.org,2002:js/undefined> ''
+            customWordWrap: !<tag:yaml.org,2002:js/undefined> ''
+            bindings: {}
+          - x: 876.37640996
+            'y': 117.53870582
+            opacity: 1
+            tint: 16777215
+            scale:
+              x: 1.19540623
+              'y': 1.28685141
+            rotation: -1.5686871665580682
+            uid: fk2cbf8wwnqTMT
+            exts: *ref_9
+            customProperties: {}
+            customText: !<tag:yaml.org,2002:js/undefined> ''
+            customSize: !<tag:yaml.org,2002:js/undefined> ''
+            customWordWrap: !<tag:yaml.org,2002:js/undefined> ''
+            bindings: {}
+          - x: 652.11245709
+            'y': 215.56164745
+            opacity: 1
+            tint: 16777215
+            scale:
+              x: 1.19905994
+              'y': 3.20305516
+            rotation: -1.5686871665580682
+            uid: fk2cbf8wwnqTMT
+            exts: *ref_9
+            customProperties: {}
+            customText: !<tag:yaml.org,2002:js/undefined> ''
+            customSize: !<tag:yaml.org,2002:js/undefined> ''
+            customWordWrap: !<tag:yaml.org,2002:js/undefined> ''
+            bindings: {}
+          - x: 18.10769134
+            'y': 907.87536652
+            opacity: 1
+            tint: 16777215
+            scale:
+              x: 22.0557397
+              'y': 4.02327816
+            rotation: -1.5686871665580682
+            uid: fk2cbf8wwnqTMT
+            exts: *ref_9
+            customProperties: {}
+            customText: !<tag:yaml.org,2002:js/undefined> ''
+            customSize: !<tag:yaml.org,2002:js/undefined> ''
+            customWordWrap: !<tag:yaml.org,2002:js/undefined> ''
+            bindings: {}
+          - x: 119.89830565
+            'y': 817.46005825
+            opacity: 1
+            tint: 16777215
+            scale:
+              x: 18.2441092
+              'y': 1.85333552
+            rotation: -1.5686871665580682
+            uid: fk2cbf8wwnqTMT
+            exts: &ref_10 {}
+            customProperties: {}
+            customText: !<tag:yaml.org,2002:js/undefined> ''
+            customSize: !<tag:yaml.org,2002:js/undefined> ''
+            customWordWrap: !<tag:yaml.org,2002:js/undefined> ''
+            bindings: {}
+          - x: 176.7113186
+            'y': 589.07210131
+            opacity: 1
+            tint: 16777215
+            scale:
+              x: 9.95827918
+              'y': 0.97440815
+            rotation: -1.5686871665580682
+            uid: fk2cbf8wwnqTMT
+            exts: *ref_10
+            customProperties: {}
+            customText: !<tag:yaml.org,2002:js/undefined> ''
+            customSize: !<tag:yaml.org,2002:js/undefined> ''
+            customWordWrap: !<tag:yaml.org,2002:js/undefined> ''
+            bindings: {}
+          - x: 209.54753145
+            'y': 566.15466165
+            opacity: 1
+            tint: 16777215
+            scale:
+              x: 8.33588339
+              'y': 0.97440744
+            rotation: -1.5686871665580682
+            uid: fk2cbf8wwnqTMT
+            exts: {}
+            customProperties: {}
+            customText: !<tag:yaml.org,2002:js/undefined> ''
+            customSize: !<tag:yaml.org,2002:js/undefined> ''
+            customWordWrap: !<tag:yaml.org,2002:js/undefined> ''
+            bindings: {}
+          - x: 241.22408463
+            'y': 531.76344675
+            opacity: 1
+            tint: 16777215
+            scale:
+              x: 6.39982982
+              'y': 1.0746799
+            rotation: -1.5686871665580682
+            uid: fk2cbf8wwnqTMT
+            exts: {}
+            customProperties: {}
+            customText: !<tag:yaml.org,2002:js/undefined> ''
+            customSize: !<tag:yaml.org,2002:js/undefined> ''
+            customWordWrap: !<tag:yaml.org,2002:js/undefined> ''
+            bindings: {}
+          - x: 276.60514442
+            'y': 469.8100465
+            opacity: 1
+            tint: 16777215
+            scale:
+              x: 3.37396784
+              'y': 2.01293914
+            rotation: -1.5686871665580682
+            uid: fk2cbf8wwnqTMT
+            exts: {}
+            customProperties: {}
+            customText: !<tag:yaml.org,2002:js/undefined> ''
+            customSize: !<tag:yaml.org,2002:js/undefined> ''
+            customWordWrap: !<tag:yaml.org,2002:js/undefined> ''
+            bindings: {}
+          - x: 274.86014737
+            'y': 363.02759531
+            opacity: 1
+            tint: 16777215
+            scale:
+              x: 1.09717163
+              'y': 1.07467594
+            rotation: -1.5686871665580682
+            uid: fk2cbf8wwnqTMT
+            exts: &ref_11 {}
+            customProperties: {}
+            customText: !<tag:yaml.org,2002:js/undefined> ''
+            customSize: !<tag:yaml.org,2002:js/undefined> ''
+            customWordWrap: !<tag:yaml.org,2002:js/undefined> ''
+            bindings: {}
+          - x: 17.40707551
+            'y': 1301.48345781
+            opacity: 1
+            tint: 16777215
+            scale:
+              x: 12.17918026
+              'y': 2.18655035
+            rotation: -1.5686871665580682
+            uid: fk2cbf8wwnqTMT
+            exts: *ref_11
+            customProperties: {}
+            customText: !<tag:yaml.org,2002:js/undefined> ''
+            customSize: !<tag:yaml.org,2002:js/undefined> ''
+            customWordWrap: !<tag:yaml.org,2002:js/undefined> ''
+            bindings: {}
+          - x: 83.07895051
+            'y': 1268.77210236
+            opacity: 1
+            tint: 16777215
+            scale:
+              x: 7.39081831
+              'y': 1.07468064
+            rotation: -1.5686871665580682
+            uid: fk2cbf8wwnqTMT
+            exts: *ref_11
+            customProperties: {}
+            customText: !<tag:yaml.org,2002:js/undefined> ''
+            customSize: !<tag:yaml.org,2002:js/undefined> ''
+            customWordWrap: !<tag:yaml.org,2002:js/undefined> ''
+            bindings: {}
+          - x: 115.56332551
+            'y': 1235.90167099
+            opacity: 1
+            tint: 16777215
+            scale:
+              x: 4.23045433
+              'y': 1.07467828
+            rotation: -1.5686871665580682
+            uid: fk2cbf8wwnqTMT
+            exts: *ref_11
+            customProperties: {}
+            customText: !<tag:yaml.org,2002:js/undefined> ''
+            customSize: !<tag:yaml.org,2002:js/undefined> ''
+            customWordWrap: !<tag:yaml.org,2002:js/undefined> ''
+            bindings: {}
+          - x: 19.79770051
+            'y': 1332.04124533
+            opacity: 1
+            tint: 16777215
+            scale:
+              x: 1.19673684
+              'y': 1.07467601
+            rotation: -1.5686871665580682
+            uid: fk2cbf8wwnqTMT
+            exts: *ref_11
+            customProperties: {}
+            customText: !<tag:yaml.org,2002:js/undefined> ''
+            customSize: !<tag:yaml.org,2002:js/undefined> ''
+            customWordWrap: !<tag:yaml.org,2002:js/undefined> ''
+            bindings: {}
+          - x: 16.84457551
+            'y': 1516.04507976
+            opacity: 1
+            tint: 16777215
+            scale:
+              x: 0.99848417
+              'y': 1.07467587
+            rotation: -1.5686871665580682
+            uid: fk2cbf8wwnqTMT
+            exts: *ref_11
+            customProperties: {}
+            customText: !<tag:yaml.org,2002:js/undefined> ''
+            customSize: !<tag:yaml.org,2002:js/undefined> ''
+            customWordWrap: !<tag:yaml.org,2002:js/undefined> ''
+            bindings: {}
+          - x: 21.35832873
+            'y': 1575.66820588
+            opacity: 1
+            tint: 16777215
+            scale:
+              x: 1.90231014
+              'y': 2.05779924
+            rotation: -1.5686871665580682
+            uid: fk2cbf8wwnqTMT
+            exts: {}
+            customProperties: {}
+            customText: !<tag:yaml.org,2002:js/undefined> ''
+            customSize: !<tag:yaml.org,2002:js/undefined> ''
+            customWordWrap: !<tag:yaml.org,2002:js/undefined> ''
+            bindings: {}
+          - x: 24.07835755
+            'y': 1653.52438041
+            opacity: 1
+            tint: 16777215
+            scale:
+              x: 2.43093762
+              'y': 2.91377724
+            rotation: -1.5686871665580682
+            uid: fk2cbf8wwnqTMT
+            exts: &ref_12 {}
+            customProperties: {}
+            customText: !<tag:yaml.org,2002:js/undefined> ''
+            customSize: !<tag:yaml.org,2002:js/undefined> ''
+            customWordWrap: !<tag:yaml.org,2002:js/undefined> ''
+            bindings: {}
+          - x: 23.09630459
+            'y': 1881.13821101
+            opacity: 1
+            tint: 16777215
+            scale:
+              x: 7.38664632
+              'y': 4.01644416
+            rotation: -1.5686871665580682
+            uid: fk2cbf8wwnqTMT
+            exts: *ref_12
+            customProperties: {}
+            customText: !<tag:yaml.org,2002:js/undefined> ''
+            customSize: !<tag:yaml.org,2002:js/undefined> ''
+            customWordWrap: !<tag:yaml.org,2002:js/undefined> ''
+            bindings: {}
+          - x: -46.17889453
+            'y': 1970.28643169
+            opacity: 1
+            tint: 16777215
+            scale:
+              x: 5.20942171
+              'y': 7.05413874
+            rotation: -1.5686871665580682
+            uid: fk2cbf8wwnqTMT
+            exts: *ref_12
+            customProperties: {}
+            customText: !<tag:yaml.org,2002:js/undefined> ''
+            customSize: !<tag:yaml.org,2002:js/undefined> ''
+            customWordWrap: !<tag:yaml.org,2002:js/undefined> ''
+            bindings: {}
+          - x: 142.98461025
+            'y': 1959.62949409
+            opacity: 1
+            tint: 16777215
+            scale:
+              x: 1.90231014
+              'y': 2.05779924
+            rotation: -1.5686871665580682
+            uid: fk2cbf8wwnqTMT
+            exts: *ref_12
+            customProperties: {}
+            customText: !<tag:yaml.org,2002:js/undefined> ''
+            customSize: !<tag:yaml.org,2002:js/undefined> ''
+            customWordWrap: !<tag:yaml.org,2002:js/undefined> ''
+            bindings: {}
+          - x: -109.11415154
+            'y': 2180.96408219
+            opacity: 1
+            tint: 16777215
+            scale:
+              x: 7.87154895
+              'y': 12.04025611
+            rotation: -1.5686871665580682
+            uid: fk2cbf8wwnqTMT
+            exts: *ref_12
+            customProperties: {}
+            customText: !<tag:yaml.org,2002:js/undefined> ''
+            customSize: !<tag:yaml.org,2002:js/undefined> ''
+            customWordWrap: !<tag:yaml.org,2002:js/undefined> ''
+            bindings: {}
+          - x: 241.78188888
+            'y': 2029.0669476
+            opacity: 1
+            tint: 16777215
+            scale:
+              x: 1.98078777
+              'y': 2.05779962
+            rotation: -1.5686871665580682
+            uid: fk2cbf8wwnqTMT
+            exts: *ref_12
+            customProperties: {}
+            customText: !<tag:yaml.org,2002:js/undefined> ''
+            customSize: !<tag:yaml.org,2002:js/undefined> ''
+            customWordWrap: !<tag:yaml.org,2002:js/undefined> ''
+            bindings: {}
+          - x: 272.37194626
+            'y': 2060.01034893
+            opacity: 1
+            tint: 16777215
+            scale:
+              x: 1.90231014
+              'y': 2.05779924
+            rotation: -1.5686871665580682
+            uid: fk2cbf8wwnqTMT
+            exts: *ref_12
+            customProperties: {}
+            customText: !<tag:yaml.org,2002:js/undefined> ''
+            customSize: !<tag:yaml.org,2002:js/undefined> ''
+            customWordWrap: !<tag:yaml.org,2002:js/undefined> ''
+            bindings: {}
+          - x: 334.94251815
+            'y': 2089.55756343
+            opacity: 1
+            tint: 16777215
+            scale:
+              x: 1.90231028
+              'y': 2.09139894
+            rotation: -1.5686871665580682
+            uid: fk2cbf8wwnqTMT
+            exts: *ref_12
+            customProperties: {}
+            customText: !<tag:yaml.org,2002:js/undefined> ''
+            customSize: !<tag:yaml.org,2002:js/undefined> ''
+            customWordWrap: !<tag:yaml.org,2002:js/undefined> ''
+            bindings: {}
+          - x: 458.11198753
+            'y': 756.5506577
+            opacity: 1
+            tint: 16777215
+            scale:
+              x: 2.25586395
+              'y': 2.05780094
+            rotation: -1.5686871665580682
+            uid: fk2cbf8wwnqTMT
+            exts: *ref_12
+            customProperties: {}
+            customText: !<tag:yaml.org,2002:js/undefined> ''
+            customSize: !<tag:yaml.org,2002:js/undefined> ''
+            customWordWrap: !<tag:yaml.org,2002:js/undefined> ''
+            bindings: {}
+          - x: 491.13534492
+            'y': 814.76648863
+            opacity: 1
+            tint: 16777215
+            scale:
+              x: 6.15349259
+              'y': 2.0578197
+            rotation: -1.5686871665580682
+            uid: fk2cbf8wwnqTMT
+            exts: *ref_12
+            customProperties: {}
+            customText: !<tag:yaml.org,2002:js/undefined> ''
+            customSize: !<tag:yaml.org,2002:js/undefined> ''
+            customWordWrap: !<tag:yaml.org,2002:js/undefined> ''
+            bindings: {}
+          - x: 517.20641655
+            'y': 850.98067435
+            opacity: 1
+            tint: 16777215
+            scale:
+              x: 7.32764013
+              'y': 4.44409199
+            rotation: -1.5686871665580682
+            uid: fk2cbf8wwnqTMT
+            exts: *ref_12
+            customProperties: {}
+            customText: !<tag:yaml.org,2002:js/undefined> ''
+            customSize: !<tag:yaml.org,2002:js/undefined> ''
+            customWordWrap: !<tag:yaml.org,2002:js/undefined> ''
+            bindings: {}
+          - x: 557.18205971
+            'y': 648.01367838
+            opacity: 1
+            tint: 16777215
+            scale:
+              x: 1.98069368
+              'y': 3.14305248
+            rotation: -1.5686871665580682
+            uid: fk2cbf8wwnqTMT
+            exts: *ref_12
+            customProperties: {}
+            customText: !<tag:yaml.org,2002:js/undefined> ''
+            customSize: !<tag:yaml.org,2002:js/undefined> ''
+            customWordWrap: !<tag:yaml.org,2002:js/undefined> ''
+            bindings: {}
+          - x: 635.97463173
+            'y': 791.06646325
+            opacity: 1
+            tint: 16777215
+            scale:
+              x: 5.4191207
+              'y': 5.71609757
+            rotation: -1.5686871665580682
+            uid: fk2cbf8wwnqTMT
+            exts: *ref_12
+            customProperties: {}
+            customText: !<tag:yaml.org,2002:js/undefined> ''
+            customSize: !<tag:yaml.org,2002:js/undefined> ''
+            customWordWrap: !<tag:yaml.org,2002:js/undefined> ''
+            bindings: {}
+          - x: 820.78956169
+            'y': 760.5021035
+            opacity: 1
+            tint: 16777215
+            scale:
+              x: 3.48007109
+              'y': 2.00297824
+            rotation: -1.5686871665580682
+            uid: fk2cbf8wwnqTMT
+            exts: *ref_12
+            customProperties: {}
+            customText: !<tag:yaml.org,2002:js/undefined> ''
+            customSize: !<tag:yaml.org,2002:js/undefined> ''
+            customWordWrap: !<tag:yaml.org,2002:js/undefined> ''
+            bindings: {}
+          - x: 656.48749572
+            'y': 822.63523145
+            opacity: 1
+            tint: 16777215
+            scale:
+              x: 1.90231014
+              'y': 2.05779924
+            rotation: -1.5686871665580682
+            uid: fk2cbf8wwnqTMT
+            exts: *ref_12
+            customProperties: {}
+            customText: !<tag:yaml.org,2002:js/undefined> ''
+            customSize: !<tag:yaml.org,2002:js/undefined> ''
+            customWordWrap: !<tag:yaml.org,2002:js/undefined> ''
+            bindings: {}
+          - x: 395.77490808
+            'y': 1169.51640224
+            opacity: 1
+            tint: 16777215
+            scale:
+              x: 2.27996237
+              'y': 3.18062229
+            rotation: -1.5686871665580682
+            uid: fk2cbf8wwnqTMT
+            exts: *ref_12
+            customProperties: {}
+            customText: !<tag:yaml.org,2002:js/undefined> ''
+            customSize: !<tag:yaml.org,2002:js/undefined> ''
+            customWordWrap: !<tag:yaml.org,2002:js/undefined> ''
+            bindings: {}
+          - x: 484.19877508
+            'y': 1335.43207169
+            opacity: 1
+            tint: 16777215
+            scale:
+              x: 6.58344088
+              'y': 2.34161149
+            rotation: -1.557891600630375
+            uid: fk2cbf8wwnqTMT
+            exts: *ref_12
+            customProperties: {}
+            customText: !<tag:yaml.org,2002:js/undefined> ''
+            customSize: !<tag:yaml.org,2002:js/undefined> ''
+            customWordWrap: !<tag:yaml.org,2002:js/undefined> ''
+            bindings: {}
+          - x: 423.19322365
+            'y': 1300.71869485
+            opacity: 1
+            tint: 16777215
+            scale:
+              x: 4.45822558
+              'y': 2.05781154
+            rotation: -1.5686871665580682
+            uid: fk2cbf8wwnqTMT
+            exts: *ref_12
+            customProperties: {}
+            customText: !<tag:yaml.org,2002:js/undefined> ''
+            customSize: !<tag:yaml.org,2002:js/undefined> ''
+            customWordWrap: !<tag:yaml.org,2002:js/undefined> ''
+            bindings: {}
+          - x: 396.14048927
+            'y': 1269.87457783
+            opacity: 1
+            tint: 16777215
+            scale:
+              x: 1.33225665
+              'y': 1.04334543
+            rotation: -1.5686871665580682
+            uid: fk2cbf8wwnqTMT
+            exts: *ref_12
+            customProperties: {}
+            customText: !<tag:yaml.org,2002:js/undefined> ''
+            customSize: !<tag:yaml.org,2002:js/undefined> ''
+            customWordWrap: !<tag:yaml.org,2002:js/undefined> ''
+            bindings: {}
+          - x: 587.30102594
+            'y': 1395.35920223
+            opacity: 1
+            tint: 16777215
+            scale:
+              x: 7.31141712
+              'y': 10.28867321
+            rotation: -1.5686871665580682
+            uid: fk2cbf8wwnqTMT
+            exts: *ref_12
+            customProperties: {}
+            customText: !<tag:yaml.org,2002:js/undefined> ''
+            customSize: !<tag:yaml.org,2002:js/undefined> ''
+            customWordWrap: !<tag:yaml.org,2002:js/undefined> ''
+            bindings: {}
+          - x: 459.79091315
+            'y': 1267.76475926
+            opacity: 1
+            tint: 16777215
+            scale:
+              x: 1.90231014
+              'y': 2.05779924
+            rotation: 0
+            uid: fk2cbf8wwnqTMT
+            exts: *ref_12
+            customProperties: {}
+            customText: !<tag:yaml.org,2002:js/undefined> ''
+            customSize: !<tag:yaml.org,2002:js/undefined> ''
+            customWordWrap: !<tag:yaml.org,2002:js/undefined> ''
+            bindings: {}
+          - x: 524.13773006
+            'y': 1258.30906965
+            opacity: 1
+            tint: 16777215
+            scale:
+              x: 13.28908775
+              'y': 3.28407966
+            rotation: 0
+            uid: fk2cbf8wwnqTMT
+            exts: &ref_13 {}
+            customProperties: {}
+            customText: !<tag:yaml.org,2002:js/undefined> ''
+            customSize: !<tag:yaml.org,2002:js/undefined> ''
+            customWordWrap: !<tag:yaml.org,2002:js/undefined> ''
+            bindings: {}
+          - x: 539.29463779
+            'y': 1157.96488774
+            opacity: 1
+            tint: 16777215
+            scale:
+              x: 1.90231014
+              'y': 3.13083887
+            rotation: 0
+            uid: fk2cbf8wwnqTMT
+            exts: *ref_13
+            customProperties: {}
+            customText: !<tag:yaml.org,2002:js/undefined> ''
+            customSize: !<tag:yaml.org,2002:js/undefined> ''
+            customWordWrap: !<tag:yaml.org,2002:js/undefined> ''
+            bindings: {}
+          - x: 715.90670276
+            'y': 1131.21740351
+            opacity: 1
+            tint: 16777215
+            scale:
+              x: 5.36399829
+              'y': 2.05779924
+            rotation: 0
+            uid: fk2cbf8wwnqTMT
+            exts: *ref_13
+            customProperties: {}
+            customText: !<tag:yaml.org,2002:js/undefined> ''
+            customSize: !<tag:yaml.org,2002:js/undefined> ''
+            customWordWrap: !<tag:yaml.org,2002:js/undefined> ''
+            bindings: {}
+          - x: 648.64464684
+            'y': 1363.29116372
+            opacity: 1
+            tint: 16777215
+            scale:
+              x: 8.43700888
+              'y': 2.05779924
+            rotation: 0
+            uid: fk2cbf8wwnqTMT
+            exts: *ref_13
+            customProperties: {}
+            customText: !<tag:yaml.org,2002:js/undefined> ''
+            customSize: !<tag:yaml.org,2002:js/undefined> ''
+            customWordWrap: !<tag:yaml.org,2002:js/undefined> ''
+            bindings: {}
+          - x: 712.75993991
+            'y': 1393.97210151
+            opacity: 1
+            tint: 16777215
+            scale:
+              x: 5.51150279
+              'y': 2.11059935
+            rotation: 0
+            uid: fk2cbf8wwnqTMT
+            exts: *ref_13
+            customProperties: {}
+            customText: !<tag:yaml.org,2002:js/undefined> ''
+            customSize: !<tag:yaml.org,2002:js/undefined> ''
+            customWordWrap: !<tag:yaml.org,2002:js/undefined> ''
+            bindings: {}
+          - x: 585.09536665
+            'y': 1609.75502617
+            opacity: 1
+            tint: 16777215
+            scale:
+              x: 5.4122050999999995
+              'y': 5.83756394
+            rotation: 0
+            uid: fk2cbf8wwnqTMT
+            exts: *ref_13
+            customProperties: {}
+            customText: !<tag:yaml.org,2002:js/undefined> ''
+            customSize: !<tag:yaml.org,2002:js/undefined> ''
+            customWordWrap: !<tag:yaml.org,2002:js/undefined> ''
+            bindings: {}
+          - x: 518.35342329
+            'y': 1789.68203416
+            opacity: 1
+            tint: 16777215
+            scale:
+              x: 2.52628231
+              'y': 3.69340181
+            rotation: 0
+            uid: fk2cbf8wwnqTMT
+            exts: *ref_13
+            customProperties: {}
+            customText: !<tag:yaml.org,2002:js/undefined> ''
+            customSize: !<tag:yaml.org,2002:js/undefined> ''
+            customWordWrap: !<tag:yaml.org,2002:js/undefined> ''
+            bindings: {}
+          - x: 428.32132262
+            'y': 1641.3493026
+            opacity: 1
+            tint: 16777215
+            scale:
+              x: 13.28059936
+              'y': 3.46219964
+            rotation: 0
+            uid: fk2cbf8wwnqTMT
+            exts: *ref_13
+            customProperties: {}
+            customText: !<tag:yaml.org,2002:js/undefined> ''
+            customSize: !<tag:yaml.org,2002:js/undefined> ''
+            customWordWrap: !<tag:yaml.org,2002:js/undefined> ''
+            bindings: {}
+          - x: 363.3174507
+            'y': 1674.0250457
+            opacity: 1
+            tint: 16777215
+            scale:
+              x: 1.90231014
+              'y': 5.26544876
+            rotation: 0
+            uid: fk2cbf8wwnqTMT
+            exts: *ref_13
+            customProperties: {}
+            customText: !<tag:yaml.org,2002:js/undefined> ''
+            customSize: !<tag:yaml.org,2002:js/undefined> ''
+            customWordWrap: !<tag:yaml.org,2002:js/undefined> ''
+            bindings: {}
+          - x: 393.90750807
+            'y': 1738.23511949
+            opacity: 1
+            tint: 16777215
+            scale:
+              x: 1.43998766
+              'y': 5.29025495
+            rotation: 0
+            uid: fk2cbf8wwnqTMT
+            exts: *ref_13
+            customProperties: {}
+            customText: !<tag:yaml.org,2002:js/undefined> ''
+            customSize: !<tag:yaml.org,2002:js/undefined> ''
+            customWordWrap: !<tag:yaml.org,2002:js/undefined> ''
+            bindings: {}
+          - x: 405.0311653
+            'y': 1746.67643196
+            opacity: 1
+            tint: 16777215
+            scale:
+              x: 1.90231014
+              'y': 2.05779924
+            rotation: 0
+            uid: fk2cbf8wwnqTMT
+            exts: *ref_13
+            customProperties: {}
+            customText: !<tag:yaml.org,2002:js/undefined> ''
+            customSize: !<tag:yaml.org,2002:js/undefined> ''
+            customWordWrap: !<tag:yaml.org,2002:js/undefined> ''
+            bindings: {}
+          - x: 460.4963563
+            'y': 1748.31593385
+            opacity: 1
+            tint: 16777215
+            scale:
+              x: 4.24741209
+              'y': 2.12913752
+            rotation: 0
+            uid: fk2cbf8wwnqTMT
+            exts: *ref_13
+            customProperties: {}
+            customText: !<tag:yaml.org,2002:js/undefined> ''
+            customSize: !<tag:yaml.org,2002:js/undefined> ''
+            customWordWrap: !<tag:yaml.org,2002:js/undefined> ''
+            bindings: {}
+          - x: 568.40988081
+            'y': 1779.35217507
+            opacity: 1
+            tint: 16777215
+            scale:
+              x: 1.90231014
+              'y': 2.05779924
+            rotation: 0
+            uid: fk2cbf8wwnqTMT
+            exts: *ref_13
+            customProperties: {}
+            customText: !<tag:yaml.org,2002:js/undefined> ''
+            customSize: !<tag:yaml.org,2002:js/undefined> ''
+            customWordWrap: !<tag:yaml.org,2002:js/undefined> ''
+            bindings: {}
+          - x: 654.61822432
+            'y': 1747.37166054
+            opacity: 1
+            tint: 16777215
+            scale:
+              x: 3.16719616
+              'y': 2.05779924
+            rotation: 0
+            uid: fk2cbf8wwnqTMT
+            exts: *ref_13
+            customProperties: {}
+            customText: !<tag:yaml.org,2002:js/undefined> ''
+            customSize: !<tag:yaml.org,2002:js/undefined> ''
+            customWordWrap: !<tag:yaml.org,2002:js/undefined> ''
+            bindings: {}
+          - x: 680.18858652
+            'y': 1789.08537514
+            opacity: 1
+            tint: 16777215
+            scale:
+              x: 1.48822367
+              'y': 3.64686973
+            rotation: 0
+            uid: fk2cbf8wwnqTMT
+            exts: *ref_13
+            customProperties: {}
+            customText: !<tag:yaml.org,2002:js/undefined> ''
+            customSize: !<tag:yaml.org,2002:js/undefined> ''
+            customWordWrap: !<tag:yaml.org,2002:js/undefined> ''
+            bindings: {}
+          - x: 841.13400202
+            'y': 1672.28697426
+            opacity: 1
+            tint: 16777215
+            scale:
+              x: 2.40071118
+              'y': 6.3951952
+            rotation: 0
+            uid: fk2cbf8wwnqTMT
+            exts: *ref_13
+            customProperties: {}
+            customText: !<tag:yaml.org,2002:js/undefined> ''
+            customSize: !<tag:yaml.org,2002:js/undefined> ''
+            customWordWrap: !<tag:yaml.org,2002:js/undefined> ''
+            bindings: {}
+          - x: 812.43511122
+            'y': 1748.66354814
+            opacity: 1
+            tint: 16777215
+            scale:
+              x: 0.99460686
+              'y': 1.02889962
+            rotation: 0
+            uid: fk2cbf8wwnqTMT
+            exts: *ref_13
+            customProperties: {}
+            customText: !<tag:yaml.org,2002:js/undefined> ''
+            customSize: !<tag:yaml.org,2002:js/undefined> ''
+            customWordWrap: !<tag:yaml.org,2002:js/undefined> ''
+            bindings: {}
+          - x: 887.17218321
+            'y': 1776.57126076
+            opacity: 1
+            tint: 16777215
+            scale:
+              x: 1.90231014
+              'y': 3.06027062
+            rotation: 0
+            uid: fk2cbf8wwnqTMT
+            exts: *ref_13
+            customProperties: {}
+            customText: !<tag:yaml.org,2002:js/undefined> ''
+            customSize: !<tag:yaml.org,2002:js/undefined> ''
+            customWordWrap: !<tag:yaml.org,2002:js/undefined> ''
+            bindings: {}
+          - x: 873.96284026
+            'y': 1845.74650414
+            opacity: 1
+            tint: 16777215
+            scale:
+              x: 1.37480998
+              'y': 2.05779924
+            rotation: 0
+            uid: fk2cbf8wwnqTMT
+            exts: *ref_13
+            customProperties: {}
+            customText: !<tag:yaml.org,2002:js/undefined> ''
+            customSize: !<tag:yaml.org,2002:js/undefined> ''
+            customWordWrap: !<tag:yaml.org,2002:js/undefined> ''
+            bindings: {}
+          - x: 1264.80706728
+            'y': 1081.29286596
+            opacity: 1
+            tint: 16777215
+            scale:
+              x: 8.1025883
+              'y': 2.11414008
+            rotation: -1.5686871665580682
+            uid: fk2cbf8wwnqTMT
+            exts: {}
+            customProperties: {}
+            customText: !<tag:yaml.org,2002:js/undefined> ''
+            customSize: !<tag:yaml.org,2002:js/undefined> ''
+            customWordWrap: !<tag:yaml.org,2002:js/undefined> ''
+            bindings: {}
           - x: 114.16429858355912
             'y': 69.76956810024191
             opacity: 1
@@ -5199,231 +5454,6 @@ assets:
             exts: {}
             customProperties:
               pFollow: Giocatore2
-            customText: !<tag:yaml.org,2002:js/undefined> ''
-            customSize: !<tag:yaml.org,2002:js/undefined> ''
-            customWordWrap: !<tag:yaml.org,2002:js/undefined> ''
-            bindings: {}
-          - x: 112
-            'y': 128
-            opacity: 1
-            tint: 16777215
-            scale:
-              x: 1.3
-              'y': 1.3
-            rotation: 0
-            uid: DL9BczP5Cd4RMz
-            exts: {}
-            customProperties: {}
-            customText: !<tag:yaml.org,2002:js/undefined> ''
-            customSize: !<tag:yaml.org,2002:js/undefined> ''
-            customWordWrap: !<tag:yaml.org,2002:js/undefined> ''
-            bindings: {}
-          - x: 1120
-            'y': 128
-            opacity: 1
-            tint: 16777215
-            scale:
-              x: 1.3
-              'y': 1.3
-            rotation: 0
-            uid: k4T35dNQG6RP66
-            exts: {}
-            customProperties: {}
-            customText: !<tag:yaml.org,2002:js/undefined> ''
-            customSize: !<tag:yaml.org,2002:js/undefined> ''
-            customWordWrap: !<tag:yaml.org,2002:js/undefined> ''
-            bindings: {}
-          - x: 512
-            'y': 480
-            opacity: 1
-            tint: 16777215
-            scale:
-              x: 3
-              'y': 3
-            rotation: 0
-            uid: gMww9zTNWQRDPT
-            exts: {}
-            customProperties: {}
-            customText: !<tag:yaml.org,2002:js/undefined> ''
-            customSize: !<tag:yaml.org,2002:js/undefined> ''
-            customWordWrap: !<tag:yaml.org,2002:js/undefined> ''
-            bindings: {}
-          - x: 768
-            'y': 352
-            opacity: 1
-            tint: 16777215
-            scale:
-              x: 3
-              'y': 3
-            rotation: 0
-            uid: gMww9zTNWQRDPT
-            exts: {}
-            customProperties: {}
-            customText: !<tag:yaml.org,2002:js/undefined> ''
-            customSize: !<tag:yaml.org,2002:js/undefined> ''
-            customWordWrap: !<tag:yaml.org,2002:js/undefined> ''
-            bindings: {}
-          - x: 320
-            'y': 1040
-            opacity: 1
-            tint: 16777215
-            scale:
-              x: 1
-              'y': 1
-            rotation: 0
-            uid: MPdrNr8hhh5b2R
-            exts: {}
-            customProperties: {}
-            customText: !<tag:yaml.org,2002:js/undefined> ''
-            customSize: !<tag:yaml.org,2002:js/undefined> ''
-            customWordWrap: !<tag:yaml.org,2002:js/undefined> ''
-            bindings: {}
-          - x: 1040
-            'y': 1280
-            opacity: 1
-            tint: 16777215
-            scale:
-              x: 1
-              'y': 1
-            rotation: 0
-            uid: MPdrNr8hhh5b2R
-            exts: {}
-            customProperties: {}
-            customText: !<tag:yaml.org,2002:js/undefined> ''
-            customSize: !<tag:yaml.org,2002:js/undefined> ''
-            customWordWrap: !<tag:yaml.org,2002:js/undefined> ''
-            bindings: {}
-          - x: 656
-            'y': 1984
-            opacity: 1
-            tint: 16777215
-            scale:
-              x: 1
-              'y': 1
-            rotation: 0
-            uid: MPdrNr8hhh5b2R
-            exts: {}
-            customProperties: {}
-            customText: !<tag:yaml.org,2002:js/undefined> ''
-            customSize: !<tag:yaml.org,2002:js/undefined> ''
-            customWordWrap: !<tag:yaml.org,2002:js/undefined> ''
-            bindings: {}
-          - x: 464
-            'y': 1984
-            opacity: 1
-            tint: 16777215
-            scale:
-              x: 3
-              'y': 3
-            rotation: 0
-            uid: gMww9zTNWQRDPT
-            exts: {}
-            customProperties: {}
-            customText: !<tag:yaml.org,2002:js/undefined> ''
-            customSize: !<tag:yaml.org,2002:js/undefined> ''
-            customWordWrap: !<tag:yaml.org,2002:js/undefined> ''
-            bindings: {}
-          - x: 1072
-            'y': 1824
-            opacity: 1
-            tint: 16777215
-            scale:
-              x: 3
-              'y': 3
-            rotation: 0
-            uid: gMww9zTNWQRDPT
-            exts: {}
-            customProperties: {}
-            customText: !<tag:yaml.org,2002:js/undefined> ''
-            customSize: !<tag:yaml.org,2002:js/undefined> ''
-            customWordWrap: !<tag:yaml.org,2002:js/undefined> ''
-            bindings: {}
-          - x: 784
-            'y': 2016
-            opacity: 1
-            tint: 16777215
-            scale:
-              x: 3
-              'y': 3
-            rotation: 0
-            uid: gMww9zTNWQRDPT
-            exts: {}
-            customProperties: {}
-            customText: !<tag:yaml.org,2002:js/undefined> ''
-            customSize: !<tag:yaml.org,2002:js/undefined> ''
-            customWordWrap: !<tag:yaml.org,2002:js/undefined> ''
-            bindings: {}
-          - x: 800
-            'y': 1552
-            opacity: 1
-            tint: 16777215
-            scale:
-              x: 3
-              'y': 3
-            rotation: 0
-            uid: gMww9zTNWQRDPT
-            exts: {}
-            customProperties: {}
-            customText: !<tag:yaml.org,2002:js/undefined> ''
-            customSize: !<tag:yaml.org,2002:js/undefined> ''
-            customWordWrap: !<tag:yaml.org,2002:js/undefined> ''
-            bindings: {}
-          - x: 368
-            'y': 1536
-            opacity: 1
-            tint: 16777215
-            scale:
-              x: 1
-              'y': 1
-            rotation: 0
-            uid: MPdrNr8hhh5b2R
-            exts: {}
-            customProperties: {}
-            customText: !<tag:yaml.org,2002:js/undefined> ''
-            customSize: !<tag:yaml.org,2002:js/undefined> ''
-            customWordWrap: !<tag:yaml.org,2002:js/undefined> ''
-            bindings: {}
-          - x: 1024
-            'y': 944
-            opacity: 1
-            tint: 16777215
-            scale:
-              x: 1
-              'y': 1
-            rotation: 0
-            uid: MPdrNr8hhh5b2R
-            exts: {}
-            customProperties: {}
-            customText: !<tag:yaml.org,2002:js/undefined> ''
-            customSize: !<tag:yaml.org,2002:js/undefined> ''
-            customWordWrap: !<tag:yaml.org,2002:js/undefined> ''
-            bindings: {}
-          - x: 1008
-            'y': 576
-            opacity: 1
-            tint: 16777215
-            scale:
-              x: 1
-              'y': 1
-            rotation: 0
-            uid: MPdrNr8hhh5b2R
-            exts: {}
-            customProperties: {}
-            customText: !<tag:yaml.org,2002:js/undefined> ''
-            customSize: !<tag:yaml.org,2002:js/undefined> ''
-            customWordWrap: !<tag:yaml.org,2002:js/undefined> ''
-            bindings: {}
-          - x: 11.44420529
-            'y': 942.97219822
-            opacity: 1
-            tint: 16777215
-            scale:
-              x: 1.33226838
-              'y': 3.10845253
-            rotation: -1.5686871665580682
-            uid: fk2cbf8wwnqTMT
-            exts: {}
-            customProperties: {}
             customText: !<tag:yaml.org,2002:js/undefined> ''
             customSize: !<tag:yaml.org,2002:js/undefined> ''
             customWordWrap: !<tag:yaml.org,2002:js/undefined> ''
@@ -26132,7 +26162,7 @@ assets:
             hidden: false
             cache: true
         extends: {}
-        lastmod: 1776780915760
+        lastmod: 1776790568744
         events:
           - eventKey: OnRoomStart
             code: |-
@@ -26157,7 +26187,8 @@ assets:
 
               camera.followX = false;
               camera.follow = templates.list["ghost"][0];
-              rooms.current.maxX = 1250
+
+              rooms.current.maxX = 1270
               rooms.current.minX = 0
               rooms.current.maxY = 2080
             arguments: {}
@@ -26168,6 +26199,7 @@ assets:
 
               sounds.stop('Ambience');
               sounds.stop('moseni');
+              countDown = defaultCountDown
             arguments: {}
             lib: core
           - eventKey: OnDraw
@@ -26305,7 +26337,7 @@ assets:
             bindings: {}
         tiles: []
         extends: {}
-        lastmod: 1776780914485
+        lastmod: 1776790585135
         events:
           - eventKey: OnRoomStart
             code: |-
@@ -26453,7 +26485,7 @@ assets:
             bindings: {}
         tiles: []
         extends: {}
-        lastmod: 1776780914746
+        lastmod: 1776790583255
         events:
           - eventKey: OnRoomStart
             code: 'transition.fadeIn(500,0);'
@@ -29486,8 +29518,8 @@ assets:
             customSize: !<tag:yaml.org,2002:js/undefined> ''
             customWordWrap: !<tag:yaml.org,2002:js/undefined> ''
             bindings: {}
-          - x: 704
-            'y': 1376
+          - x: 741.33634949
+            'y': 1374.71253967
             opacity: 1
             tint: 16777215
             scale:
@@ -29621,8 +29653,8 @@ assets:
             customSize: !<tag:yaml.org,2002:js/undefined> ''
             customWordWrap: !<tag:yaml.org,2002:js/undefined> ''
             bindings: {}
-          - x: -160
-            'y': 512
+          - x: -175.44952393
+            'y': 514.57492065
             opacity: 1
             tint: 16777215
             scale:
@@ -136292,7 +136324,7 @@ assets:
             hidden: false
             cache: true
         extends: {}
-        lastmod: 1776780924029
+        lastmod: 1776790841364
         events:
           - eventKey: OnRoomStart
             code: |-
@@ -136318,9 +136350,9 @@ assets:
               camera.followX = true;
               camera.follow = templates.list["ghost"][0];
 
-              rooms.current.maxX = 1800
+              rooms.current.maxX = 1850
               rooms.current.minX = -670
-              rooms.current.maxY = 1400
+              rooms.current.maxY = 1500
             arguments: {}
             lib: core
           - eventKey: OnRoomEnd
@@ -136335,7 +136367,7 @@ assets:
             code: |+
               let g1 = templates.list["Giocatore1"][0];
               let g2 = templates.list["Giocatore2"][0];
-              let margin = 150;
+              let margin = 280;
 
               let targetX = (g1.x + g2.x) / 2;
               let targetY = (g1.y + g2.y) / 2;
@@ -136424,7 +136456,7 @@ assets:
             customWordWrap: !<tag:yaml.org,2002:js/undefined> ''
             bindings: {}
           - x: 480
-            'y': 256
+            'y': 288
             opacity: 1
             tint: 16777215
             scale:
@@ -136439,7 +136471,7 @@ assets:
             customWordWrap: !<tag:yaml.org,2002:js/undefined> ''
             bindings: {}
           - x: 672
-            'y': 256
+            'y': 288
             opacity: 1
             tint: 16777215
             scale:
@@ -136455,7 +136487,7 @@ assets:
             customWordWrap: !<tag:yaml.org,2002:js/undefined> ''
             bindings: {}
           - x: 480
-            'y': 320
+            'y': 352
             opacity: 1
             tint: 16777215
             scale:
@@ -136469,24 +136501,8 @@ assets:
             customSize: !<tag:yaml.org,2002:js/undefined> ''
             customWordWrap: !<tag:yaml.org,2002:js/undefined> ''
             bindings: {}
-          - x: 672
-            'y': 320
-            opacity: 1
-            tint: 16777215
-            scale:
-              x: 2.66666667
-              'y': 1
-            rotation: 0
-            uid: pjn3LW63cDP8jk
-            exts: {}
-            customProperties:
-              globalVariable: airOption
-            customText: !<tag:yaml.org,2002:js/undefined> ''
-            customSize: !<tag:yaml.org,2002:js/undefined> ''
-            customWordWrap: !<tag:yaml.org,2002:js/undefined> ''
-            bindings: {}
           - x: 480
-            'y': 384
+            'y': 416
             opacity: 1
             tint: 16777215
             scale:
@@ -136496,44 +136512,12 @@ assets:
             uid: wbtP9fdMRM245z
             exts: {}
             customProperties: {}
-            customText: Zona (1 o 2)
-            customSize: !<tag:yaml.org,2002:js/undefined> ''
-            customWordWrap: !<tag:yaml.org,2002:js/undefined> ''
-            bindings: {}
-          - x: 672
-            'y': 384
-            opacity: 1
-            tint: 16777215
-            scale:
-              x: 2.66666667
-              'y': 1
-            rotation: 0
-            uid: P8KM5ggKCbrCh6
-            exts: {}
-            customProperties:
-              globalVariable: levelChoice
-            customText: !<tag:yaml.org,2002:js/undefined> ''
-            customSize: !<tag:yaml.org,2002:js/undefined> ''
-            customWordWrap: !<tag:yaml.org,2002:js/undefined> ''
-            bindings: {}
-          - x: 672
-            'y': 448
-            opacity: 1
-            tint: 16777215
-            scale:
-              x: 2.66666667
-              'y': 1
-            rotation: 0
-            uid: P8KM5ggKCbrCh6
-            exts: {}
-            customProperties:
-              globalVariable: enemyDamage
-            customText: !<tag:yaml.org,2002:js/undefined> ''
+            customText: Zona 2?
             customSize: !<tag:yaml.org,2002:js/undefined> ''
             customWordWrap: !<tag:yaml.org,2002:js/undefined> ''
             bindings: {}
           - x: 480
-            'y': 448
+            'y': 480
             opacity: 1
             tint: 16777215
             scale:
@@ -136547,68 +136531,23 @@ assets:
             customSize: !<tag:yaml.org,2002:js/undefined> ''
             customWordWrap: !<tag:yaml.org,2002:js/undefined> ''
             bindings: {}
-          - x: 816
-            'y': 448
+          - x: 672
+            'y': 208
             opacity: 1
             tint: 16777215
             scale:
-              x: 1.09923664
-              'y': 1.41176471
-            rotation: 0
-            uid: wbtP9fdMRM245z
-            exts: {}
-            customProperties: {}
-            customText: 0 = false   1 = true
-            customSize: !<tag:yaml.org,2002:js/undefined> ''
-            customWordWrap: !<tag:yaml.org,2002:js/undefined> ''
-            bindings: {}
-          - x: 1088
-            'y': 448
-            opacity: 1
-            tint: 16777215
-            scale:
-              x: 2.6
+              x: 2.66666667
               'y': 1
             rotation: 0
-            uid: BBtLGHDLn4HjN9
-            exts: {}
-            customProperties: {}
-            customText: Difficile
-            customSize: !<tag:yaml.org,2002:js/undefined> ''
-            customWordWrap: !<tag:yaml.org,2002:js/undefined> ''
-            bindings: {}
-          - x: 1088
-            'y': 400
-            opacity: 1
-            tint: 16777215
-            scale:
-              x: 2.6
-              'y': 1
-            rotation: 0
-            uid: r5Hf1FGtht9RqJ
+            uid: 1W3DjjNnB3PWW4
             exts: {}
             customProperties: {}
             customText: Normale
             customSize: !<tag:yaml.org,2002:js/undefined> ''
             customWordWrap: !<tag:yaml.org,2002:js/undefined> ''
             bindings: {}
-          - x: 1088
-            'y': 352
-            opacity: 1
-            tint: 16777215
-            scale:
-              x: 2.6
-              'y': 1
-            rotation: 0
-            uid: 1W3DjjNnB3PWW4
-            exts: {}
-            customProperties: {}
-            customText: Facile
-            customSize: !<tag:yaml.org,2002:js/undefined> ''
-            customWordWrap: !<tag:yaml.org,2002:js/undefined> ''
-            bindings: {}
-          - x: 1088
-            'y': 304
+          - x: 480
+            'y': 208
             opacity: 1
             tint: 16777215
             scale:
@@ -136622,24 +136561,57 @@ assets:
             customSize: !<tag:yaml.org,2002:js/undefined> ''
             customWordWrap: !<tag:yaml.org,2002:js/undefined> ''
             bindings: {}
-          - x: 800
-            'y': 320
+          - x: 672
+            'y': 352
             opacity: 1
             tint: 16777215
             scale:
-              x: 1.09923664
-              'y': 1.41176471
+              x: 2.66666667
+              'y': 1
             rotation: 0
-            uid: wbtP9fdMRM245z
+            uid: zRJBThT1tDWQbK
             exts: {}
-            customProperties: {}
-            customText: 0 = false   1 = true
+            customProperties:
+              globalVariable: airOption
+            customText: !<tag:yaml.org,2002:js/undefined> ''
+            customSize: !<tag:yaml.org,2002:js/undefined> ''
+            customWordWrap: !<tag:yaml.org,2002:js/undefined> ''
+            bindings: {}
+          - x: 672
+            'y': 416
+            opacity: 1
+            tint: 16777215
+            scale:
+              x: 2.66666667
+              'y': 1
+            rotation: 0
+            uid: zRJBThT1tDWQbK
+            exts: {}
+            customProperties:
+              globalVariable: levelTwo
+            customText: !<tag:yaml.org,2002:js/undefined> ''
+            customSize: !<tag:yaml.org,2002:js/undefined> ''
+            customWordWrap: !<tag:yaml.org,2002:js/undefined> ''
+            bindings: {}
+          - x: 672
+            'y': 480
+            opacity: 1
+            tint: 16777215
+            scale:
+              x: 2.66666667
+              'y': 1
+            rotation: 0
+            uid: zRJBThT1tDWQbK
+            exts: {}
+            customProperties:
+              globalVariable: enemyDamage
+            customText: !<tag:yaml.org,2002:js/undefined> ''
             customSize: !<tag:yaml.org,2002:js/undefined> ''
             customWordWrap: !<tag:yaml.org,2002:js/undefined> ''
             bindings: {}
         tiles: []
         extends: {}
-        lastmod: 1776778887698
+        lastmod: 1776790624681
         events:
           - eventKey: OnRoomStart
             code: ''
@@ -136676,14 +136648,17 @@ globalVars:
   - name: trashScale
     value: '100'
     type: number
-  - name: levelChoice
-    value: '1'
-    type: number
+  - name: levelTwo
+    value: 'false'
+    type: boolean
   - name: enemyDamage
     value: 'false'
     type: boolean
   - name: difficulty
     value: '1'
+    type: number
+  - name: defaultCountDown
+    value: '80'
     type: number
 settings:
   authoring:
