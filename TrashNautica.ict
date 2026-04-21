@@ -492,6 +492,83 @@ assets:
             uid: mPcNJBzgjFGFDC
             behaviors: []
             extendTypes: ''
+          - type: template
+            baseClass: SpritedCounter
+            name: respiro
+            depth: 0
+            texture: RTT9rNng3HQmPJ
+            playAnimationOnStart: false
+            loopAnimation: true
+            animationFPS: 30
+            visible: true
+            events:
+              - eventKey: OnStep
+                lib: core
+                code: |
+
+                  this.follow = templates.list[this.pFollow][0]
+                  this.x = this.follow.x - 32
+                  this.y = this.follow.y - 64
+                  if (!pause.isPaused) {
+                      this.follow.air -= 0.0006 * airDepletionRate * ((trashAirDepletionMultiplier * this.follow.spazzaturaGrande.length) + 1)
+                      this.count = this.follow.air
+
+                      // // --- LOGICA DEL LAMPEGGIO ---
+                      // // 1. Facciamo scorrere il tempo
+                      // this.tempoLampeggio += u.time;
+
+                      // // 2. Controlliamo se siamo in zona pericolo
+                      if (this.follow.air < this.sogliaAllarme) {
+
+                      //     // Più l'ossigeno è basso, più questo numero diventa grande (velocità maggiore)
+                      //     // Moltiplica per 0.5 (o altro) per regolare quanto diventa "frenetico" alla fine
+                      //     let velocita = 10 + (this.sogliaAllarme - this.follow.air) * 0.8;
+
+                      //     // Math.sin crea un'onda tra -1 e 1. Noi la trasformiamo tra 0 (invisibile) e 1 (visibile)
+                      //     this.alpha = 0.7 + (0.3 * Math.sin(this.tempoLampeggio * velocita));
+
+                      //     // TOCCO DI CLASSE OPZIONALE: Diventa anche rossastro!
+                          this.tint = 0xff5555;
+
+                      } else {
+                          this.tint = 0xffffff;   // Colore originale
+                      }
+
+                      if (this.follow.air <= 0) {
+                          this.follow.enemyCollision();
+                          this.follow.x = this.follow.spawnX;
+                          this.follow.y = this.follow.spawnY;
+                          this.follow.hspeed = 0;
+                          this.follow.vspeed = 0;
+
+                          if (this.follow.spazzaturaGrande.length > 0) {
+                              for (let i of this.follow.spazzaturaGrande) i.kill = true;
+                              this.follow.spazzaturaGrande = [];
+                          }
+                          this.follow.air = 3
+                      }
+                  }
+                arguments: {}
+              - eventKey: OnCreate
+                code: |-
+                  if (!airOption) this.kill = true
+                  this.sogliaAllarme = .70
+                arguments: {}
+                lib: core
+            extends:
+              cgroup: ''
+              'editor:myCollidingCGroups': []
+            lastmod: 1776787940675
+            uid: f4TD3bLf6B57Rh
+            behaviors: []
+            extendTypes: ''
+            tilingSettings:
+              scrollSpeedX: 0
+              scrollSpeedY: 0
+              pixelPerfect: false
+              isUi: false
+            repeaterSettings:
+              defaultCount: 3
       - type: folder
         uid: hR93C6WL57hJ48
         colorClass: warning
@@ -1514,83 +1591,6 @@ assets:
             maxTextLength: 0
             useBitmapText: false
           - type: template
-            baseClass: SpritedCounter
-            name: respiro
-            depth: 0
-            texture: RTT9rNng3HQmPJ
-            playAnimationOnStart: false
-            loopAnimation: true
-            animationFPS: 30
-            visible: true
-            events:
-              - eventKey: OnStep
-                lib: core
-                code: |
-
-                  this.follow = templates.list[this.pFollow][0]
-                  this.x = this.follow.x - 32
-                  this.y = this.follow.y - 64
-                  if (!pause.isPaused) {
-                      this.follow.air -= 0.0006 * airDepletionRate * ((trashAirDepletionMultiplier * this.follow.spazzaturaGrande.length) + 1)
-                      this.count = this.follow.air
-
-                      // // --- LOGICA DEL LAMPEGGIO ---
-                      // // 1. Facciamo scorrere il tempo
-                      // this.tempoLampeggio += u.time;
-
-                      // // 2. Controlliamo se siamo in zona pericolo
-                      if (this.follow.air < this.sogliaAllarme) {
-
-                      //     // Più l'ossigeno è basso, più questo numero diventa grande (velocità maggiore)
-                      //     // Moltiplica per 0.5 (o altro) per regolare quanto diventa "frenetico" alla fine
-                      //     let velocita = 10 + (this.sogliaAllarme - this.follow.air) * 0.8;
-
-                      //     // Math.sin crea un'onda tra -1 e 1. Noi la trasformiamo tra 0 (invisibile) e 1 (visibile)
-                      //     this.alpha = 0.7 + (0.3 * Math.sin(this.tempoLampeggio * velocita));
-
-                      //     // TOCCO DI CLASSE OPZIONALE: Diventa anche rossastro!
-                          this.tint = 0xff5555;
-
-                      } else {
-                          this.tint = 0xffffff;   // Colore originale
-                      }
-
-                      if (this.follow.air <= 0) {
-                          this.follow.enemyCollision();
-                          this.follow.x = this.follow.spawnX;
-                          this.follow.y = this.follow.spawnY;
-                          this.follow.hspeed = 0;
-                          this.follow.vspeed = 0;
-
-                          if (this.follow.spazzaturaGrande.length > 0) {
-                              for (let i of this.follow.spazzaturaGrande) i.kill = true;
-                              this.follow.spazzaturaGrande = [];
-                          }
-                          this.follow.air = 3
-                      }
-                  }
-                arguments: {}
-              - eventKey: OnCreate
-                code: |-
-                  if (!airOption) this.kill = true
-                  this.sogliaAllarme = .70
-                arguments: {}
-                lib: core
-            extends:
-              cgroup: ''
-              'editor:myCollidingCGroups': []
-            lastmod: 1776787940675
-            uid: f4TD3bLf6B57Rh
-            behaviors: []
-            extendTypes: ''
-            tilingSettings:
-              scrollSpeedX: 0
-              scrollSpeedY: 0
-              pixelPerfect: false
-              isUi: false
-            repeaterSettings:
-              defaultCount: 3
-          - type: template
             baseClass: TextBox
             name: InputBool
             depth: 0
@@ -1677,10 +1677,16 @@ assets:
                   }
                 arguments: {}
                 lib: core
+              - eventKey: OnCreate
+                code: >-
+                  this.text = difficulty == 0 ? "Facile" : difficulty == 1 ?
+                  "Normale" : difficulty == 2 ? "Difficile" : "Personalizzato"
+                arguments: {}
+                lib: core
             extends:
               cgroup: ''
               'editor:myCollidingCGroups': []
-            lastmod: 1776789148393
+            lastmod: 1776792044221
             uid: 1W3DjjNnB3PWW4
             behaviors: []
             extendTypes: ''
@@ -26165,7 +26171,7 @@ assets:
             hidden: false
             cache: true
         extends: {}
-        lastmod: 1776790568744
+        lastmod: 1776791761972
         events:
           - eventKey: OnRoomStart
             code: |-
@@ -26194,6 +26200,7 @@ assets:
               rooms.current.maxX = 1270
               rooms.current.minX = 0
               rooms.current.maxY = 2080
+              countDown = defaultCountDown
             arguments: {}
             lib: core
           - eventKey: OnRoomEnd
@@ -26206,7 +26213,7 @@ assets:
             arguments: {}
             lib: core
           - eventKey: OnDraw
-            code: |+
+            code: |
               let g1 = templates.list["Giocatore1"][0];
               let g2 = templates.list["Giocatore2"][0];
               let margin = 200;
@@ -26227,7 +26234,6 @@ assets:
               camera.y = u.lerp(camera.y, targetY, 0.2);
               camera.scale.x = u.lerp(camera.scale.x, targetScale, 0.2);
               camera.scale.y = u.lerp(camera.scale.y, targetScale, 0.2);
-
             arguments: {}
             lib: core
         behaviors: []
@@ -136327,7 +136333,7 @@ assets:
             hidden: false
             cache: true
         extends: {}
-        lastmod: 1776790841364
+        lastmod: 1776791765047
         events:
           - eventKey: OnRoomStart
             code: |-
@@ -136356,6 +136362,8 @@ assets:
               rooms.current.maxX = 1850
               rooms.current.minX = -670
               rooms.current.maxY = 1500
+
+              countDown = defaultCountDown
             arguments: {}
             lib: core
           - eventKey: OnRoomEnd
@@ -136364,10 +136372,12 @@ assets:
 
               sounds.stop('Ambience');
               sounds.stop('moseni');
+
+              countDown = defaultCountDown
             arguments: {}
             lib: core
           - eventKey: OnDraw
-            code: |+
+            code: |-
               let g1 = templates.list["Giocatore1"][0];
               let g2 = templates.list["Giocatore2"][0];
               let margin = 280;
@@ -136384,7 +136394,6 @@ assets:
               ghost.y = targetY;
               camera.scale.x = u.lerp(camera.scale.x, targetScale, 0.2);
               camera.scale.y = u.lerp(camera.scale.y, targetScale, 0.2);
-
             arguments: {}
             lib: core
         behaviors: []
