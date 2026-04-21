@@ -1552,7 +1552,6 @@ assets:
                       globalThis[this.globalVariable] = (Number.parseInt(this.text))
                       this.text = countDown.toString()
                   }
-                  difficulty = 3
                 arguments: {}
                 lib: core
               - eventKey: OnCreate
