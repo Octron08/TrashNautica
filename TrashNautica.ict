@@ -26171,7 +26171,7 @@ assets:
             hidden: false
             cache: true
         extends: {}
-        lastmod: 1776791761972
+        lastmod: 1776792317355
         events:
           - eventKey: OnRoomStart
             code: |-
@@ -26201,6 +26201,8 @@ assets:
               rooms.current.minX = 0
               rooms.current.maxY = 2080
               countDown = defaultCountDown
+
+              if (pause.isPaused) pause.isPaused = false
             arguments: {}
             lib: core
           - eventKey: OnRoomEnd
@@ -136333,7 +136335,7 @@ assets:
             hidden: false
             cache: true
         extends: {}
-        lastmod: 1776791765047
+        lastmod: 1776792317823
         events:
           - eventKey: OnRoomStart
             code: |-
@@ -136364,6 +136366,7 @@ assets:
               rooms.current.maxY = 1500
 
               countDown = defaultCountDown
+              if (!pause.isPaused) pause.isPaused = false
             arguments: {}
             lib: core
           - eventKey: OnRoomEnd
@@ -136493,7 +136496,7 @@ assets:
             uid: P8KM5ggKCbrCh6
             exts: {}
             customProperties:
-              globalVariable: countDown
+              globalVariable: defaultCountDown
             customText: !<tag:yaml.org,2002:js/undefined> ''
             customSize: !<tag:yaml.org,2002:js/undefined> ''
             customWordWrap: !<tag:yaml.org,2002:js/undefined> ''
@@ -136623,7 +136626,7 @@ assets:
             bindings: {}
         tiles: []
         extends: {}
-        lastmod: 1776791168537
+        lastmod: 1776792316815
         events:
           - eventKey: OnRoomStart
             code: ''
