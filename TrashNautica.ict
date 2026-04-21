@@ -213,7 +213,7 @@ assets:
                                   this.alpha = 1;
                               }, 1500);
 
-                              this.air -= 0.2
+                              if (enemyDamage) this.air -= 0.2
                           }
                       }
                 arguments: {}
@@ -409,8 +409,8 @@ assets:
 
                                   this.alpha = 1;
                               }, 1500);
-                              
-                              this.air -= 0.2
+
+                              if (enemyDamage) this.air -= 0.2
                           }
                       }
                 arguments: {}
@@ -136459,7 +136459,7 @@ assets:
             customWordWrap: !<tag:yaml.org,2002:js/undefined> ''
             bindings: {}
           - x: 480
-            'y': 288
+            'y': 272
             opacity: 1
             tint: 16777215
             scale:
@@ -136474,7 +136474,7 @@ assets:
             customWordWrap: !<tag:yaml.org,2002:js/undefined> ''
             bindings: {}
           - x: 672
-            'y': 288
+            'y': 272
             opacity: 1
             tint: 16777215
             scale:
@@ -136490,7 +136490,7 @@ assets:
             customWordWrap: !<tag:yaml.org,2002:js/undefined> ''
             bindings: {}
           - x: 480
-            'y': 352
+            'y': 336
             opacity: 1
             tint: 16777215
             scale:
@@ -136505,7 +136505,7 @@ assets:
             customWordWrap: !<tag:yaml.org,2002:js/undefined> ''
             bindings: {}
           - x: 480
-            'y': 416
+            'y': 400
             opacity: 1
             tint: 16777215
             scale:
@@ -136520,7 +136520,7 @@ assets:
             customWordWrap: !<tag:yaml.org,2002:js/undefined> ''
             bindings: {}
           - x: 480
-            'y': 480
+            'y': 464
             opacity: 1
             tint: 16777215
             scale:
@@ -136565,7 +136565,7 @@ assets:
             customWordWrap: !<tag:yaml.org,2002:js/undefined> ''
             bindings: {}
           - x: 672
-            'y': 352
+            'y': 336
             opacity: 1
             tint: 16777215
             scale:
@@ -136581,7 +136581,7 @@ assets:
             customWordWrap: !<tag:yaml.org,2002:js/undefined> ''
             bindings: {}
           - x: 672
-            'y': 416
+            'y': 400
             opacity: 1
             tint: 16777215
             scale:
@@ -136597,7 +136597,7 @@ assets:
             customWordWrap: !<tag:yaml.org,2002:js/undefined> ''
             bindings: {}
           - x: 672
-            'y': 480
+            'y': 464
             opacity: 1
             tint: 16777215
             scale:
@@ -136614,7 +136614,7 @@ assets:
             bindings: {}
         tiles: []
         extends: {}
-        lastmod: 1776790624681
+        lastmod: 1776791168537
         events:
           - eventKey: OnRoomStart
             code: ''
