@@ -1680,13 +1680,13 @@ assets:
               - eventKey: OnCreate
                 code: >-
                   this.text = difficulty == 0 ? "Facile" : difficulty == 1 ?
-                  "Normale" : difficulty == 2 ? "Difficile" : "Personalizzato"
+                  "Normale" : difficulty == 2 ? "Difficile" : this.text
                 arguments: {}
                 lib: core
             extends:
               cgroup: ''
               'editor:myCollidingCGroups': []
-            lastmod: 1776792044221
+            lastmod: 1776793218295
             uid: 1W3DjjNnB3PWW4
             behaviors: []
             extendTypes: ''
@@ -26171,7 +26171,7 @@ assets:
             hidden: false
             cache: true
         extends: {}
-        lastmod: 1776792586748
+        lastmod: 1776793218229
         events:
           - eventKey: OnRoomStart
             code: |-
@@ -136333,7 +136333,7 @@ assets:
             hidden: false
             cache: true
         extends: {}
-        lastmod: 1776792587362
+        lastmod: 1776793218913
         events:
           - eventKey: OnRoomStart
             code: |-
@@ -136468,7 +136468,7 @@ assets:
             customWordWrap: !<tag:yaml.org,2002:js/undefined> ''
             bindings: {}
           - x: 480
-            'y': 272
+            'y': 336
             opacity: 1
             tint: 16777215
             scale:
@@ -136483,7 +136483,7 @@ assets:
             customWordWrap: !<tag:yaml.org,2002:js/undefined> ''
             bindings: {}
           - x: 672
-            'y': 272
+            'y': 336
             opacity: 1
             tint: 16777215
             scale:
@@ -136495,21 +136495,6 @@ assets:
             customProperties:
               globalVariable: defaultCountDown
             customText: !<tag:yaml.org,2002:js/undefined> ''
-            customSize: !<tag:yaml.org,2002:js/undefined> ''
-            customWordWrap: !<tag:yaml.org,2002:js/undefined> ''
-            bindings: {}
-          - x: 480
-            'y': 336
-            opacity: 1
-            tint: 16777215
-            scale:
-              x: 1.09923664
-              'y': 1.41176471
-            rotation: 0
-            uid: wbtP9fdMRM245z
-            exts: {}
-            customProperties: {}
-            customText: Aria attiva?
             customSize: !<tag:yaml.org,2002:js/undefined> ''
             customWordWrap: !<tag:yaml.org,2002:js/undefined> ''
             bindings: {}
@@ -136528,23 +136513,8 @@ assets:
             customSize: !<tag:yaml.org,2002:js/undefined> ''
             customWordWrap: !<tag:yaml.org,2002:js/undefined> ''
             bindings: {}
-          - x: 480
-            'y': 464
-            opacity: 1
-            tint: 16777215
-            scale:
-              x: 1.09923664
-              'y': 1.41176471
-            rotation: 0
-            uid: wbtP9fdMRM245z
-            exts: {}
-            customProperties: {}
-            customText: Nemico toglie aria?
-            customSize: !<tag:yaml.org,2002:js/undefined> ''
-            customWordWrap: !<tag:yaml.org,2002:js/undefined> ''
-            bindings: {}
           - x: 672
-            'y': 208
+            'y': 272
             opacity: 1
             tint: 16777215
             scale:
@@ -136559,7 +136529,7 @@ assets:
             customWordWrap: !<tag:yaml.org,2002:js/undefined> ''
             bindings: {}
           - x: 480
-            'y': 208
+            'y': 272
             opacity: 1
             tint: 16777215
             scale:
@@ -136570,22 +136540,6 @@ assets:
             exts: {}
             customProperties: {}
             customText: Difficoltà
-            customSize: !<tag:yaml.org,2002:js/undefined> ''
-            customWordWrap: !<tag:yaml.org,2002:js/undefined> ''
-            bindings: {}
-          - x: 672
-            'y': 336
-            opacity: 1
-            tint: 16777215
-            scale:
-              x: 2.66666667
-              'y': 1
-            rotation: 0
-            uid: zRJBThT1tDWQbK
-            exts: {}
-            customProperties:
-              globalVariable: airOption
-            customText: !<tag:yaml.org,2002:js/undefined> ''
             customSize: !<tag:yaml.org,2002:js/undefined> ''
             customWordWrap: !<tag:yaml.org,2002:js/undefined> ''
             bindings: {}
@@ -136605,25 +136559,9 @@ assets:
             customSize: !<tag:yaml.org,2002:js/undefined> ''
             customWordWrap: !<tag:yaml.org,2002:js/undefined> ''
             bindings: {}
-          - x: 672
-            'y': 464
-            opacity: 1
-            tint: 16777215
-            scale:
-              x: 2.66666667
-              'y': 1
-            rotation: 0
-            uid: zRJBThT1tDWQbK
-            exts: {}
-            customProperties:
-              globalVariable: enemyDamage
-            customText: !<tag:yaml.org,2002:js/undefined> ''
-            customSize: !<tag:yaml.org,2002:js/undefined> ''
-            customWordWrap: !<tag:yaml.org,2002:js/undefined> ''
-            bindings: {}
         tiles: []
         extends: {}
-        lastmod: 1776792586217
+        lastmod: 1776793215165
         events:
           - eventKey: OnRoomStart
             code: ''
