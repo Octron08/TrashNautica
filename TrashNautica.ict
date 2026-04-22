@@ -162,8 +162,8 @@ assets:
 
                       this.enemyCollision = function () {
                           if (!this.hasCollidedWithEnemy && !pause.isPaused) {
-                              this.hspeed = -this.hspeed;
-                              this.vspeed = -this.vspeed;
+                              this.hspeed = -this.hspeed * 0.7;
+                              this.vspeed = -this.vspeed * 0.7;
                               sounds.play('Danno');
 
                               if (this.spazzaturaGrande.length > 0) {
@@ -270,7 +270,7 @@ assets:
               cgroup: Giocatore
               'editor:myCollidingCGroups':
                 - Terreno
-            lastmod: 1776790466775
+            lastmod: 1776845026797
             uid: DL9BczP5Cd4RMz
             behaviors: []
             extendTypes: ''
@@ -359,8 +359,8 @@ assets:
 
                       this.enemyCollision = function () {
                           if (!this.hasCollidedWithEnemy && !pause.isPaused) {
-                              this.hspeed = -this.hspeed;
-                              this.vspeed = -this.vspeed;
+                              this.hspeed = -this.hspeed * 0.7;
+                              this.vspeed = -this.vspeed * 0.7;
                               sounds.play('Danno');
 
                               if (this.spazzaturaGrande.length > 0) {
@@ -467,7 +467,7 @@ assets:
               cgroup: Giocatore
               'editor:myCollidingCGroups':
                 - Terreno
-            lastmod: 1776790466778
+            lastmod: 1776845035223
             uid: k4T35dNQG6RP66
             behaviors: []
             extendTypes: ''
@@ -1548,10 +1548,14 @@ assets:
             events:
               - eventKey: OnTextChange
                 code: |-
+                  console.log(this.text);
+
                   if (Number.parseInt(this.text) > 0) {
-                      globalThis[this.globalVariable] = (Number.parseInt(this.text))
-                      this.text = countDown.toString()
+                      globalThis[this.globalVariable] = (Number.parseInt(this.text));
+                      countDown = defaultCountDown;
+                      this.text = countDown.toString();
                   }
+                  console.log(this.text);
                 arguments: {}
                 lib: core
               - eventKey: OnCreate
@@ -1571,7 +1575,7 @@ assets:
             extends:
               cgroup: ''
               'editor:myCollidingCGroups': []
-            lastmod: 1776790133892
+            lastmod: 1776844845407
             uid: P8KM5ggKCbrCh6
             behaviors: []
             extendTypes: ''
@@ -136560,10 +136564,14 @@ assets:
             bindings: {}
         tiles: []
         extends: {}
-        lastmod: 1776793215165
+        lastmod: 1776845073634
         events:
           - eventKey: OnRoomStart
-            code: ''
+            code: 'transition.fadeIn(500, 0xffffff);'
+            arguments: {}
+            lib: core
+          - eventKey: OnRoomEnd
+            code: 'transition.fadeIn(500, 0xffffff);'
             arguments: {}
             lib: core
         behaviors: []
